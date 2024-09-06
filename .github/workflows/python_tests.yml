@@ -1,0 +1,73 @@
+# name: Python tests
+
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+#   workflow_dispatch:
+
+
+# jobs:
+#   py-linters:
+#     concurrency:
+#       group: py-linters-${{ github.ref }}
+#       cancel-in-progress: true
+
+#     runs-on: ubuntu-latest
+
+#     strategy:
+#       matrix:
+#         python-version: [ "3.12" ]
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+
+#       - name: Set up Python ${{ matrix.python-version }}
+#         uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f # pin@v5
+#         with:
+#           python-version: ${{ matrix.python-version }}
+
+      # - name: Install the package
+      #   run: |
+      #     python3 ./py-traits-validator/scripts/bundle_registry.py
+      #     cd py-traits-validator && pip install -e '.[dev]' --config-settings editable_mode=strict
+
+      # - name: Check code with ruff
+      #   run: pip3 install ruff && ruff check --output-format=github
+
+      # - name: Check code formatting with ruff
+      #   run: pip3 install ruff && ruff format --check
+
+      # - name: Check code with MYPY
+      #   run: cd py-traits-validator && mypy .
+
+
+  # py-tests:
+  #   concurrency:
+  #     group: py-tests-${{ github.ref }}
+  #     cancel-in-progress: true
+
+  #   runs-on: ubuntu-latest
+
+  #   strategy:
+  #     matrix:
+  #       python-version: [ "3.12" ]
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+
+  #     - name: Set up Python ${{ matrix.python-version }}
+  #       uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f # pin@v5
+  #       with:
+  #         python-version: ${{ matrix.python-version }}
+
+  #     - name: Install python dependencies
+  #       run: |
+  #         python3 ./scripts/bundle_registry.py
+  #         cd py-traits-validator && pip install -e '.[dev]' --config-settings editable_mode=strict
+
+  #     - name: Run unit tests
+  #       run: cd py-traits-validator && python3 -m unittest discover

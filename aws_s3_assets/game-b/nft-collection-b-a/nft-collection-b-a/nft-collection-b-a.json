@@ -1,0 +1,16 @@
+{
+    "metadata_id": "demo-nft-collection-b-a",
+    "title": "Metadata of the demo NFT collection for the game Battlefront Royale.",
+    "description": "Metadata of the demo NFT collection for the game Battlefront Royale.",
+    "traits": {
+        "named": {
+            "name": "Champions"
+        },
+        "tech.trait.wallet.square_icon": {
+            "image_uri": "https://s3.us-east-2.amazonaws.com/"
+        },
+        "tech.trait.wallet.nft_collection_listing_image": {
+            "image_uri": "https://s3.us-east-2.amazonaws.com/"
+        }
+    }
+}

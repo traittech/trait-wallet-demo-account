@@ -1,0 +1,13 @@
+{
+    "metadata_id": "demo-app-agent-b",
+    "title": "Metadata of the demo AppAgent that represents the game Battlefront Royale.",
+    "description": "Metadata of the demo AppAgent that represents the game Battlefront Royale.",
+    "traits": {
+        "named": {
+            "name": "Battlefront Royale"
+        },
+        "tech.trait.wallet.square_icon": {
+            "image_uri": "https://s3.us-east-2.amazonaws.com/"
+        }
+    }
+}
