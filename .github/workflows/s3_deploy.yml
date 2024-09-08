@@ -10,14 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # pin@v4
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+        aws-region: ${{ vars.AWS_REGION || 'us-east-1' }}
+        role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
 
     - name: Deploy static site to S3 bucket
-      run: aws s3 sync ./aws_s3_assets/ s3://BUCKET_NAME --delete
+      run: aws s3 sync ./aws_s3_assets/ s3://trait-wallet-demo-account/ --delete
