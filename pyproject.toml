@@ -10,7 +10,7 @@ requires-python = ">=3.12"
 
 
 [project.optional-dependencies]
-dev = [ "ruff", "mypy" ]
+dev = [ "requests", "ruff", "mypy" ]
 
 
 [tool.ruff]
