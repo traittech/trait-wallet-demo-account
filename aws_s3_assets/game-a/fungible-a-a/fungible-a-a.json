@@ -7,8 +7,8 @@
                 "name": "FUNGIBLE-NAME"
             },
             "fungible": {
-                "symbol": "FUNGIBLE-SYMBOL",
-                "decimals": "FUNGIBLE-DECIMALS"
+                "symbol": "FSYM",
+                "decimals": 0
             },
             "tech.trait.wallet.square_icon": {
                 "image_url": "https://trait-wallet-demo-account.s3.us-east-1.amazonaws.com/game-a/fungible-a-a/icon_150x150.png"
