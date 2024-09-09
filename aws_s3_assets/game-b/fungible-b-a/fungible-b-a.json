@@ -1,17 +1,18 @@
 {
-    "metadata_id": "demo-fungible-b-a",
-    "title": "Metadata of the demo fungible token for the game Battlefront Royale.",
-    "description": "Metadata of the demo fungible token for the game Battlefront Royale.",
-    "traits": {
-        "named": {
-            "name": "Luminaras"
-        },
-        "fungible": {
-            "symbol": "Lux",
-            "decimals": 12
-        },
-        "tech.trait.wallet.square_icon": {
-            "image_uri": "https://s3.us-east-2.amazonaws.com/"
+        "metadata_id": "demo-fungible-b-a",
+        "title": "Metadata of the demo fungible token for the game GAME-NAME.",
+        "description": "Metadata of the demo fungible token for the game GAME-NAME.",
+        "traits": {
+            "named": {
+                "name": "FUNGIBLE-NAME"
+            },
+            "fungible": {
+                "symbol": "FUNGIBLE-SYMBOL",
+                "decimals": "FUNGIBLE-DECIMALS"
+            },
+            "tech.trait.wallet.square_icon": {
+                "image_url": "https://trait-wallet-demo-account.s3.us-east-1.amazonaws.com/game-b/fungible-b-a/icon_150x150.png"
+            }
         }
     }
-}
+    

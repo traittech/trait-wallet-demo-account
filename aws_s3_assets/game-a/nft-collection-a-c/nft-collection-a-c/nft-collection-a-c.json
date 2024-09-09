@@ -1,0 +1,17 @@
+{
+        "metadata_id": "demo-nft-collection-a-c",
+        "title": "Metadata of the demo NFT collection for the game GAME-NAME.",
+        "description": "Metadata of the demo NFT collection for the game GAME-NAME.",
+        "traits": {
+            "named": {
+                "name": "NFT-COLLECTION-NAME"
+            },
+            "tech.trait.wallet.square_icon": {
+                "image_url": "https://trait-wallet-demo-account.s3.us-east-1.amazonaws.com/game-a/nft-collection-a-c/nft-collection-a-c/icon_150x150.png"
+            },
+            "tech.trait.wallet.nft_collection_listing_image": {
+                "image_url": "https://trait-wallet-demo-account.s3.us-east-1.amazonaws.com/game-a/nft-collection-a-c/nft-collection-a-c/listing_512x512.png"
+            }
+        }
+    }
+    
