@@ -4,11 +4,11 @@
         "description": "Metadata of the demo fungible token for the game Crown Clash.",
         "traits": {
             "named": {
-                "name": "FUNGIBLE-NAME"
+                "name": "Krona"
             },
             "fungible": {
-                "symbol": "FSYM",
-                "decimals": 0
+                "symbol": "Krona",
+                "decimals": 2
             },
             "tech.trait.wallet.square_icon": {
                 "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/fungible-b-a/icon_150x150.png"

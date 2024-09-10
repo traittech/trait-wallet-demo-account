@@ -4,10 +4,10 @@
         "description": "Metadata of the demo fungible token for the game Crown Clash.",
         "traits": {
             "named": {
-                "name": "FUNGIBLE-NAME"
+                "name": "Glints"
             },
             "fungible": {
-                "symbol": "FSYM",
+                "symbol": "Glints",
                 "decimals": 0
             },
             "tech.trait.wallet.square_icon": {
