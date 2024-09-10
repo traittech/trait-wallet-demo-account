@@ -1,7 +1,7 @@
 {
         "metadata_id": "demo-nft-collection-c-b",
-        "title": "Metadata of the demo NFT collection for the game GAME-NAME.",
-        "description": "Metadata of the demo NFT collection for the game GAME-NAME.",
+        "title": "Metadata of the demo NFT collection for the game ZoneX.",
+        "description": "Metadata of the demo NFT collection for the game ZoneX.",
         "traits": {
             "named": {
                 "name": "NFT-COLLECTION-NAME"
