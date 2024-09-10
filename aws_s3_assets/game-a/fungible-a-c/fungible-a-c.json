@@ -1,13 +1,13 @@
 {
         "metadata_id": "demo-fungible-a-c",
-        "title": "Metadata of the demo fungible token for the game GAME-NAME.",
-        "description": "Metadata of the demo fungible token for the game GAME-NAME.",
+        "title": "Metadata of the demo fungible token for the game Starlit Horizon.",
+        "description": "Metadata of the demo fungible token for the game Starlit Horizon.",
         "traits": {
             "named": {
-                "name": "FUNGIBLE-NAME"
+                "name": "Starlume"
             },
             "fungible": {
-                "symbol": "FSYM",
+                "symbol": "LUME",
                 "decimals": 0
             },
             "tech.trait.wallet.square_icon": {

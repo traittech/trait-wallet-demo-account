@@ -1,10 +1,10 @@
 {
         "metadata_id": "demo-nft-collection-a-a",
-        "title": "Metadata of the demo NFT collection for the game GAME-NAME.",
-        "description": "Metadata of the demo NFT collection for the game GAME-NAME.",
+        "title": "Metadata of the demo NFT collection for the game Starlit Horizon.",
+        "description": "Metadata of the demo NFT collection for the game Starlit Horizon.",
         "traits": {
             "named": {
-                "name": "NFT-COLLECTION-NAME"
+                "name": "Swords"
             },
             "tech.trait.wallet.square_icon": {
                 "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-collection-a-a/icon_150x150.png"

@@ -1,7 +1,7 @@
 {
         "metadata_id": "demo-nft-token-a-e-g",
-        "title": "Metadata of the demo NFT token for the game GAME-NAME.",
-        "description": "Metadata of the demo NFT token for the game GAME-NAME.",
+        "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+        "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
         "traits": {
             "named": {
                 "name": "NFT-TOKEN-NAME"
