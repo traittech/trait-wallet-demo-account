@@ -1,7 +1,7 @@
 {
         "metadata_id": "demo-fungible-b-a",
-        "title": "Metadata of the demo fungible token for the game GAME-NAME.",
-        "description": "Metadata of the demo fungible token for the game GAME-NAME.",
+        "title": "Metadata of the demo fungible token for the game Crown Clash.",
+        "description": "Metadata of the demo fungible token for the game Crown Clash.",
         "traits": {
             "named": {
                 "name": "FUNGIBLE-NAME"

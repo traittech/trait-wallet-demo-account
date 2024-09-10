@@ -1,7 +1,7 @@
 {
         "metadata_id": "demo-nft-collection-b-b",
-        "title": "Metadata of the demo NFT collection for the game GAME-NAME.",
-        "description": "Metadata of the demo NFT collection for the game GAME-NAME.",
+        "title": "Metadata of the demo NFT collection for the game Crown Clash.",
+        "description": "Metadata of the demo NFT collection for the game Crown Clash.",
         "traits": {
             "named": {
                 "name": "NFT-COLLECTION-NAME"
