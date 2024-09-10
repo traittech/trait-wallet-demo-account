@@ -21,7 +21,7 @@ def get_app_agent_meta_path(target_dir: Path, app_agent_id: int) -> Path:
     return target_dir / get_app_agent_relative_dir(app_agent_id) / f"app-agent-{app_agent_id_str}.json"
 
 
-def get_app_agent_meta(*, app_agent_id: int, s3_base_url: str) -> str:
+def get_app_agent_meta(*, app_agent_id: int, cdn_base_url: str) -> str:
     template = """{
         "metadata_id": "APP-AGENT-ID",
         "title": "Metadata of the demo AppAgent that represents the game GAME-NAME.",
@@ -40,7 +40,7 @@ def get_app_agent_meta(*, app_agent_id: int, s3_base_url: str) -> str:
     app_agent_id_str = convert_id_to_str(app_agent_id)
     template = template.replace("APP-AGENT-ID", f"demo-app-agent-{app_agent_id_str}")
 
-    icon_url = f"{s3_base_url}/{get_app_agent_relative_dir(app_agent_id)}/icon_150x150.png"
+    icon_url = f"{cdn_base_url}/{get_app_agent_relative_dir(app_agent_id)}/icon_150x150.png"
     template = template.replace("ICON-URL", icon_url)
 
     return template
@@ -67,7 +67,7 @@ def get_fungible_meta_path(target_dir: Path, app_agent_id: int, fungible_id: int
     )
 
 
-def get_fungible_meta(*, app_agent_id: int, fungible_id: int, s3_base_url: str) -> str:
+def get_fungible_meta(*, app_agent_id: int, fungible_id: int, cdn_base_url: str) -> str:
     template = """{
         "metadata_id": "FUNGIBLE-ID",
         "title": "Metadata of the demo fungible token for the game GAME-NAME.",
@@ -91,7 +91,7 @@ def get_fungible_meta(*, app_agent_id: int, fungible_id: int, s3_base_url: str) 
     fungible_id_str = convert_id_to_str(fungible_id)
     template = template.replace("FUNGIBLE-ID", f"demo-fungible-{app_agent_id_str}-{fungible_id_str}")
 
-    icon_url = f"{s3_base_url}/{get_fungible_relative_dir(app_agent_id, fungible_id)}/icon_150x150.png"
+    icon_url = f"{cdn_base_url}/{get_fungible_relative_dir(app_agent_id, fungible_id)}/icon_150x150.png"
     template = template.replace("ICON-URL", icon_url)
 
     return template
@@ -118,7 +118,7 @@ def get_nft_collection_meta_path(target_dir: Path, app_agent_id: int, nft_collec
     )
 
 
-def get_nft_collection_meta(*, app_agent_id: int, nft_collection_id: int, s3_base_url: str) -> str:
+def get_nft_collection_meta(*, app_agent_id: int, nft_collection_id: int, cdn_base_url: str) -> str:
     template = """{
         "metadata_id": "NFT-COLLECTION-ID",
         "title": "Metadata of the demo NFT collection for the game GAME-NAME.",
@@ -144,11 +144,11 @@ def get_nft_collection_meta(*, app_agent_id: int, nft_collection_id: int, s3_bas
         f"demo-nft-collection-{app_agent_id_str}-{nft_collection_id_str}",
     )
 
-    icon_url = f"{s3_base_url}/{get_nft_collection_relative_dir(app_agent_id, nft_collection_id)}/icon_150x150.png"
+    icon_url = f"{cdn_base_url}/{get_nft_collection_relative_dir(app_agent_id, nft_collection_id)}/icon_150x150.png"
     template = template.replace("ICON-URL", icon_url)
 
     listing_image_url = (
-        f"{s3_base_url}/{get_nft_collection_relative_dir(app_agent_id, nft_collection_id)}/listing_512x512.png"
+        f"{cdn_base_url}/{get_nft_collection_relative_dir(app_agent_id, nft_collection_id)}/listing_512x512.png"
     )
     template = template.replace("LISTING-IMAGE-URL", listing_image_url)
 
@@ -178,7 +178,7 @@ def get_nft_token_meta_path(target_dir: Path, app_agent_id: int, nft_collection_
     )
 
 
-def get_nft_token_meta(*, app_agent_id: int, nft_collection_id: int, nft_token_id: int, s3_base_url: str) -> str:
+def get_nft_token_meta(*, app_agent_id: int, nft_collection_id: int, nft_token_id: int, cdn_base_url: str) -> str:
     template = """{
         "metadata_id": "NFT-TOKEN-ID",
         "title": "Metadata of the demo NFT token for the game GAME-NAME.",
@@ -256,17 +256,17 @@ def get_nft_token_meta(*, app_agent_id: int, nft_collection_id: int, nft_token_i
     )
 
     icon_url = (
-        f"{s3_base_url}/{get_nft_token_relative_dir(app_agent_id, nft_collection_id, nft_token_id)}/icon_150x150.png"
+        f"{cdn_base_url}/{get_nft_token_relative_dir(app_agent_id, nft_collection_id, nft_token_id)}/icon_150x150.png"
     )
     template = template.replace("ICON-URL", icon_url)
 
     listing_image_url = (
-        f"{s3_base_url}/{get_nft_token_relative_dir(app_agent_id, nft_collection_id, nft_token_id)}/listing_512x512.png"
+        f"{cdn_base_url}/{get_nft_token_relative_dir(app_agent_id, nft_collection_id, nft_token_id)}/listing_512x512.png"
     )
     template = template.replace("LISTING-IMAGE-URL", listing_image_url)
 
     cover_image_url = (
-        f"{s3_base_url}/{get_nft_token_relative_dir(app_agent_id, nft_collection_id, nft_token_id)}/cover_1920x1920.png"
+        f"{cdn_base_url}/{get_nft_token_relative_dir(app_agent_id, nft_collection_id, nft_token_id)}/cover_1920x1920.png"
     )
     template = template.replace("COVER-IMAGE-URL", cover_image_url)
 
@@ -281,7 +281,7 @@ def get_nft_token_meta(*, app_agent_id: int, nft_collection_id: int, nft_token_i
 def generate_game_metadata(
     *,
     target_dir: Path,
-    s3_base_url: str,
+    cdn_base_url: str,
     app_agent_id: int,
     number_of_fungibles: int,
     number_of_nft_collections: int,
@@ -300,7 +300,7 @@ def generate_game_metadata(
     app_agent_dir.mkdir(parents=True, exist_ok=True)
     app_agent_meta_path = get_app_agent_meta_path(target_dir, app_agent_id)
     app_agent_meta_path.write_text(
-        get_app_agent_meta(app_agent_id=app_agent_id, s3_base_url=s3_base_url),
+        get_app_agent_meta(app_agent_id=app_agent_id, cdn_base_url=cdn_base_url),
         encoding="utf-8",
     )
 
@@ -315,7 +315,7 @@ def generate_game_metadata(
             get_fungible_meta(
                 app_agent_id=app_agent_id,
                 fungible_id=fungible_id,
-                s3_base_url=s3_base_url,
+                cdn_base_url=cdn_base_url,
             ),
             encoding="utf-8",
         )
@@ -331,7 +331,7 @@ def generate_game_metadata(
             get_nft_collection_meta(
                 app_agent_id=app_agent_id,
                 nft_collection_id=nft_collection_id,
-                s3_base_url=s3_base_url,
+                cdn_base_url=cdn_base_url,
             ),
             encoding="utf-8",
         )
@@ -349,7 +349,7 @@ def generate_game_metadata(
                     app_agent_id=app_agent_id,
                     nft_collection_id=nft_collection_id,
                     nft_token_id=nft_token_id,
-                    s3_base_url=s3_base_url,
+                    cdn_base_url=cdn_base_url,
                 ),
                 encoding="utf-8",
             )
@@ -367,7 +367,7 @@ shutil.rmtree(aws_s3_assets_dir)
 # Create new content
 generate_game_metadata(
     target_dir=aws_s3_assets_dir,
-    s3_base_url="https://trait-wallet-demo-account.s3.us-east-1.amazonaws.com",
+    cdn_base_url="https://trait-wallet-demo-account.trait.tech",
     app_agent_id=0,
     number_of_fungibles=3,
     number_of_nft_collections=5,
@@ -375,7 +375,7 @@ generate_game_metadata(
 )
 generate_game_metadata(
     target_dir=aws_s3_assets_dir,
-    s3_base_url="https://trait-wallet-demo-account.s3.us-east-1.amazonaws.com",
+    cdn_base_url="https://trait-wallet-demo-account.trait.tech",
     app_agent_id=1,
     number_of_fungibles=2,
     number_of_nft_collections=4,
@@ -383,7 +383,7 @@ generate_game_metadata(
 )
 generate_game_metadata(
     target_dir=aws_s3_assets_dir,
-    s3_base_url="https://trait-wallet-demo-account.s3.us-east-1.amazonaws.com",
+    cdn_base_url="https://trait-wallet-demo-account.trait.tech",
     app_agent_id=2,
     number_of_fungibles=1,
     number_of_nft_collections=4,
