@@ -4,10 +4,10 @@
         "description": "Metadata of the demo fungible token for the game Starlit Horizon.",
         "traits": {
             "named": {
-                "name": "Aetherium Shards"
+                "name": "Echo Gems"
             },
             "fungible": {
-                "symbol": "AETH",
+                "symbol": "ECHO",
                 "decimals": 0
             },
             "tech.trait.wallet.square_icon": {
