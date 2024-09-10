@@ -11,7 +11,7 @@
                 "decimals": 0
             },
             "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.s3.us-east-1.amazonaws.com/game-a/fungible-a-c/icon_150x150.png"
+                "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/fungible-a-c/icon_150x150.png"
             }
         }
     }

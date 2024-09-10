@@ -7,10 +7,10 @@
                 "name": "NFT-COLLECTION-NAME"
             },
             "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.s3.us-east-1.amazonaws.com/game-b/nft-collection-b-b/nft-collection-b-b/icon_150x150.png"
+                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-collection-b-b/icon_150x150.png"
             },
             "tech.trait.wallet.nft_collection_listing_image": {
-                "image_url": "https://trait-wallet-demo-account.s3.us-east-1.amazonaws.com/game-b/nft-collection-b-b/nft-collection-b-b/listing_512x512.png"
+                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-collection-b-b/listing_512x512.png"
             }
         }
     }
