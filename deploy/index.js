@@ -49,6 +49,7 @@ async function main() {
     const appAgentOne = keyring.addFromUri(process.env.APP_AGENT_OWNER_ONE_MNEMONIC);
     const appAgentTwo = keyring.addFromUri(process.env.APP_AGENT_OWNER_TWO_MNEMONIC);
     const appAgentThree = keyring.addFromUri(process.env.APP_AGENT_OWNER_THREE_MNEMONIC);
+    const appAgentOwners = [appAgentOne, appAgentTwo, appAgentThree];
 
     const demo_user_one = keyring.addFromUri(process.env.DEMO_ACCOUNT_ONE_MNEMONIC);
     const demo_user_two = keyring.addFromUri(process.env.DEMO_ACCOUNT_TWO_MNEMONIC);
@@ -82,117 +83,140 @@ async function main() {
             .catch(reject);
     });
 
-    // 2. Create an app-agent for all three owners
-    const appAgentOwners = [appAgentOne, appAgentTwo, appAgentThree];
-    let appAgents = {};
-    const createAppAgentPromises = appAgentOwners.map((owner) => {
-        return new Promise((resolve, reject) => {
-            api.tx.appAgents
-                .createAppAgent()
-                .signAndSend(owner, ({ status, events }) => {
-                    if (status.isInBlock || status.isFinalized) {
-                        events.forEach(({ event }) => {
-                            if (api.events.appAgents.AppAgentCreated.is(event)) {
-                                const [appAgentId, ownerAddress] = event.data;
-                                console.log(`App agent created: ID ${appAgentId.toString()} for owner ${ownerAddress.toString()}`);
-                                // save the app agent id to the appAgents object
-                                appAgents[appAgentId.toString()] = owner;
-                            }
-                        });
-                        resolve();
-                    }
-                })
-                .catch(reject);
-        });
-    });
+    // traverse the game folders and create app-agents and assets for each game
+    for (const [index, folder] of game_folders.entries()) {
+        console.log("folder:", folder);
+        let appagentId = null;
+        let appAgentOwner = appAgentOwners[index];
 
-    try {
-        await Promise.all(createAppAgentPromises);
-        console.log("All app agents created successfully");
-        console.log("appAgents:", appAgents);
-    } catch (err) {
-        console.error("App agent creation failed:", err);
-        process.exit(1);
-    }
+        // Search for folders starting with app-agent- and print all files
+        const subFolders = fs.readdirSync(folder);
 
-    for (const [index, appagentid] of Object.keys(appAgents).entries()) {
+        for (const subFolder of subFolders) {
+            console.log("subFolder:", subFolder);
+            if (subFolder.startsWith('app-agent-')) {
+                const folderPath = path.join(folder, subFolder);
+                console.log("folderPath:", folderPath);
 
-        // setup metadata for the app agent
-        await setup_metadata(index, api, appagentid, appAgents[appagentid]);
+                let metadataUrl = readFilesInDirectory(folderPath);
+                console.log("metadataUrl:", metadataUrl);
 
-        console.log("creating app agent assets for appagent:", appagentid);
-        await create_app_agent_assets(api, appAgents[appagentid], appagentid, demo_user_one, demo_user_two);
-    }
-
-    // await create_app_agent_assets(api, appAgentOne, 1000, demo_user_one, demo_user_two);
-    // await create_app_agent_assets(api, appAgentTwo, 1001, demo_user_three, demo_user_one);
-    // await create_app_agent_assets(api, appAgentThree, 1002, demo_user_two, demo_user_three);
-
-    // await create_app_agent_nfts(api, appAgentOne, 1000, demo_user_one, demo_user_two);
-    // await create_app_agent_nfts(api, appAgentTwo, 1001, demo_user_three, demo_user_one);
-    // await create_app_agent_nfts(api, appAgentThree, 1002, demo_user_two, demo_user_three);
-}
-
-async function setup_metadata(index, api, appAgentId, appAgentOwner) {
-    // setup metadata for the app agent
-    let folder_path = game_folders[index];
-    console.log("folder_path:", folder_path);
-
-    // Search for folders starting with app-agent- and print all files
-    const folders = fs.readdirSync(folder_path);
-
-    folders.forEach(folder => {
-        if (folder.startsWith('app-agent-')) {
-            const folderPath = path.join(folder_path, folder);
-            let metadata = readFilesInDirectory(folderPath);
-
-            console.log("metadata:", metadata);
-
-            if (metadata) {
-                // create the transaction to set the metadata
-                let set_metadata_tx = api.tx.appAgents.setAppAgentMetadata(
-                    appAgentId,
-                    metadata
-                );
-
-                // sign and send the transaction
-                set_metadata_tx.signAndSend(appAgentOwner)
-                    .then(() => {
-                        console.log("Metadata set successfully");
-                    })
-                    .catch(err => {
-                        console.error("Error setting metadata:", err);
+                if (metadataUrl) {
+                    await new Promise((resolve, reject) => {
+                        api.tx.appAgents.createAppAgent()
+                            .signAndSend(appAgentOwner, ({ status, events }) => {
+                                if (status.isInBlock || status.isFinalized) {
+                                    events.forEach(({ event }) => {
+                                        if (api.events.appAgents.AppAgentCreated.is(event)) {
+                                            const [newAppAgentId, ownerAddress] = event.data;
+                                            console.log(`App agent created: ID ${newAppAgentId.toString()} for owner ${ownerAddress.toString()}`);
+                                            appagentId = newAppAgentId;
+                                            resolve();
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(reject);
                     });
-            } else {
-                console.log("No metadata found in the directory");
+
+                    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+
+                    // create the transaction to set the metadata
+                    let set_metadata_tx = api.tx.appAgents.setAppAgentMetadata(
+                        appagentId,
+                        metadataUrl
+                    );
+
+                    // sign and send the transaction
+                    await set_metadata_tx.signAndSend(appAgentOwner)
+                        .then(() => {
+                            console.log("Metadata URL set successfully");
+                        })
+                        .catch(err => {
+                            console.error("Error setting metadata URL:", err);
+                        });
+
+                    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+                }
+            }
+
+            else if (subFolder.startsWith('fungible-')) {
+                console.log("fungible-token folder detected");
+                const folderPath = path.join(folder, subFolder);
+                console.log("folderPath:", folderPath);
+
+                let metadataUrl = readFilesInDirectory(folderPath);
+                console.log("metadataUrl:", metadataUrl);
+                create_app_agent_assets(api, appAgentOwner, appagentId, demo_user_one, demo_user_two, metadataUrl);
+
+                await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+            }
+
+            if (subFolder.startsWith('nft-collection')) {
+                console.log("nft-collection folder detected");
+                const folderPath = path.join(folder, subFolder);
+                console.log("folderPath:", folderPath);
+
+                const subsubFolders = fs.readdirSync(folderPath);
+
+                let collection_id = null;
+
+                for (const subsubFolder of subsubFolders) {
+                    if (subsubFolder.startsWith('nft-collection')) {
+                        const nftCollectionPath = path.join(folderPath, subsubFolder);
+                        console.log("nftCollectionPath:", nftCollectionPath);
+                        let metadataUrl = readFilesInDirectory(nftCollectionPath);
+                        console.log("metadataUrl:", metadataUrl);
+
+                        collection_id = await create_app_agent_nft_collection(api, appAgentOwner, appagentId, metadataUrl);
+                    }
+
+                    else if (subsubFolder.startsWith('nft-token')) {
+                        const nftItemPath = path.join(folderPath, subsubFolder);
+                        console.log("nftItemPath:", nftItemPath);
+                        let metadataUrl = readFilesInDirectory(nftItemPath);
+                        console.log("metadataUrl:", metadataUrl);
+
+                        await create_app_agent_nft_token(api, appAgentOwner, appagentId, collection_id, metadataUrl, demo_user_one, demo_user_three);
+                    }
+                }
+
+
+            }
+
+            else {
+                console.log("unknown folder detected, ignoring...");
             }
         }
-    });
-
+    }
 }
 
 // Function to read all files in a directory
 function readFilesInDirectory(directory) {
     const files = fs.readdirSync(directory);
-    // Filter files to only include those ending with .json
     const jsonFiles = files.filter(file => file.endsWith('.json'));
 
-    // Return the content of the first JSON file found
     for (const file of jsonFiles) {
         const filePath = path.join(directory, file);
         const stats = fs.statSync(filePath);
         if (stats.isFile()) {
             console.log(`File: ${filePath}`);
-            const content = fs.readFileSync(filePath, 'utf8');
-            return JSON.parse(content);
+
+            // Generate the URL based on the folder structure
+            const relativePath = path.relative(aws_s3_assets_path, filePath);
+            const url = `https://trait-wallet-demo-account.trait.tech/${relativePath.replace(/\\/g, '/')}`;
+
+            console.log(`Generated URL: ${url}`);
+
+            // Return the URL instead of reading the file content
+            return url;
         }
     }
 
-    // If no JSON file is found, return null or an empty object
     return null;
 }
 
-async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two) {
+async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two, metadataUrl) {
     let asset_admin = encodeNamed(appAgentId, "asset-admi");
 
     let create_fungible_token = api.tx.assets.create(
@@ -226,7 +250,7 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
         console.error("Error creating fungible token:", error);
     });
 
-    await new Promise(resolve => setTimeout(resolve, 6000)); // wait for the previous tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
 
     // mint tokens to the app agent
     const mint_tokens_call = api.tx.assets.mint(
@@ -245,14 +269,30 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
         ]]
     );
 
+    let set_metadata_call = api.tx.assets.setMetadata(
+        asset_id,
+        metadataUrl
+    );
+
+    let set_metadata_ct = api.tx.addressPools.submitClearingTransaction(
+        appAgentId,
+        [[
+            [
+                { NamedAddress: asset_admin },
+                set_metadata_call
+            ]
+        ]]
+    );
+
     let batch_calls = [
         create_fungible_token_ct,
-        mint_tokens_ct
+        mint_tokens_ct,
+        set_metadata_ct
     ];
 
     let batch_call = api.tx.utility.batch(batch_calls);
 
-    await new Promise(resolve => setTimeout(resolve, 6000)); // wait for the previous tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10000)); // wait for the previous tx to propogate
 
     await batch_call.signAndSend(appAgentOwner)
         .then(() => {
@@ -292,15 +332,20 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
     console.log("App agent assets created successfully");
 }
 
-async function create_app_agent_nfts(api, appAgentOwner, appAgentId, nft_recipient, nft_recipient_two) {
-    // Generate a random ID between 1 and 1,000,000
-    const collection_id = Math.floor(Math.random() * 1000000) + 1;
-    const item_id = Math.floor(Math.random() * 1000000) + 1;
-
+async function create_app_agent_nft_collection(api, appAgentOwner, appAgentId) {
     let asset_admin = encodeNamed(appAgentId, "asset-admi");
 
+    // send some balance to admin
+    let balance_call = api.tx.balances.transferKeepAlive(
+        asset_admin,
+        10
+    );
+
+    await balance_call.signAndSend(appAgentOwner);
+
+    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+
     let create_nft_call = api.tx.nfts.create(
-        collection_id,
         asset_admin,
         {
             settings: 0,
@@ -321,68 +366,129 @@ async function create_app_agent_nfts(api, appAgentOwner, appAgentId, nft_recipie
         ]]
     );
 
-    await create_nft_ct.signAndSend(appAgentOwner)
-        .then(() => {
-            console.log("NFT created");
-        }).catch((err) => {
-            console.log(err);
-            console.log("Test failed : NFT creation failed!");
-            process.exit(1);
+    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+
+    // Wait for the event and get the collection ID
+    let collection_id;
+    await new Promise((resolve, reject) => {
+        create_nft_ct.signAndSend(appAgentOwner, ({ events = [], status }) => {
+            if (status.isInBlock || status.isFinalized) {
+                events.forEach(({ event: { data, method, section } }) => {
+                    if (section === 'nfts' && method === 'Created') {
+                        collection_id = data[0].toString();
+                        console.log(`NFT Collection created with ID: ${collection_id}`);
+                        resolve();
+                    }
+                });
+            }
+        }).catch((error) => {
+            console.error("Error creating NFT collection:", error);
+            reject(error);
         });
+    });
 
-    await new Promise(resolve => setTimeout(resolve, 6000)); // wait for the previous tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
 
-    // mint nfts to the nft recipient
-    const mint_nfts_call = api.tx.nfts.mint(
+    // set the metadata
+    let set_team_metadata_call = api.tx.nfts.setTeam(
         collection_id,
-        item_id,
-        nft_recipient.address,
-        null
+        asset_admin,
+        asset_admin,
+        asset_admin,
     );
 
-    let mint_nfts_ct = api.tx.addressPools.submitClearingTransaction(
+    let set_team_metadata_ct = api.tx.addressPools.submitClearingTransaction(
         appAgentId,
         [[
             [
                 { NamedAddress: asset_admin },
-                mint_nfts_call
+                set_team_metadata_call
             ]
         ]]
     );
 
-    await mint_nfts_ct.signAndSend(appAgentOwner)
-        .then(() => {
-            console.log("NFTs minted");
-        }).catch((err) => {
-            console.log(err);
-            console.log("Test failed : NFT minting failed!");
-            process.exit(1);
-        });
-
-    await new Promise(resolve => setTimeout(resolve, 6000)); // wait for the previous tx to propogate
+    await set_team_metadata_ct.signAndSend(appAgentOwner)
 
 
-    // create 5 transfers of the nft to the nft recipient
+    console.log("App agent NFTs created successfully");
+
+    return collection_id;
+}
+
+
+async function create_app_agent_nft_token(api, appAgentOwner, appAgentId, collection_id, metadataUrl, recipient_one, recipient_two) {
+    let asset_admin = encodeNamed(appAgentId, "asset-admi");
+    // Generate a random token ID within a specific range (e.g., 1 to 1000)
+    let tokenId = Math.floor(Math.random() * 1000) + 1;
+
+    console.log(`Generated token ID: ${tokenId}`);
+
+    let mint_nft_call = api.tx.nfts.mint(
+        collection_id,
+        tokenId,
+        recipient_one.address,
+        {}
+    );
+
+    let mint_nft_ct = api.tx.addressPools.submitClearingTransaction(
+        appAgentId,
+        [[
+            [
+                { NamedAddress: asset_admin },
+                mint_nft_call
+            ]
+        ]]
+    );
+
+    await mint_nft_ct.signAndSend(appAgentOwner);
+
+    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+
+    console.log("App agent NFT token created successfully");
+
+    let set_metadata_call = api.tx.nfts.setMetadata(
+        collection_id,
+        tokenId,
+        metadataUrl
+    );
+
+    let set_metadata_ct = api.tx.addressPools.submitClearingTransaction(
+        appAgentId,
+        [[
+            [
+                { NamedAddress: asset_admin },
+                set_metadata_call
+            ]
+        ]]
+    );
+
+    await set_metadata_ct.signAndSend(appAgentOwner);
+    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+
+    console.log("App agent NFT metadata set successfully");
+
+    // generate 5 free transfers between the two users
     let batch_calls_two = [];
     for (let i = 0; i < 5; i++) {
-        let transfer_nft_call = api.tx.nfts.transfer(
-            collection_id,
-            item_id,
-            nft_recipient_two.address
+        let free_transfer_call = api.tx.playerTransfers.submitTransferAssets(
+            asset_id,
+            recipient_two.address,
+            1
         );
-
-        batch_calls_two.push(transfer_nft_call);
     }
 
     let batch_call_two = api.tx.utility.batch(batch_calls_two);
 
-    batch_call_two.signAndSend(nft_recipient)
+    batch_call_two.signAndSend(token_recipient)
         .then(() => {
-            console.log("Batch call sent");
+            console.log(`Free transfer created`);
+        }).catch((err) => {
+            console.log(err);
+            console.log(`Test failed : free transfer creation failed!`);
+            process.exit(1);
         });
-
-    console.log("App agent NFTs created successfully");
 }
+
 
 main()
     .catch(console.error)
