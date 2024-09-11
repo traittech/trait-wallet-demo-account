@@ -147,12 +147,12 @@ async function main() {
     }
 
     await create_app_agent_assets(api, appAgentOne, 1000, demo_user_one, demo_user_two);
-    await create_app_agent_assets(api, appAgentTwo, 1000, demo_user_three, demo_user_one);
-    await create_app_agent_assets(api, appAgentThree, 1000, demo_user_two, demo_user_three);
+    await create_app_agent_assets(api, appAgentTwo, 1001, demo_user_three, demo_user_one);
+    await create_app_agent_assets(api, appAgentThree, 1002, demo_user_two, demo_user_three);
 
     await create_app_agent_nfts(api, appAgentOne, 1000, demo_user_one, demo_user_two);
-    await create_app_agent_nfts(api, appAgentTwo, 1000, demo_user_three, demo_user_one);
-    await create_app_agent_nfts(api, appAgentThree, 1000, demo_user_two, demo_user_three);
+    await create_app_agent_nfts(api, appAgentTwo, 1001, demo_user_three, demo_user_one);
+    await create_app_agent_nfts(api, appAgentThree, 1002, demo_user_two, demo_user_three);
 }
 
 async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two) {
