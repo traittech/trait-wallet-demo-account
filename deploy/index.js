@@ -6,7 +6,11 @@ const fs = require('fs');
 const path = require('path');
 
 const aws_s3_assets_path = path.join(__dirname, '..', 'aws_s3_assets');
-const game_a_path = path.join(aws_s3_assets_path, 'game-a');    
+const game_a_path = path.join(aws_s3_assets_path, 'game-a/');
+const game_b_path = path.join(aws_s3_assets_path, 'game-b/');
+const game_c_path = path.join(aws_s3_assets_path, 'game-c/');
+
+const game_folders = [game_a_path, game_b_path, game_c_path];
 
 dotenv.config();
 
@@ -102,31 +106,6 @@ async function main() {
         });
     });
 
-
-
-    try {
-        // Check if the game-a folder exists
-        if (fs.existsSync(game_a_path)) {
-            const app_agents_folder = path.join(game_a_path, 'app_agents');
-            
-            // Check if the app_agents folder exists
-            if (fs.existsSync(app_agents_folder)) {
-                const app_agent_files = fs.readdirSync(app_agents_folder);
-                
-                console.log('App agents in game-a folder:');
-                app_agent_files.forEach(file => {
-                    console.log(file);
-                });
-            } else {
-                console.log('No app_agents folder found in game-a');
-            }
-        } else {
-            console.log('No game-a folder found in aws_s3_assets');
-        }
-    } catch (err) {
-        console.error('Error reading aws_s3_assets folder:', err);
-    }
-
     try {
         await Promise.all(createAppAgentPromises);
         console.log("All app agents created successfully");
@@ -136,7 +115,11 @@ async function main() {
         process.exit(1);
     }
 
-    for (const appagentid of Object.keys(appAgents)) {
+    for (const [index, appagentid] of Object.keys(appAgents).entries()) {
+
+        // setup metadata for the app agent
+        await setup_metadata(index, api, appagentid, appAgents[appagentid]);
+
         console.log("creating app agent assets for appagent:", appagentid);
         await create_app_agent_assets(api, appAgents[appagentid], appagentid, demo_user_one, demo_user_two);
     }
@@ -148,6 +131,65 @@ async function main() {
     // await create_app_agent_nfts(api, appAgentOne, 1000, demo_user_one, demo_user_two);
     // await create_app_agent_nfts(api, appAgentTwo, 1001, demo_user_three, demo_user_one);
     // await create_app_agent_nfts(api, appAgentThree, 1002, demo_user_two, demo_user_three);
+}
+
+async function setup_metadata(index, api, appAgentId, appAgentOwner) {
+    // setup metadata for the app agent
+    let folder_path = game_folders[index];
+    console.log("folder_path:", folder_path);
+
+    // Search for folders starting with app-agent- and print all files
+    const folders = fs.readdirSync(folder_path);
+
+    folders.forEach(folder => {
+        if (folder.startsWith('app-agent-')) {
+            const folderPath = path.join(folder_path, folder);
+            let metadata = readFilesInDirectory(folderPath);
+
+            console.log("metadata:", metadata);
+
+            if (metadata) {
+                // create the transaction to set the metadata
+                let set_metadata_tx = api.tx.appAgents.setAppAgentMetadata(
+                    appAgentId,
+                    metadata
+                );
+
+                // sign and send the transaction
+                set_metadata_tx.signAndSend(appAgentOwner)
+                    .then(() => {
+                        console.log("Metadata set successfully");
+                    })
+                    .catch(err => {
+                        console.error("Error setting metadata:", err);
+                    });
+            } else {
+                console.log("No metadata found in the directory");
+            }
+        }
+    });
+
+}
+
+// Function to read all files in a directory
+function readFilesInDirectory(directory) {
+    const files = fs.readdirSync(directory);
+    // Filter files to only include those ending with .json
+    const jsonFiles = files.filter(file => file.endsWith('.json'));
+
+    // Return the content of the first JSON file found
+    for (const file of jsonFiles) {
+        const filePath = path.join(directory, file);
+        const stats = fs.statSync(filePath);
+        if (stats.isFile()) {
+            console.log(`File: ${filePath}`);
+            const content = fs.readFileSync(filePath, 'utf8');
+            return JSON.parse(content);
+        }
+    }
+
+    // If no JSON file is found, return null or an empty object
+    return null;
 }
 
 async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two) {
