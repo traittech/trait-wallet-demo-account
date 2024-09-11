@@ -2,6 +2,11 @@ const { ApiPromise, WsProvider } = require("@polkadot/api");
 const { Keyring } = require("@polkadot/keyring");
 const { encodeNamed } = require("./keyless");
 const dotenv = require("dotenv");
+const fs = require('fs');
+const path = require('path');
+
+const aws_s3_assets_path = path.join(__dirname, '..', 'aws_s3_assets');
+const game_a_path = path.join(aws_s3_assets_path, 'game-a');    
 
 dotenv.config();
 
@@ -66,59 +71,16 @@ async function main() {
                             console.log(`Transferred ${amount.toNumber() / 1e12} tokens from ${from.toString()} to ${to.toString()}`);
                         }
                     });
-                    console.log("All transfers completed successfully");
+                    console.log("Initial transfers completed successfully");
                     resolve();
                 }
             })
             .catch(reject);
     });
 
-    //1. Create a subscription tier 
-    let create_subscription_call = api.tx.subscriptions.createSubscriptionTier({
-        includedCtNumber: 100,
-        includedCtActionsNumber: 100,
-        price: 10,
-        payOnDemand: {
-            extraCtPrice: 0,
-            extraCtActionPrice: 0
-        },
-        includedAnonymousTransfers: 100,
-        subscriptionBillingPeriodLength: 100,
-        securedBillingPeriodsNumber: 100,
-    });
-
-    let create_subscription_call_sudo = api.tx.sudo.sudo(create_subscription_call);
-    await create_subscription_call_sudo
-        .signAndSend(sudoAccount)
-        .then(() => {
-            console.log("Subscription tier created");
-        }).catch((err) => {
-            console.log(err);
-            console.log("Test failed : subscription creation failed!");
-            process.exit(1);
-        });;
-
-    // wait for tx to propogate
-    await new Promise(resolve => setTimeout(resolve, 6000));
-
-    // transfer tokens to the subscription pallet
-    // we need to do this because the subscription pallet is not a user account and needs ED before it can receive subscription payments
-    const transfer_to_subscription_call = api.tx.balances.transferKeepAlive(process.env.SUBSCRIPTION_PALLET_ADDRESS, "10000000000000");
-    await transfer_to_subscription_call
-        .signAndSend(sudoAccount)
-        .then(() => {
-            console.log("Tokens transferred to subscription pallet");
-        }).catch((err) => {
-            console.log(err);
-            console.log("Test failed : transfer to subscription pallet failed!");
-            process.exit(1);
-        });
-
-    // wait for tx to propogate
-    await new Promise(resolve => setTimeout(resolve, 6000));
-
     // 2. Create an app-agent for all three owners
     const appAgentOwners = [appAgentOne, appAgentTwo, appAgentThree];
+    let appAgents = {};
     const createAppAgentPromises = appAgentOwners.map((owner) => {
         return new Promise((resolve, reject) => {
             api.tx.appAgents
@@ -129,6 +91,8 @@ async function main() {
                             if (api.events.appAgents.AppAgentCreated.is(event)) {
                                 const [appAgentId, ownerAddress] = event.data;
                                 console.log(`App agent created: ID ${appAgentId.toString()} for owner ${ownerAddress.toString()}`);
+                                // save the app agent id to the appAgents object
+                                appAgents[appAgentId.toString()] = owner;
                             }
                         });
                         resolve();
@@ -138,31 +102,58 @@ async function main() {
         });
     });
 
+
+
+    try {
+        // Check if the game-a folder exists
+        if (fs.existsSync(game_a_path)) {
+            const app_agents_folder = path.join(game_a_path, 'app_agents');
+            
+            // Check if the app_agents folder exists
+            if (fs.existsSync(app_agents_folder)) {
+                const app_agent_files = fs.readdirSync(app_agents_folder);
+                
+                console.log('App agents in game-a folder:');
+                app_agent_files.forEach(file => {
+                    console.log(file);
+                });
+            } else {
+                console.log('No app_agents folder found in game-a');
+            }
+        } else {
+            console.log('No game-a folder found in aws_s3_assets');
+        }
+    } catch (err) {
+        console.error('Error reading aws_s3_assets folder:', err);
+    }
+
     try {
         await Promise.all(createAppAgentPromises);
         console.log("All app agents created successfully");
+        console.log("appAgents:", appAgents);
     } catch (err) {
         console.error("App agent creation failed:", err);
         process.exit(1);
     }
 
-    await create_app_agent_assets(api, appAgentOne, 1000, demo_user_one, demo_user_two);
-    await create_app_agent_assets(api, appAgentTwo, 1001, demo_user_three, demo_user_one);
-    await create_app_agent_assets(api, appAgentThree, 1002, demo_user_two, demo_user_three);
+    for (const appagentid of Object.keys(appAgents)) {
+        console.log("creating app agent assets for appagent:", appagentid);
+        await create_app_agent_assets(api, appAgents[appagentid], appagentid, demo_user_one, demo_user_two);
+    }
 
-    await create_app_agent_nfts(api, appAgentOne, 1000, demo_user_one, demo_user_two);
-    await create_app_agent_nfts(api, appAgentTwo, 1001, demo_user_three, demo_user_one);
-    await create_app_agent_nfts(api, appAgentThree, 1002, demo_user_two, demo_user_three);
+    // await create_app_agent_assets(api, appAgentOne, 1000, demo_user_one, demo_user_two);
+    // await create_app_agent_assets(api, appAgentTwo, 1001, demo_user_three, demo_user_one);
+    // await create_app_agent_assets(api, appAgentThree, 1002, demo_user_two, demo_user_three);
+
+    // await create_app_agent_nfts(api, appAgentOne, 1000, demo_user_one, demo_user_two);
+    // await create_app_agent_nfts(api, appAgentTwo, 1001, demo_user_three, demo_user_one);
+    // await create_app_agent_nfts(api, appAgentThree, 1002, demo_user_two, demo_user_three);
 }
 
 async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two) {
-    // Generate a random ID between 1 and 1,000,000
-    const id = Math.floor(Math.random() * 1000000) + 1;
-
     let asset_admin = encodeNamed(appAgentId, "asset-admi");
 
     let create_fungible_token = api.tx.assets.create(
-        id,
         asset_admin,
         1
     );
@@ -177,24 +168,30 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
         ]]
     );
 
-    await create_fungible_token_ct.signAndSend(appAgentOwner)
-        .then(() => {
-            console.log("Fungible token created");
-        }).catch((err) => {
-            console.log(err);
-            console.log("Test failed : fungible token creation failed!");
-            process.exit(1);
-        });
+    // Wait for the event and get the asset ID
+    let asset_id;
+    await create_fungible_token_ct.signAndSend(appAgentOwner, ({ events = [], status }) => {
+        if (status.isInBlock || status.isFinalized) {
+            events.forEach(({ event: { data, method, section } }) => {
+                if (section === 'assets' && method === 'Created') {
+                    const assetId = data[0].toString();
+                    console.log(`Asset created with ID: ${assetId}`);
+                    asset_id = assetId;
+                }
+            });
+        }
+    }).catch((error) => {
+        console.error("Error creating fungible token:", error);
+    });
 
     await new Promise(resolve => setTimeout(resolve, 6000)); // wait for the previous tx to propogate
 
     // mint tokens to the app agent
     const mint_tokens_call = api.tx.assets.mint(
-        id,
+        asset_id,
         token_recipient.address,
         1000
     );
-
 
     let mint_tokens_ct = api.tx.addressPools.submitClearingTransaction(
         appAgentId,
@@ -229,7 +226,7 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
     let batch_calls_two = [];
     for (let i = 0; i < 5; i++) {
         let free_transfer_call = api.tx.playerTransfers.submitTransferAssets(
-            id,
+            asset_id,
             token_recipient_two.address,
             10
         );
@@ -251,7 +248,6 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
     // Add a small delay between transfers
     await new Promise(resolve => setTimeout(resolve, 1000));
     console.log("App agent assets created successfully");
-
 }
 
 async function create_app_agent_nfts(api, appAgentOwner, appAgentId, nft_recipient, nft_recipient_two) {
