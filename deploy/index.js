@@ -150,9 +150,9 @@ async function main() {
     await create_app_agent_assets(api, appAgentTwo, 1000, demo_user_three, demo_user_one);
     await create_app_agent_assets(api, appAgentThree, 1000, demo_user_two, demo_user_three);
 
-    await create_app_agent_nfts(api, appAgentOne, 1000, demo_user_one);
-    await create_app_agent_nfts(api, appAgentTwo, 1000, demo_user_three);
-    await create_app_agent_nfts(api, appAgentThree, 1000, demo_user_two);
+    await create_app_agent_nfts(api, appAgentOne, 1000, demo_user_one, demo_user_two);
+    await create_app_agent_nfts(api, appAgentTwo, 1000, demo_user_three, demo_user_one);
+    await create_app_agent_nfts(api, appAgentThree, 1000, demo_user_two, demo_user_three);
 }
 
 async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two) {
@@ -186,7 +186,7 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
             process.exit(1);
         });
 
-    await new Promise(resolve => setTimeout(resolve, 6000));
+    await new Promise(resolve => setTimeout(resolve, 6000)); // wait for the previous tx to propogate
 
     // mint tokens to the app agent
     const mint_tokens_call = api.tx.assets.mint(
@@ -195,56 +195,82 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
         1000
     );
 
+
     let mint_tokens_ct = api.tx.addressPools.submitClearingTransaction(
         appAgentId,
         [[
             [
-                { AppAgentId: appAgentId },
+                { NamedAddress: asset_admin },
                 mint_tokens_call
             ]
         ]]
     );
 
-    await mint_tokens_ct.signAndSend(appAgentOwner)
+    let batch_calls = [
+        create_fungible_token_ct,
+        mint_tokens_ct
+    ];
+
+    let batch_call = api.tx.utility.batch(batch_calls);
+
+    await new Promise(resolve => setTimeout(resolve, 6000)); // wait for the previous tx to propogate
+
+    await batch_call.signAndSend(appAgentOwner)
         .then(() => {
-            console.log("Tokens minted to app agent");
+            console.log("Tokens minted");
         }).catch((err) => {
             console.log(err);
-            console.log("Test failed : mint tokens to app agent failed!");
+            console.log("Test failed : token minting failed!");
             process.exit(1);
         });
 
-    // generate a free transfer
-    let free_transfer_call = api.tx.player_transfers.submit_transfer_assets(
-        id,
-        token_recipient_two.address,
-        10
-    );
 
-    free_transfer_call.signAndSend(token_recipient)
+    // generate 5 free transfers between the two users
+    let batch_calls_two = [];
+    for (let i = 0; i < 5; i++) {
+        let free_transfer_call = api.tx.playerTransfers.submitTransferAssets(
+            id,
+            token_recipient_two.address,
+            10
+        );
+
+        batch_calls_two.push(free_transfer_call);
+    }
+
+    let batch_call_two = api.tx.utility.batch(batch_calls_two);
+
+    batch_call_two.signAndSend(token_recipient)
         .then(() => {
-            console.log("Free transfer created");
+            console.log(`Free transfer created`);
         }).catch((err) => {
             console.log(err);
-            console.log("Test failed : free transfer creation failed!");
+            console.log(`Test failed : free transfer creation failed!`);
             process.exit(1);
         });
 
-    await new Promise(resolve => setTimeout(resolve, 6000));
-
+    // Add a small delay between transfers
+    await new Promise(resolve => setTimeout(resolve, 1000));
     console.log("App agent assets created successfully");
 
 }
 
-async function create_app_agent_nfts(api, appAgentOwner, appAgentId, nft_recipient) {
+async function create_app_agent_nfts(api, appAgentOwner, appAgentId, nft_recipient, nft_recipient_two) {
     // Generate a random ID between 1 and 1,000,000
     const collection_id = Math.floor(Math.random() * 1000000) + 1;
     const item_id = Math.floor(Math.random() * 1000000) + 1;
 
+    let asset_admin = encodeNamed(appAgentId, "asset-admi");
+
     let create_nft_call = api.tx.nfts.create(
         collection_id,
-        appAgentOwner.address,
-        1
+        asset_admin,
+        {
+            settings: 0,
+            mintSettings: {
+                mintType: "issuer",
+                defaultItemSettings: 0
+            }
+        }
     );
 
     let create_nft_ct = api.tx.addressPools.submitClearingTransaction(
@@ -266,7 +292,7 @@ async function create_app_agent_nfts(api, appAgentOwner, appAgentId, nft_recipie
             process.exit(1);
         });
 
-    await new Promise(resolve => setTimeout(resolve, 6000));
+    await new Promise(resolve => setTimeout(resolve, 6000)); // wait for the previous tx to propogate
 
     // mint nfts to the nft recipient
     const mint_nfts_call = api.tx.nfts.mint(
@@ -280,7 +306,7 @@ async function create_app_agent_nfts(api, appAgentOwner, appAgentId, nft_recipie
         appAgentId,
         [[
             [
-                { AppAgentId: appAgentId },
+                { NamedAddress: asset_admin },
                 mint_nfts_call
             ]
         ]]
@@ -288,15 +314,36 @@ async function create_app_agent_nfts(api, appAgentOwner, appAgentId, nft_recipie
 
     await mint_nfts_ct.signAndSend(appAgentOwner)
         .then(() => {
-            console.log("NFTs minted to app agent");
+            console.log("NFTs minted");
         }).catch((err) => {
             console.log(err);
-            console.log("Test failed : mint NFTs to app agent failed!");
+            console.log("Test failed : NFT minting failed!");
             process.exit(1);
         });
 
-    console.log("App agent NFTs created successfully");
+    await new Promise(resolve => setTimeout(resolve, 6000)); // wait for the previous tx to propogate
 
+
+    // create 5 transfers of the nft to the nft recipient
+    let batch_calls_two = [];
+    for (let i = 0; i < 5; i++) {
+        let transfer_nft_call = api.tx.nfts.transfer(
+            collection_id,
+            item_id,
+            nft_recipient_two.address
+        );
+
+        batch_calls_two.push(transfer_nft_call);
+    }
+
+    let batch_call_two = api.tx.utility.batch(batch_calls_two);
+
+    batch_call_two.signAndSend(nft_recipient)
+        .then(() => {
+            console.log("Batch call sent");
+        });
+
+    console.log("App agent NFTs created successfully");
 }
 
 main()
