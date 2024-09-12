@@ -45,7 +45,7 @@ async function main() {
     const keyring = new Keyring({ type: "sr25519" });
 
     // Load accounts from .env file
-    const sudoAccount = keyring.addFromUri(process.env.SUDO_ACCOUNT_MNEMONIC);
+    const sudoAccount = keyring.addFromUri(process.env.SUDO_ACCOUNT_MNEMONIC);  // TODO let's rename to faucetAccount
     const appAgentOne = keyring.addFromUri(process.env.APP_AGENT_OWNER_ONE_MNEMONIC);
     const appAgentTwo = keyring.addFromUri(process.env.APP_AGENT_OWNER_TWO_MNEMONIC);
     const appAgentThree = keyring.addFromUri(process.env.APP_AGENT_OWNER_THREE_MNEMONIC);
@@ -101,6 +101,7 @@ async function main() {
                 let metadataUrl = readFilesInDirectory(folderPath);
                 console.log("metadataUrl:", metadataUrl);
 
+                // TODO let's extract code to create AppAgent and set its metadata into a separate function
                 if (metadataUrl) {
                     await new Promise((resolve, reject) => {
                         api.tx.appAgents.createAppAgent()
@@ -147,7 +148,7 @@ async function main() {
 
                 let metadataUrl = readFilesInDirectory(folderPath);
                 console.log("metadataUrl:", metadataUrl);
-                create_app_agent_assets(api, appAgentOwner, appagentId, demo_user_one, demo_user_two, metadataUrl);
+                create_app_agent_fungible_token(api, appAgentOwner, appagentId, demo_user_one, demo_user_two, metadataUrl);
 
                 await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
             }
@@ -216,11 +217,12 @@ function readFilesInDirectory(directory) {
     return null;
 }
 
-async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two, metadataUrl) {
-    let asset_admin = encodeNamed(appAgentId, "asset-admi");
+async function create_app_agent_fungible_token(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two, metadataUrl) {
+    // Create fungible token
+    let token_admin = encodeNamed(appAgentId, "asset-admi");
 
     let create_fungible_token = api.tx.assets.create(
-        asset_admin,
+        token_admin,
         1
     );
 
@@ -234,15 +236,15 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
         ]]
     );
 
-    // Wait for the event and get the asset ID
-    let asset_id;
+    // Wait for the event and get the token ID
+    let token_id;
     await create_fungible_token_ct.signAndSend(appAgentOwner, ({ events = [], status }) => {
         if (status.isInBlock || status.isFinalized) {
             events.forEach(({ event: { data, method, section } }) => {
                 if (section === 'assets' && method === 'Created') {
-                    const assetId = data[0].toString();
-                    console.log(`Asset created with ID: ${assetId}`);
-                    asset_id = assetId;
+                    const tokenId = data[0].toString();
+                    console.log(`Fungible token created with ID: ${tokenId}`);
+                    token_id = tokenId;
                 }
             });
         }
@@ -254,7 +256,7 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
 
     // mint tokens to the app agent
     const mint_tokens_call = api.tx.assets.mint(
-        asset_id,
+        token_id,
         token_recipient.address,
         1000
     );
@@ -263,14 +265,14 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
         appAgentId,
         [[
             [
-                { NamedAddress: asset_admin },
+                { NamedAddress: token_admin },
                 mint_tokens_call
             ]
         ]]
     );
 
     let set_metadata_call = api.tx.assets.setMetadata(
-        asset_id,
+        token_id,
         metadataUrl
     );
 
@@ -278,11 +280,13 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
         appAgentId,
         [[
             [
-                { NamedAddress: asset_admin },
+                { NamedAddress: token_admin },
                 set_metadata_call
             ]
         ]]
     );
+
+    // TODO we can put mint_tokens_call & set_metadata_call into a single CT and avoid using batch_all
 
     let batch_calls = [
         create_fungible_token_ct,
@@ -296,19 +300,23 @@ async function create_app_agent_assets(api, appAgentOwner, appAgentId, token_rec
 
     await batch_call.signAndSend(appAgentOwner)
         .then(() => {
-            console.log("Tokens minted");
+            console.log(`Fungible token ${token_id} configured.`);
         }).catch((err) => {
             console.log(err);
-            console.log("Test failed : token minting failed!");
+            console.log(`Test failed : couldn't configure fungible token ${token_id}!`);
             process.exit(1);
         });
+
+    // TODO let's split this into two functions
+    // this is the end of the fungible token creation, return the token ID to the caller
+    // below is another function to create transfers
 
 
     // generate 5 free transfers between the two users
     let batch_calls_two = [];
     for (let i = 0; i < 5; i++) {
         let free_transfer_call = api.tx.playerTransfers.submitTransferAssets(
-            asset_id,
+            token_id,
             token_recipient_two.address,
             10
         );
@@ -345,6 +353,7 @@ async function create_app_agent_nft_collection(api, appAgentOwner, appAgentId) {
 
     await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
 
+    // Create the NFT Collection
     let create_nft_call = api.tx.nfts.create(
         asset_admin,
         {
@@ -409,6 +418,8 @@ async function create_app_agent_nft_collection(api, appAgentOwner, appAgentId) {
 
     await set_team_metadata_ct.signAndSend(appAgentOwner)
 
+    // TODO need to set metadata to NFT Collection
+    // call to nfts::set_collection_metadata
 
     console.log("App agent NFTs created successfully");
 
@@ -418,6 +429,7 @@ async function create_app_agent_nft_collection(api, appAgentOwner, appAgentId) {
 
 async function create_app_agent_nft_token(api, appAgentOwner, appAgentId, collection_id, metadataUrl, recipient_one, recipient_two) {
     let asset_admin = encodeNamed(appAgentId, "asset-admi");
+
     // Generate a random token ID within a specific range (e.g., 1 to 1000)
     let tokenId = Math.floor(Math.random() * 1000) + 1;
 
@@ -462,10 +474,17 @@ async function create_app_agent_nft_token(api, appAgentOwner, appAgentId, collec
         ]]
     );
 
+    // TODO We can join mint_nft_call and set_metadata_call into a single atomic in CT
+    // It would be faster and natural
+
     await set_metadata_ct.signAndSend(appAgentOwner);
     await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
 
     console.log("App agent NFT metadata set successfully");
+
+    // TODO let's split this into two functions
+    // this is the end of the NFT token creation, return the token ID to the caller
+    // below is another function to create transfers
 
     // generate 5 free transfers between the two users
     let batch_calls_two = [];
