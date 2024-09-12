@@ -1,67 +1,42 @@
 {
-        "metadata_id": "demo-nft-token-c-a-g",
-        "title": "Metadata of the demo NFT token for the game ZoneX.",
-        "description": "Metadata of the demo NFT token for the game ZoneX.",
-        "traits": {
-            "named": {
-                "name": "NFT-TOKEN-NAME"
-            },
-            "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-g/icon_150x150.png"
-            },
-            "tech.trait.wallet.nft_token_listing_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-g/listing_512x512.png"
-            },
-            "tech.trait.wallet.nft_token_cover_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-g/cover_1920x1920.png"
-            },
-            "tech.trait.wallet.nft_token_description": {
-                "nft_token_description": "DESCRIPTION-OF-NFT-TOKEN"
-            },
-            "tech.trait.wallet.nft_token_attributes": {
-                "attributes": [
-                    {
-                        "name": "Number attribute",
-                        "display_type": "number",
-                        "value": 123
-                    },
-                    {
-                        "name": "Percentage attribute",
-                        "display_type": "percentage",
-                        "value": -17
-                    },
-                    {
-                        "name": "String attribute",
-                        "display_type": "string",
-                        "value": "Some string"
-                    },
-                    {
-                        "name": "Boolean attribute",
-                        "display_type": "boolean",
-                        "value": true
-                    },
-                    {
-                        "name": "Date attribute 1",
-                        "display_type": "date",
-                        "value": "2018-11-13T20:20:39+00:00"
-                    },
-                    {
-                        "name": "Date attribute 2",
-                        "display_type": "date",
-                        "value": "2018-11-13"
-                    },
-                    {
-                        "name": "Date attribute 3",
-                        "display_type": "date",
-                        "value": "20:20:39+00:00"
-                    },
-                    {
-                        "name": "Duration attribute",
-                        "display_type": "duration",
-                        "value": "P3D"
-                    }
-                ]
-            }
+  "metadata_id": "demo-nft-token-c-a-j",
+  "title": "Kinetic Storm",
+  "description": "A rapid-fire weapon designed for close-quarters combat, packing a punch with each shot.",
+  "traits": {
+    "named": {
+      "name": "Kinetic Storm"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-j/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-j/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-j/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "A rapid-fire weapon designed for close-quarters combat, packing a punch with each shot."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Damage",
+          "display_type": "number",
+          "value": 75
+        },
+        {
+          "name": "Fire rate",
+          "display_type": "number",
+          "value": 12
+        },
+        {
+          "name": "Reload speed",
+          "display_type": "number",
+          "value": 3.5
         }
+      ]
     }
-    
+  },
+  "isModified": true
+}
