@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-c-c-j",
-  "title": "Tactical Helmet",
-  "description": "Durable headgear designed for maximum protection in high-risk environments.",
+  "title": "Metadata of the demo NFT collection for the game ZoneX.",
+  "description": "Metadata of the demo NFT collection for the game ZoneX.",
   "traits": {
     "named": {
       "name": "Tactical Helmet"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-f/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-f/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-f/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "Durable headgear designed for maximum protection in high-risk environments."
+      "nft_token_description": "In the dim light of the battlefield, a lone figure stands, clad in an imposing black helmet that glistens ominously. Its sleek surface reflects the haunting glow of distant fires, concealing the identity of its wearer. This helmet, engineered for protection and anonymity, is equipped with advanced technology that enhances vision and communication in chaos. As the tension mounts, the air crackles with anticipation; each breath echoes with the promise of impending conflict. Players know that victory hinges on strategy and stealth. Will the power of this helmet ensure survival, or will it become a symbol of doom amid the unfolding chaos?"
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -27,6 +27,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

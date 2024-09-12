@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-c-c-j",
-  "title": "Graffiti Guardian",
-  "description": "A vibrant helmet adorned with graffiti, offering style and resilience in chaotic battles.",
+  "title": "Metadata of the demo NFT collection for the game ZoneX.",
+  "description": "Metadata of the demo NFT collection for the game ZoneX.",
   "traits": {
     "named": {
       "name": "Graffiti Guardian"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-d/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-d/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-d/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A vibrant helmet adorned with graffiti, offering style and resilience in chaotic battles."
+      "nft_token_description": "In a world ravaged by chaos, the Battle Helmet of Anarchy stands as a bold symbol of rebellion. Cloaked in a deep, vibrant purple adorned with electric green graffiti, it tells tales of daring escapades and close encounters. The scuffs and scratches mark its history, each imperfection a testament to survival in the unforgiving landscape of conflict. This helmet isn't just protection; it’s a statement, a call to arms for those who defy the ordinary. Wear it with pride, and let your enemies know that you are not just another fighter—you're a force of chaos ready to rewrite the rules of battle!"
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -27,6 +27,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

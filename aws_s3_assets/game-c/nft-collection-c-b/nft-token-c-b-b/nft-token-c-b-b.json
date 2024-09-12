@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-c-b-j",
-  "title": "Iron Viper",
-  "description": "A powerful revolver with precision and a sturdy grip, perfect for close-quarters combat.",
+  "title": "Metadata of the demo NFT collection for the game ZoneX.",
+  "description": "Metadata of the demo NFT collection for the game ZoneX.",
   "traits": {
     "named": {
       "name": "Iron Viper"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-b/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-b/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-b/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A powerful revolver with precision and a sturdy grip, perfect for close-quarters combat."
+      "nft_token_description": "In the dim light of the abandoned warehouse, a revolver lies solemnly on the cold concrete floor. Its polished steel glints ominously, an embodiment of power and danger. The grip, wrapped in aged wood, offers a sense of familiarity. You pick it up, feeling the weight settle confidently into your palm, a tool of choice in a treacherous world. With six chambers ready to unleash their wrath, it stands as a silent guardian—loyal to its wielder but unforgiving to foes. In this moment, you are the hunter, and the shadows tremble at your command. What will you do next?"
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -37,6 +37,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

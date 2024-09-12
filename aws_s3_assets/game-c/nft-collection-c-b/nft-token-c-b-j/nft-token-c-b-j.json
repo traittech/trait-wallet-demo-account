@@ -1,7 +1,7 @@
 {
   "metadata_id": "demo-nft-token-c-b-j",
-  "title": "Nightshade",
-  "description": "A sleek, compact pistol known for its reliability and precision in tense situations. Perfect for close encounters.",
+  "title": "Metadata of the demo NFT collection for the game ZoneX.",
+  "description": "Metadata of the demo NFT collection for the game ZoneX.",
   "traits": {
     "named": {
       "name": "Nightshade"
@@ -16,7 +16,7 @@
       "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-j/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A sleek, compact pistol known for its reliability and precision in tense situations. Perfect for close encounters."
+      "nft_token_description": "As the dawn breaks, casting a pale light over the desolate streets, you find yourself clutching a sleek, black sidearm—the embodiment of precision and power. This handgun, with its finely crafted grip and polished slide, whispers promises of protection and danger. Each pull of the trigger echoes the tension of your mission, a dance between stealth and confrontation. Enemies lurk in the shadows, unaware of the storm brewing in your hands. With every heartbeat, the weight of your choice settles heavily; in this unforgiving world, survival relies on skill, courage, and the silent authority of your weapon."
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -37,6 +37,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

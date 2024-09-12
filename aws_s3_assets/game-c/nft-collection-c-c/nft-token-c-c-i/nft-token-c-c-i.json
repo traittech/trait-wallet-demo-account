@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-c-c-j",
-  "title": "Tactical Combat Vest",
-  "description": "Durable armor vest designed for maximum protection and utility in combat situations.",
+  "title": "Metadata of the demo NFT collection for the game ZoneX.",
+  "description": "Metadata of the demo NFT collection for the game ZoneX.",
   "traits": {
     "named": {
       "name": "Tactical Combat Vest"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-i/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-i/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-i/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "Durable armor vest designed for maximum protection and utility in combat situations."
+      "nft_token_description": "In the shadows of a war-torn battleground, you stumble upon a tactical vest, cloaked in a dark camo pattern, designed for the stealthy warrior. Its robust fabric, reinforced with multiple layers, promises excellent protection against projectiles and debris. Modular pouches cling to its surface, ideal for storing ammunition, grenades, and survival gear. As you don this vest, you feel an immediate surge of confidence, your mobility slightly hampered but your defense maximized. The world around you grows quiet; every sound amplified as you prepare for the next encounter. Will this armor safeguard your journey, or will it become a tomb? Choose wisely."
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -27,6 +27,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }
