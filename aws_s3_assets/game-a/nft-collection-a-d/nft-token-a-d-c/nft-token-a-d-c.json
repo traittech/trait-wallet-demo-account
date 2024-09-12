@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-a-d-j",
-  "title": "Thorned Bow",
-  "description": "A bow adorned with sinister thorns, striking fear into foes with each shot.",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
   "traits": {
     "named": {
       "name": "Thorned Bow"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-c/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-c/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-c/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A bow adorned with sinister thorns, striking fear into foes with each shot."
+      "nft_token_description": "The item is a hauntingly crafted bow, characterized by its elongated, sinuous design and jagged thorns that protrude menacingly along its length. This weapon emanates an eerie aura, hinting at its dark origins. Its surface appears to shimmer with an otherworldly energy, suggesting that it could be imbued with mystical powers. The tensioned string is taut and resilient, ready to unleash arrows with deadly precision. Ideal for stealthy and agile archers, this bow balances aesthetics with lethal functionality, making it a coveted piece for adventurers seeking to harness its enigmatic strength in perilous quests and battles."
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -32,6 +32,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

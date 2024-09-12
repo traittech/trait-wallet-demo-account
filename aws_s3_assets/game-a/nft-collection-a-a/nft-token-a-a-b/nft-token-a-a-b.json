@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-a-d-j",
-  "title": "Abyssal Edge",
-  "description": "A legendary sword forged from oceanic steel, enhancing the wielder's prowess in battle.",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
   "traits": {
     "named": {
       "name": "Abyssal Edge"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-b/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-b/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-b/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A legendary sword forged from oceanic steel, enhancing the wielder's prowess in battle."
+      "nft_token_description": "This stunning sword features a slender, elegant design with a gleaming blue blade adorned with intricate silver patterns. The hilt is embellished with ornate details, including a distinctive guard shaped like fierce, stylized wolf heads. Its vibrant color suggests a mystical origin, hinting at powerful enchantments imbued within the weapon. Crafted for both beauty and practicality, the sword offers remarkable balance and sharpness, making it ideal for swift, graceful strikes in battle. A symbol of strength and nobility, this weapon is perfect for heroes and adventurers seeking to conquer foes and uphold justice in a fantastical realm."
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -32,6 +32,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

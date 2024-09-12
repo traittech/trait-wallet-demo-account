@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-a-d-j",
-  "title": "Phoenix Spear",
-  "description": "A fiery spear imbued with the essence of a phoenix, igniting fierce battles.",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
   "traits": {
     "named": {
       "name": "Phoenix Spear"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-e/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-e/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-e/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A fiery spear imbued with the essence of a phoenix, igniting fierce battles."
+      "nft_token_description": "The item is a magnificent war axe, perfectly crafted with a blend of elegance and ferocity. Its blade features intricate golden filigree, shaped like a predatory bird's claw, hinting at its lethal potential. A stunning blue gem is embedded at the center, radiating an otherworldly glow that suggests magical properties. The axe's handle is sleek and jet-black, providing a sturdy grip while maintaining an air of sophistication. This weapon is not only a tool of destruction but also a symbol of power, ideal for any warrior seeking to dominate the battlefield and instill fear in their foes."
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -32,6 +32,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

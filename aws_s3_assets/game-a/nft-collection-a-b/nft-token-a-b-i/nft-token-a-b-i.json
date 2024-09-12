@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-a-d-j",
-  "title": "Infernal Blade",
-  "description": "A wicked sword forged in the depths of hell, radiating dark energy.",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
   "traits": {
     "named": {
       "name": "Infernal Blade"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-i/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-i/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-i/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A wicked sword forged in the depths of hell, radiating dark energy."
+      "nft_token_description": "This extraordinary sword embodies dark power, featuring an intricately designed blade that glows with a fiery red hue. The craftsmanship showcases ancient runes along the blade's length, hinting at its storied past and magical properties. Its hilt is adorned with ornate details, enhancing its formidable appearance and grip. The sword appears to emanate a faint aura, suggesting it might wield unparalleled strength in battle. As a coveted item among warriors, it promises to obliterate foes and protect its wielder with powerful enchantments. Perfect for any hero or villain, it stands as a testament to legendary craftsmanship in a mystical realm."
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -32,6 +32,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

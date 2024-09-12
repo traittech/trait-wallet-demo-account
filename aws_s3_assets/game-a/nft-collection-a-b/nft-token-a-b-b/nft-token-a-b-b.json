@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-a-d-j",
-  "title": "Celestial Edge",
-  "description": "A finely crafted sword radiating an aura of power and precision.",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
   "traits": {
     "named": {
       "name": "Celestial Edge"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-b/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-b/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-b/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A finely crafted sword radiating an aura of power and precision."
+      "nft_token_description": "This extraordinary sword is a masterpiece of craftsmanship, blending intricate design with formidable strength. Its sleek blade, polished to a reflective sheen, boasts a striking silver color accented by subtle golden details that highlight its elegant curves. The hilt is adorned with ornate patterns and a central emblem, signifying its powerful legacy. This weapon is not only visually stunning but also balanced for precise strikes, making it a favorite among skilled warriors. Ideal for both combat and display, it embodies the perfect fusion of beauty and lethality, ready to shine in any adventure or clash on the battlefield."
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -32,6 +32,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

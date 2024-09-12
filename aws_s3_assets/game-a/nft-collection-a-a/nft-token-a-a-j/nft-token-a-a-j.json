@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-a-d-j",
-  "title": "Frostbite Blade",
-  "description": "A shimmering sword infused with icy energy, striking fear into enemies.",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
   "traits": {
     "named": {
       "name": "Frostbite Blade"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-j/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-j/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-j/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A shimmering sword infused with icy energy, striking fear into enemies."
+      "nft_token_description": "The sword is a stunning masterpiece, featuring a sleek, shimmering blue blade that glimmers with an ethereal light. Intricate engravings adorn its length, showcasing elegant designs that reflect mastery in craftsmanship. The hilt is adorned with a stylish grip, designed for both comfort and style, embellished with detailed motifs that hint at its storied history. Its balance and weight make it an ideal weapon for swift strikes, combining aesthetic beauty with deadly precision. This iconic item symbolizes power and grace, making it a coveted relic for any warrior seeking to prove their worth in battle."
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -32,6 +32,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

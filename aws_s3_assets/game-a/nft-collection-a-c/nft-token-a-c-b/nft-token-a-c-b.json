@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-a-d-j",
-  "title": "Spear of the Ancients",
-  "description": "A relic infused with the wisdom of the ages.",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
   "traits": {
     "named": {
       "name": "\"Spear of the Ancients\""
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-b/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-b/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-b/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A relic infused with the wisdom of the ages."
+      "nft_token_description": "The item is a beautifully crafted spear, combining elegance with lethal functionality. Its shaft, long and slender, is adorned with intricate engravings that reflect its ancient heritage. At the top, a striking ornament features a central eye motif, symbolizing vigilance and wisdom, surrounded by sharp, stylized branches that evoke a sense of nature's fierce power. The spear's tip is finely honed, designed for precision strikes against foes. This weapon is not only a tool of battle but also a piece of art, embodying the spirit of a skilled warrior and serving as a powerful symbol in any warrior’s arsenal."
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -32,6 +32,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

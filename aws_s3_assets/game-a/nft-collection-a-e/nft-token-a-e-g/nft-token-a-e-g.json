@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-a-e-j",
-  "title": "Navigator's Compass",
-  "description": "Guides the bearer through uncharted paths.",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
   "traits": {
     "named": {
       "name": "Navigator's Compass"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-g/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-g/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-g/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "Guides the bearer through uncharted paths."
+      "nft_token_description": "This exquisite compass is an essential navigational tool for adventurers and explorers alike. Encased in a polished golden frame, the compass features a beautifully detailed star motif that reflects the spirit of discovery. With its glass cover providing protection, the vibrant needle always points towards true north, guiding players through treacherous terrains and uncharted territories. Ideal for quests, treasure hunts, or simply exploring vast landscapes, this compass enhances the player's journey, ensuring they remain oriented in their adventures. Its elegant design also makes it a coveted collectible, symbolizing the pursuit of knowledge and the thrill of exploration."
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -37,6 +37,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }
