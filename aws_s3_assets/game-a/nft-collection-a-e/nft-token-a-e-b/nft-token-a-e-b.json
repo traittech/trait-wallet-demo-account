@@ -28,12 +28,12 @@
         {
           "name": "Critical damage",
           "display_type": "percentage",
-          "value": 15
+          "value": 10
         },
         {
-          "name": "HP boost",
+          "name": "Critical rate",
           "display_type": "percentage",
-          "value": 20
+          "value": 10
         }
       ]
     }

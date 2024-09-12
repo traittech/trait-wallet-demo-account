@@ -26,7 +26,7 @@
           "value": 75
         },
         {
-          "name": "Critical damage",
+          "name": "Physical damage",
           "display_type": "percentage",
           "value": 20
         }

@@ -23,12 +23,12 @@
         {
           "name": "Base attack",
           "display_type": "number",
-          "value": 75
+          "value": 67
         },
         {
           "name": "Critical damage",
           "display_type": "percentage",
-          "value": 25
+          "value": 12
         }
       ]
     }

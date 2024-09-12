@@ -23,7 +23,7 @@
         {
           "name": "Base attack",
           "display_type": "number",
-          "value": 75
+          "value": 64
         },
         {
           "name": "Critical rate",

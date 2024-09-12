@@ -26,9 +26,9 @@
           "value": 85
         },
         {
-          "name": "Critical damage",
+          "name": "Critical rate",
           "display_type": "percentage",
-          "value": 25
+          "value": 10
         }
       ]
     }

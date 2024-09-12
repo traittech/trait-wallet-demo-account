@@ -21,17 +21,17 @@
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
         {
-          "name": "Attack",
-          "display_type": "percentage",
-          "value": 25
-        },
-        {
-          "name": "HP boost",
+          "name": "Defence",
           "display_type": "percentage",
           "value": 15
         },
         {
-          "name": "Critical rate",
+          "name": "HP boost",
+          "display_type": "percentage",
+          "value": 35
+        },
+        {
+          "name": "Energy recharge",
           "display_type": "percentage",
           "value": 20
         }

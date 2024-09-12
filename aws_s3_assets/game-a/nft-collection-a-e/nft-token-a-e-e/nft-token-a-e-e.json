@@ -23,7 +23,7 @@
         {
           "name": "HP boost",
           "display_type": "percentage",
-          "value": 20
+          "value": 23
         },
         {
           "name": "Defence",
@@ -33,7 +33,7 @@
         {
           "name": "Energy recharge",
           "display_type": "percentage",
-          "value": 25
+          "value": 45
         }
       ]
     }

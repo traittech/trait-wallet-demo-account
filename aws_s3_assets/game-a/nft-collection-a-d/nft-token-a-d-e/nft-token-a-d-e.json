@@ -28,7 +28,7 @@
         {
           "name": "Critical rate",
           "display_type": "percentage",
-          "value": 20
+          "value": 15
         }
       ]
     }

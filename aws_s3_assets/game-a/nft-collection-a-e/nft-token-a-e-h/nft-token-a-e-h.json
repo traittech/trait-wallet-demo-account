@@ -1,7 +1,7 @@
 {
   "metadata_id": "demo-nft-token-a-e-j",
   "title": "Crimson Sands Hourglass",
-  "description": "A mystical hourglass that manipulates time with a reddish glow.",
+  "description": "A mystical hourglass that manipulates energy with a reddish glow.",
   "traits": {
     "named": {
       "name": "Crimson Sands Hourglass"
@@ -16,7 +16,7 @@
       "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-j/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A mystical hourglass that manipulates time with a reddish glow."
+      "nft_token_description": "A mystical hourglass that manipulates energy with a reddish glow."
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [

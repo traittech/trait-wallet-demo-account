@@ -23,17 +23,12 @@
         {
           "name": "Attack",
           "display_type": "percentage",
-          "value": 25
+          "value": 15
         },
         {
           "name": "Critical damage",
           "display_type": "percentage",
           "value": 15
-        },
-        {
-          "name": "Energy recharge",
-          "display_type": "percentage",
-          "value": 20
         }
       ]
     }

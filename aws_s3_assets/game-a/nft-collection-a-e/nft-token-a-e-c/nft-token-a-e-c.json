@@ -23,15 +23,15 @@
         {
           "name": "Defence",
           "display_type": "percentage",
-          "value": 25
+          "value": 12
         },
         {
           "name": "HP boost",
           "display_type": "percentage",
-          "value": 20
+          "value": 10
         },
         {
-          "name": "Critical rate",
+          "name": "Attack",
           "display_type": "percentage",
           "value": 15
         }
