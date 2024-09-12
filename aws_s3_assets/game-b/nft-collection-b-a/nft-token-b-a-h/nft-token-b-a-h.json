@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-b-a-j",
-  "title": "Valiant King",
-  "description": "A brave ruler wielding a mighty sword, leading his troops into battle with courage and honor.",
+  "title": "Metadata of the demo NFT collection for the game Crown Clash.",
+  "description": "Metadata of the demo NFT collection for the game Crown Clash.",
   "traits": {
     "named": {
       "name": "Valiant King"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-h/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-h/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-h/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A brave ruler wielding a mighty sword, leading his troops into battle with courage and honor."
+      "nft_token_description": "In a kingdom filled with treachery and valor, you encounter the jovial yet formidable king, a leader with a heart as grand as his golden crown. His striking blue eyes gleam with determination as he rallies his troops for the battles ahead. Clad in royal attire adorned with gems, he wields a sword that has tasted victory countless times. With charisma and a booming laugh, he inspires loyalty among his subjects. As enemies loom in the shadows, he stands at the forefront, ready to defend his realm. Will you heed his call and join him in the quest for glory? Adventure awaits!"
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -47,6 +47,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

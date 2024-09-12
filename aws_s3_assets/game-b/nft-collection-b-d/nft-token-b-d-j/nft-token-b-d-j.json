@@ -1,7 +1,7 @@
 {
   "metadata_id": "demo-nft-token-b-d-j",
-  "title": "Wooden Cannon",
-  "description": "A sturdy cannon that fires explosive projectiles, perfect for defensive strategies.",
+  "title": "Metadata of the demo NFT collection for the game Crown Clash.",
+  "description": "Metadata of the demo NFT collection for the game Crown Clash.",
   "traits": {
     "named": {
       "name": "Wooden Cannon"
@@ -16,7 +16,7 @@
       "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-j/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A sturdy cannon that fires explosive projectiles, perfect for defensive strategies."
+      "nft_token_description": "In the heart of the battlefield, a formidable wooden cannon stands proudly on its sturdy wheels, emblazoned with the scars of countless skirmishes. Crafted from robust timber, its barrels glisten under the sun, exuding an air of both sophistication and raw power. As the enemy draws near, the cannon’s operators scramble to load it with explosive ammunition, ready to unleash a mighty roar. With a thunderous blast, the cannon belches forth its fiery projectile, sending it hurtling through the air. Will this shot turn the tide of battle or falter against the oppressive walls of the enemy fortress? The fate hangs in suspense!"
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -47,6 +47,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-b-b-j",
-  "title": "Smarty Goblin",
-  "description": "A clever goblin with a thirst for knowledge and a knack for mischief. Armed with gadgets to outsmart foes.",
+  "title": "Metadata of the demo NFT collection for the game Crown Clash.",
+  "description": "Metadata of the demo NFT collection for the game Crown Clash.",
   "traits": {
     "named": {
       "name": "Smarty Goblin"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-g/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-g/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-g/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A clever goblin with a thirst for knowledge and a knack for mischief. Armed with gadgets to outsmart foes."
+      "nft_token_description": "In a vibrant kingdom bustling with magic and mischief, meet our cheerful goblin hero! With bright green skin and oversized glasses, this cunning little character is always ready for adventure. Armed with an array of quirky gadgets, he dashes through enchanted forests, solves tricky puzzles, and outsmarts foes. His infectious smile brightens the darkest dungeons, inspiring allies and bewildering enemies alike. As he gathers treasures and crafts ingenious inventions, every challenge reveals his cleverness and charm. Join him on a whimsical journey filled with laughter, danger, and surprises in this enchanting realm where friendship and bravery reign supreme!"
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -42,6 +42,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

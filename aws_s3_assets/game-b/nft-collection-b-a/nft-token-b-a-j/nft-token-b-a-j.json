@@ -1,7 +1,7 @@
 {
   "metadata_id": "demo-nft-token-b-a-j",
-  "title": "Brawler Brute",
-  "description": "A fierce warrior with unmatched strength, ready to smash through enemies with style.",
+  "title": "Metadata of the demo NFT collection for the game Crown Clash.",
+  "description": "Metadata of the demo NFT collection for the game Crown Clash.",
   "traits": {
     "named": {
       "name": "Brawler Brute"
@@ -16,7 +16,7 @@
       "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-j/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A fierce warrior with unmatched strength, ready to smash through enemies with style."
+      "nft_token_description": "In the heart of a vibrant, chaotic world, meet the fearless warrior with a fierce spirit and pink-haired determination. Armed with her trusty bat, she navigates treacherous terrains and faces relentless foes. Her quick reflexes and cunning strategy allow her to outsmart opponents, turning the tide of battle in her favor. Seek out hidden treasures, unlock powerful upgrades, and craft your own path to victory. But beware—danger lurks around every corner! Rally your allies, hone your skills, and embrace the thrill of adventure as you uncover the secrets of this realm. The journey awaits; are you ready to join the fight?"
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -47,6 +47,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

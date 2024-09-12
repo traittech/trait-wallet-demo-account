@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-b-a-j",
-  "title": "Warrior",
-  "description": "A fierce melee fighter with the strength to conquer opponents.",
+  "title": "Metadata of the demo NFT collection for the game Crown Clash.",
+  "description": "Metadata of the demo NFT collection for the game Crown Clash.",
   "traits": {
     "named": {
       "name": "Warrior"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-g/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-g/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-g/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A fierce melee fighter with the strength to conquer opponents."
+      "nft_token_description": "In a realm of strategic battles and epic conquests, the stronghold of your village stands tall, beckoning heroes to defend its honor. As armies clash, the mighty Barbarian leads the charge with his fierce yell, swinging his sword to intimidate foes. With a powerful build and an unyielding spirit, he embodies raw strength, rallying comrades to wrest victory from the jaws of defeat. The stakes are high in this clash of clans, where cunning strategies and swift tactics carve the path to glory. Will you unleash the Barbarian’s unparalleled might, or will your enemies overrun your kingdom? The battle calls!"
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -47,6 +47,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

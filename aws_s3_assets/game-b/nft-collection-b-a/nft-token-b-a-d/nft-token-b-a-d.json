@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-b-a-j",
-  "title": "Fireblock",
-  "description": "A mischievous block radiating heat, igniting foes with every bounce.",
+  "title": "Metadata of the demo NFT collection for the game Crown Clash.",
+  "description": "Metadata of the demo NFT collection for the game Crown Clash.",
   "traits": {
     "named": {
       "name": "Fireblock"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-d/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-d/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-d/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A mischievous block radiating heat, igniting foes with every bounce."
+      "nft_token_description": "In the vibrant world of Sparkling Stones, adventure awaits! Meet the jovial, flame-kissed block—your quirky companion on a quest through enchanted realms. As you traverse treacherous landscapes filled with mysterious obstacles and cunning foes, harness the power of fire to ignite your path. Solve whimsical puzzles, unleash fiery abilities, and collect shimmering treasures that unlock new levels. With charming graphics and captivating gameplay, each challenge brings you closer to unraveling the secrets of the Sparkling Stones. Gear up for a journey where bravery and strategy merge, and let the warmth of friendship light your way! The adventure begins now!"
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -47,6 +47,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }

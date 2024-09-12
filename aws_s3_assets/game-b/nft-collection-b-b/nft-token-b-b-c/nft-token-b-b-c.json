@@ -1,22 +1,22 @@
 {
   "metadata_id": "demo-nft-token-b-b-j",
-  "title": "Blue Scout",
-  "description": "A mischievous soldier with stellar aim, ready to support allies and disrupt foes.",
+  "title": "Metadata of the demo NFT collection for the game Crown Clash.",
+  "description": "Metadata of the demo NFT collection for the game Crown Clash.",
   "traits": {
     "named": {
       "name": "Blue Scout"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-j/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-c/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-j/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-c/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-j/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-c/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
-      "nft_token_description": "A mischievous soldier with stellar aim, ready to support allies and disrupt foes."
+      "nft_token_description": "In a realm where strategy meets chaos, our brave Blue Scout stands ready for action! With his trusty goggles glimmering and a grin that reveals his zest for battle, he embodies the spirit of adventure. Clad in tactical gear, he’s the eyes and ears of the squad, scouting ahead to gather vital intel. Armed with quick reflexes and a mischievous smile, he dashes through enemy lines, outsmarting foes with agility and cunning. Whether it’s gathering resources or leading the charge, this courageous comrade proves that a blend of fun and bravery can turn the tide of battle. Charge forth, Blue Scout!"
     },
     "tech.trait.wallet.nft_token_attributes": {
       "attributes": [
@@ -42,6 +42,5 @@
         }
       ]
     }
-  },
-  "isModified": true
+  }
 }
