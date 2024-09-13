@@ -1,7 +1,7 @@
 {
   "metadata_id": "demo-nft-token-c-a-f",
-  "title": "Metadata of the demo NFT collection for the game ZoneX.",
-  "description": "Metadata of the demo NFT collection for the game ZoneX.",
+  "title": "Metadata of the demo NFT token for the game ZoneX.",
+  "description": "Metadata of the demo NFT token for the game ZoneX.",
   "traits": {
     "named": {
       "name": "MPX Storm"
