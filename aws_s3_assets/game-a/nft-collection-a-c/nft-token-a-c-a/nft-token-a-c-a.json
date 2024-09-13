@@ -4,7 +4,7 @@
   "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
   "traits": {
     "named": {
-      "name": "\"Trident of the Abyss\""
+      "name": "Trident of the Abyss"
     },
     "tech.trait.wallet.square_icon": {
       "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-a/icon_150x150.png"
