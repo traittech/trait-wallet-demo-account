@@ -106,7 +106,6 @@ async function main() {
 
                 if (metadataUrl) {
                     appagentId = await create_app_agent(api, appAgentOwner, metadataUrl);
-                    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
                 }
             }
 
@@ -118,8 +117,6 @@ async function main() {
                 let metadataUrl = readFilesInDirectory(folderPath);
                 console.log("metadataUrl:", metadataUrl);
                 create_app_agent_fungible_token(api, appAgentOwner, appagentId, demo_user_one, demo_user_two, metadataUrl);
-
-                await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
             }
 
             if (subFolder.startsWith('nft-collection')) {

@@ -37,43 +37,35 @@ async function create_app_agent_fungible_token(api, appAgentOwner, appAgentId, t
         console.error("Error creating fungible token:", error);
     });
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
 
-    // mint tokens to the app agent
+    // Configure app agent and mint tokens
+    let set_metadata_call = api.tx.assets.setMetadata(
+        token_id,
+        metadataUrl
+    );
+
     const mint_tokens_call = api.tx.assets.mint(
         token_id,
         token_recipient.address,
         1000
     );
 
-    let set_metadata_call = api.tx.assets.setMetadata(
-        token_id,
-        metadataUrl
-    );
-
-    let set_metadata_ct = api.tx.addressPools.submitClearingTransaction(
+    let configure_fungible_ct = api.tx.addressPools.submitClearingTransaction(
         appAgentId,
         [[
             [
-                { NamedAddress: token_admin },
-                mint_tokens_call
-            ],
-            [
                 { AppAgentId: appAgentId },
                 set_metadata_call
+            ],
+            [
+                { NamedAddress: token_admin },
+                mint_tokens_call
             ]
         ]]
     );
 
-    let batch_calls = [
-        set_metadata_ct
-    ];
-
-    let batch_call = api.tx.utility.batch_all(batch_calls);
-
-    await new Promise(resolve => setTimeout(resolve, 10000)); // wait for the previous tx to propogate
-
-    await batch_call.signAndSend(appAgentOwner, { nonce: -1 })
+    await configure_fungible_ct.signAndSend(appAgentOwner, { nonce: -1 })
         .then(() => {
             console.log(`Fungible token ${token_id} configured.`);
         }).catch((err) => {
@@ -81,6 +73,8 @@ async function create_app_agent_fungible_token(api, appAgentOwner, appAgentId, t
             console.log(`Test failed : couldn't configure fungible token ${token_id}!`);
             process.exit(1);
         });
+
+    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
 
     await create_token_transfers(api, token_id, token_recipient, token_recipient_two);
 }
@@ -109,8 +103,8 @@ async function create_token_transfers(api, token_id, token_recipient, token_reci
             process.exit(1);
         });
 
-    // Add a small delay between transfers
-    await new Promise(resolve => setTimeout(resolve, 10_000));
+    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
+
     console.log("App agent assets created successfully");
 }
 

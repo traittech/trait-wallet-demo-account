@@ -3,8 +3,6 @@ const { Keyring } = require("@polkadot/keyring");
 const { encodeNamed } = require("./keyless");
 
 async function create_app_agent(api, appAgentOwner, metadataUrl) {
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
-
     let appagentId;
     await new Promise((resolve, reject) => {
         api.tx.appAgents.createAppAgent()
@@ -23,7 +21,7 @@ async function create_app_agent(api, appAgentOwner, metadataUrl) {
             .catch(reject);
     });
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
 
     // create the transaction to set the metadata
     let set_metadata_tx = api.tx.appAgents.setAppAgentMetadata(
@@ -39,6 +37,8 @@ async function create_app_agent(api, appAgentOwner, metadataUrl) {
         .catch(err => {
             console.error("Error setting metadata URL:", err);
         });
+
+    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
 
     return appagentId;
 }
