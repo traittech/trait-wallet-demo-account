@@ -66,11 +66,10 @@ async function create_app_agent_fungible_token(api, appAgentOwner, appAgentId, t
     );
 
     let batch_calls = [
-        create_fungible_token_ct,
         set_metadata_ct
     ];
 
-    let batch_call = api.tx.utility.batch(batch_calls);
+    let batch_call = api.tx.utility.batch_all(batch_calls);
 
     await new Promise(resolve => setTimeout(resolve, 10000)); // wait for the previous tx to propogate
 
@@ -99,7 +98,7 @@ async function create_token_transfers(api, token_id, token_recipient, token_reci
         batch_calls_two.push(free_transfer_call);
     }
 
-    let batch_call_two = api.tx.utility.batch(batch_calls_two);
+    let batch_call_two = api.tx.utility.batch_all(batch_calls_two);
 
     batch_call_two.signAndSend(token_recipient, { nonce: -1 })
         .then(() => {

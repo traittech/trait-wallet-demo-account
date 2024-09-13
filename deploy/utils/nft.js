@@ -168,7 +168,7 @@ async function create_nft_transfers(api, token_recipient, token_recipient_two, c
         batch_calls_two.push(free_transfer_call);
     }
 
-    let batch_call_two = api.tx.utility.batch(batch_calls_two);
+    let batch_call_two = api.tx.utility.batch_all(batch_calls_two);
 
     batch_call_two.signAndSend(token_recipient, { nonce: -1 })
         .then(() => {
