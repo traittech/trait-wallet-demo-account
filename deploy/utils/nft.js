@@ -2,7 +2,9 @@ const { ApiPromise, WsProvider } = require("@polkadot/api");
 const { Keyring } = require("@polkadot/keyring");
 const { encodeNamed } = require("./keyless");
 
-async function create_app_agent_nft_collection(api, appAgentOwner, appAgentId, metadataUrl) {
+async function create_nft_collection(api, appAgentOwner, appAgentId, metadataUrl) {
+    console.log("Start to create NFT Collection for the AppAgent ID " + appAgentId);
+
     let asset_admin = encodeNamed(appAgentId, "asset-admi");
 
     console.log("Send some balance to admin");
@@ -98,7 +100,9 @@ async function create_app_agent_nft_collection(api, appAgentOwner, appAgentId, m
 }
 
 
-async function create_app_agent_nft_token(api, appAgentOwner, appAgentId, collection_id, metadataUrl, recipient_one, recipient_two) {
+async function create_nft_token(api, appAgentOwner, appAgentId, collection_id, metadataUrl, recipient_one, recipient_two) {
+    console.log("Start to create NFT Token for the AppAgent ID " + appAgentId);
+    
     let asset_admin = encodeNamed(appAgentId, "asset-admi");
 
     console.log("Generate a random token ID within a specific range (e.g., 1 to 1000)");
@@ -183,6 +187,6 @@ async function create_nft_transfers(api, token_recipient, token_recipient_two, c
 }
 
 module.exports = {
-    create_app_agent_nft_collection,
-    create_app_agent_nft_token
+    create_nft_collection,
+    create_nft_token
 }

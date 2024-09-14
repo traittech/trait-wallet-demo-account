@@ -2,8 +2,9 @@ const { ApiPromise, WsProvider } = require("@polkadot/api");
 const { Keyring } = require("@polkadot/keyring");
 const { encodeNamed } = require("./keyless");
 
-async function create_app_agent_fungible_token(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two, metadataUrl) {
-    console.log("Create fungible token");
+async function create_fungible_token(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two, metadataUrl) {
+    console.log("Start to create fungible token for the ApPAgent ID " + appAgentId);
+
     let token_admin = encodeNamed(appAgentId, "asset-admi");
 
     let create_fungible_token = api.tx.assets.create(
@@ -113,5 +114,5 @@ async function create_token_transfers(api, token_id, token_recipient, token_reci
 
 
 module.exports = {
-    create_app_agent_fungible_token
+    create_fungible_token
 }

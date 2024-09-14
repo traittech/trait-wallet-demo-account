@@ -4,9 +4,8 @@ const dotenv = require("dotenv");
 const fs = require('fs');
 const path = require('path');
 const { create_app_agent } = require('./utils/app_agent');
-const { create_app_agent_fungible_token } = require('./utils/fungible');
-const { create_app_agent_nft_collection } = require('./utils/nft');
-const { create_app_agent_nft_token } = require('./utils/nft');
+const { create_fungible_token } = require('./utils/fungible');
+const { create_nft_collection, create_nft_token } = require('./utils/nft');
 
 const aws_s3_assets_path = path.join(__dirname, '..', 'aws_s3_assets');
 const game_a_path = path.join(aws_s3_assets_path, 'game-a/');
@@ -60,6 +59,7 @@ async function main() {
 
     const transferAmount = parseInt(process.env.TRANSFER_AMOUNT) * 1e12;
 
+    console.log("Start to initialise the owners of the app agents");
     console.log("Create a batch of transfers");
     const transfers = [
         api.tx.balances.transferKeepAlive(appAgentOneOwner.address, transferAmount.toString()),
@@ -68,11 +68,11 @@ async function main() {
     ];
 
     console.log("Send the batch of transfers");
-    await new Promise((resolve, reject) => {
-        api.tx.utility
+    await new Promise(async (resolve, reject) => {
+        const unsubscribe = await api.tx.utility
             .batchAll(transfers)
             .signAndSend(faucetAccount, ({ status, events }) => {
-                if (status.isInBlock || status.isFinalized) {
+                if (status.isFinalized) {
                     events.forEach(({ event }) => {
                         if (api.events.balances.Transfer.is(event)) {
                             const [from, to, amount] = event.data;
@@ -80,49 +80,51 @@ async function main() {
                         }
                     });
                     console.log("Initial transfers completed successfully");
+                    unsubscribe();
                     resolve();
                 }
             })
             .catch(reject);
     });
 
-    console.log("traverse the game folders and create app-agents and assets for each game");
-    for (const [index, folder] of game_folders.entries()) {
-        console.log("folder:", folder);
+    console.log("Traverse the game folders and create app-agents and assets for each game");
+    for (const [game_index, game_folder] of game_folders.entries()) {
+        console.log("Game folder:", game_folder);
         let appagentId = null;
-        let appAgentOwner = appAgentOwners[index];
+        let appAgentOwner = appAgentOwners[game_index];
 
-        console.log("Search for folders starting with app-agent- and print all files");
-        const subFolders = fs.readdirSync(folder);
+        const subFolders = fs.readdirSync(game_folder);
 
         for (const subFolder of subFolders) {
-            console.log("subFolder:", subFolder);
             if (subFolder.startsWith('app-agent-')) {
-                const folderPath = path.join(folder, subFolder);
-                console.log("folderPath:", folderPath);
+                const appAgentPath = path.join(game_folder, subFolder);
+                console.log("AppAgent folder detected:", appAgentPath);
 
-                let metadataUrl = readFilesInDirectory(folderPath);
-                console.log("metadataUrl:", metadataUrl);
-
-                if (metadataUrl) {
-                    appagentId = await create_app_agent(api, appAgentOwner, metadataUrl);
+                let metadataUrl = getObjectMetadataURL(appAgentPath);
+                if (!metadataUrl) {
+                    throw new Error(`Could not find metadata URL in ${appAgentPath}`);
                 }
+                console.log("AppAgent metadata URL:", metadataUrl);
+
+                appagentId = await create_app_agent(api, appAgentOwner, metadataUrl);
             }
 
             else if (subFolder.startsWith('fungible-')) {
-                console.log("fungible-token folder detected");
-                const folderPath = path.join(folder, subFolder);
-                console.log("folderPath:", folderPath);
+                const fungiblePath = path.join(game_folder, subFolder);
+                console.log("Fungible token folder detected:", fungiblePath);
 
-                let metadataUrl = readFilesInDirectory(folderPath);
-                console.log("metadataUrl:", metadataUrl);
-                create_app_agent_fungible_token(api, appAgentOwner, appagentId, demo_user_one, demo_user_two, metadataUrl);
+                let metadataUrl = getObjectMetadataURL(fungiblePath);
+                if (!metadataUrl) {
+                    throw new Error(`Could not find metadata URL in ${fungiblePath}`);
+                }
+                console.log("Fungible token metadata URL:", metadataUrl);
+
+                create_fungible_token(api, appAgentOwner, appagentId, demo_user_one, demo_user_two, metadataUrl);
             }
 
-            if (subFolder.startsWith('nft-collection')) {
-                console.log("nft-collection folder detected");
-                const folderPath = path.join(folder, subFolder);
-                console.log("folderPath:", folderPath);
+            else if (subFolder.startsWith('nft-collection')) {
+                const folderPath = path.join(game_folder, subFolder);
+                console.log("NFT collection root folder detected:", folderPath);
 
                 const subsubFolders = fs.readdirSync(folderPath);
 
@@ -131,35 +133,47 @@ async function main() {
                 for (const subsubFolder of subsubFolders) {
                     if (subsubFolder.startsWith('nft-collection')) {
                         const nftCollectionPath = path.join(folderPath, subsubFolder);
-                        console.log("nftCollectionPath:", nftCollectionPath);
-                        let metadataUrl = readFilesInDirectory(nftCollectionPath);
-                        console.log("metadataUrl:", metadataUrl);
+                        console.log("NFT collection folder detected:", nftCollectionPath);
 
-                        collection_id = await create_app_agent_nft_collection(api, appAgentOwner, appagentId, metadataUrl);
+                        let metadataUrl = getObjectMetadataURL(nftCollectionPath);
+                        if (!metadataUrl) {
+                            throw new Error(`Could not find metadata URL in ${nftCollectionPath}`);
+                        }
+                        console.log("NFT collection metadata URL:", metadataUrl);
+
+                        collection_id = await create_nft_collection(api, appAgentOwner, appagentId, metadataUrl);
                     }
 
                     else if (subsubFolder.startsWith('nft-token')) {
-                        const nftItemPath = path.join(folderPath, subsubFolder);
-                        console.log("nftItemPath:", nftItemPath);
-                        let metadataUrl = readFilesInDirectory(nftItemPath);
-                        console.log("metadataUrl:", metadataUrl);
+                        const nftTokenPath = path.join(folderPath, subsubFolder);
+                        console.log("NFT token folder detected:", nftTokenPath);
 
-                        await create_app_agent_nft_token(api, appAgentOwner, appagentId, collection_id, metadataUrl, demo_user_one, demo_user_three);
+                        let metadataUrl = getObjectMetadataURL(nftTokenPath);
+                        if (!metadataUrl) {
+                            throw new Error(`Could not find metadata URL in ${nftTokenPath}`);
+                        }
+                        console.log("NFT token metadata URL:", metadataUrl);
+
+                        await create_nft_token(api, appAgentOwner, appagentId, collection_id, metadataUrl, demo_user_one, demo_user_three);
                     }
                 }
-
-
             }
 
             else {
-                console.log("Unknown folder detected, ignoring...");
+                console.log("Unknown folder detected, ignoring: ", subFolder);
             }
         }
     }
 }
 
-console.log("Function to read all files in a directory");
-function readFilesInDirectory(directory) {
+/**
+ * Function searches for the json file with object metadata.
+ * And calculates the metadata URL based on the file path.
+ *
+ * @param {string} directory - The directory where the metadata file is stored.
+ * @return {string|null} The metadata URL if found, otherwise null.
+ */
+function getObjectMetadataURL(directory) {
     const files = fs.readdirSync(directory);
     const jsonFiles = files.filter(file => file.endsWith('.json'));
 
@@ -167,15 +181,12 @@ function readFilesInDirectory(directory) {
         const filePath = path.join(directory, file);
         const stats = fs.statSync(filePath);
         if (stats.isFile()) {
-            console.log(`File: ${filePath}`);
+            // console.log(`File: ${filePath}`);
 
-            console.log("Generate the URL based on the folder structure");
             const relativePath = path.relative(aws_s3_assets_path, filePath);
             const url = `https://trait-wallet-demo-account.trait.tech/${relativePath.replace(/\\/g, '/')}`;
 
             console.log(`Generated URL: ${url}`);
-
-            console.log("Return the URL instead of reading the file content");
             return url;
         }
     }
