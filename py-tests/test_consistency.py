@@ -14,8 +14,8 @@ class TestConfig:
     HTTP_TIMEOUT = 2
 
 
-class TestRegistry(unittest.TestCase):
-    def collect_all_meta(self: "TestRegistry") -> tuple[list[Path], list[Path], list[Path], list[Path]]:
+class TestAssets(unittest.TestCase):
+    def collect_all_meta(self: "TestAssets") -> tuple[list[Path], list[Path], list[Path], list[Path]]:
         """
         Validate metadata of on-chain assets with traits schema.
 
@@ -47,7 +47,7 @@ class TestRegistry(unittest.TestCase):
                 
         return meta_app_agents, meta_fungibles, meta_nft_collections, meta_nft_tokens
 
-    def test_validate_local_meta(self: "TestRegistry") -> None:
+    def test_validate_local_meta(self: "TestAssets") -> None:
         """
         Validate metadata of on-chain assets stored in the repo.
 
@@ -155,7 +155,7 @@ class TestRegistry(unittest.TestCase):
             self.assertTrue(Path(cover_path).is_file())
             self.assertTrue(Path(cover_path).name.endswith(".png"))
 
-    def test_validate_cdn_meta(self: "TestRegistry") -> None:
+    def test_validate_cdn_meta(self: "TestAssets") -> None:
         """
         Validate metadata of on-chain assets stored in the AWS CDN, distributed via CDN.
 

@@ -1,67 +1,46 @@
 {
-        "metadata_id": "demo-nft-token-b-b-h",
-        "title": "Metadata of the demo NFT token for the game Crown Clash.",
-        "description": "Metadata of the demo NFT token for the game Crown Clash.",
-        "traits": {
-            "named": {
-                "name": "NFT-TOKEN-NAME"
-            },
-            "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-h/icon_150x150.png"
-            },
-            "tech.trait.wallet.nft_token_listing_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-h/listing_512x512.png"
-            },
-            "tech.trait.wallet.nft_token_cover_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-h/cover_1920x1920.png"
-            },
-            "tech.trait.wallet.nft_token_description": {
-                "nft_token_description": "DESCRIPTION-OF-NFT-TOKEN"
-            },
-            "tech.trait.wallet.nft_token_attributes": {
-                "attributes": [
-                    {
-                        "name": "Number attribute",
-                        "display_type": "number",
-                        "value": 123
-                    },
-                    {
-                        "name": "Percentage attribute",
-                        "display_type": "percentage",
-                        "value": -17
-                    },
-                    {
-                        "name": "String attribute",
-                        "display_type": "string",
-                        "value": "Some string"
-                    },
-                    {
-                        "name": "Boolean attribute",
-                        "display_type": "boolean",
-                        "value": true
-                    },
-                    {
-                        "name": "Date attribute 1",
-                        "display_type": "date",
-                        "value": "2018-11-13T20:20:39+00:00"
-                    },
-                    {
-                        "name": "Date attribute 2",
-                        "display_type": "date",
-                        "value": "2018-11-13"
-                    },
-                    {
-                        "name": "Date attribute 3",
-                        "display_type": "date",
-                        "value": "20:20:39+00:00"
-                    },
-                    {
-                        "name": "Duration attribute",
-                        "display_type": "duration",
-                        "value": "P3D"
-                    }
-                ]
-            }
+  "metadata_id": "demo-nft-token-b-b-h",
+  "title": "Metadata of the demo NFT token for the game Crown Clash.",
+  "description": "Metadata of the demo NFT token for the game Crown Clash.",
+  "traits": {
+    "named": {
+      "name": "Gizmo Goblin"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-h/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-h/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-h/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "In the whimsical realm, meet the quirky Goblin Mechanic! With a toothy grin and oversized goggles that gleam with mischievous energy, this crafty goblin is a master of gadgetry. Adorned in a rugged harness and equipped with an array of wacky inventions, he is always ready to repair and bolster his comrades on the battlefield. His quick thinking and unparalleled ingenuity allow him to fix structures and machines, ensuring the goblin horde remains relentless. Whether building traps or enhancing defenses, the Goblin Mechanic brings chaos and charm to every clash—underscoring the unpredictable nature of goblin technology!"
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Hitpoints",
+          "display_type": "number",
+          "value": 3000
+        },
+        {
+          "name": "Damage per second",
+          "display_type": "number",
+          "value": 150
+        },
+        {
+          "name": "Hit Speed",
+          "display_type": "number",
+          "value": 3
+        },
+        {
+          "name": "Range",
+          "display_type": "number",
+          "value": 6
         }
+      ]
     }
-    
+  }
+}

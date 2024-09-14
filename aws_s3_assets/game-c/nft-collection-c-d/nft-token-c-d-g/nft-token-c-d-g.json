@@ -1,67 +1,31 @@
 {
-        "metadata_id": "demo-nft-token-c-d-g",
-        "title": "Metadata of the demo NFT token for the game ZoneX.",
-        "description": "Metadata of the demo NFT token for the game ZoneX.",
-        "traits": {
-            "named": {
-                "name": "NFT-TOKEN-NAME"
-            },
-            "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-g/icon_150x150.png"
-            },
-            "tech.trait.wallet.nft_token_listing_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-g/listing_512x512.png"
-            },
-            "tech.trait.wallet.nft_token_cover_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-g/cover_1920x1920.png"
-            },
-            "tech.trait.wallet.nft_token_description": {
-                "nft_token_description": "DESCRIPTION-OF-NFT-TOKEN"
-            },
-            "tech.trait.wallet.nft_token_attributes": {
-                "attributes": [
-                    {
-                        "name": "Number attribute",
-                        "display_type": "number",
-                        "value": 123
-                    },
-                    {
-                        "name": "Percentage attribute",
-                        "display_type": "percentage",
-                        "value": -17
-                    },
-                    {
-                        "name": "String attribute",
-                        "display_type": "string",
-                        "value": "Some string"
-                    },
-                    {
-                        "name": "Boolean attribute",
-                        "display_type": "boolean",
-                        "value": true
-                    },
-                    {
-                        "name": "Date attribute 1",
-                        "display_type": "date",
-                        "value": "2018-11-13T20:20:39+00:00"
-                    },
-                    {
-                        "name": "Date attribute 2",
-                        "display_type": "date",
-                        "value": "2018-11-13"
-                    },
-                    {
-                        "name": "Date attribute 3",
-                        "display_type": "date",
-                        "value": "20:20:39+00:00"
-                    },
-                    {
-                        "name": "Duration attribute",
-                        "display_type": "duration",
-                        "value": "P3D"
-                    }
-                ]
-            }
+  "metadata_id": "demo-nft-token-c-d-g",
+  "title": "Metadata of the demo NFT token for the game ZoneX.",
+  "description": "Metadata of the demo NFT token for the game ZoneX.",
+  "traits": {
+    "named": {
+      "name": "Shadow Rider"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-g/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-g/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-g/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "In the dim glow of the underbelly of the city, a sleek black motorcycle stands, a beast ready to roar. Its matte finish absorbs the light, giving it an air of stealth and mystery. The powerful engine hums softly, hinting at the untamed speed it can unleash. With rugged tires built for both urban streets and off-road adventures, this machine promises adrenaline-fueled escapes. Its sharp lines and aggressive stance signal a design forged for power and agility. As you grasp the handlebars, an exhilarating rush courses through your veins—freedom awaits with every twist of the throttle. Dare to ride?"
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Speed",
+          "display_type": "number",
+          "value": 90
         }
+      ]
     }
-    
+  }
+}

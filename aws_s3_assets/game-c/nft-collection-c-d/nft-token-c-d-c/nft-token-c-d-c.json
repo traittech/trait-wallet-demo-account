@@ -1,67 +1,31 @@
 {
-        "metadata_id": "demo-nft-token-c-d-c",
-        "title": "Metadata of the demo NFT token for the game ZoneX.",
-        "description": "Metadata of the demo NFT token for the game ZoneX.",
-        "traits": {
-            "named": {
-                "name": "NFT-TOKEN-NAME"
-            },
-            "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-c/icon_150x150.png"
-            },
-            "tech.trait.wallet.nft_token_listing_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-c/listing_512x512.png"
-            },
-            "tech.trait.wallet.nft_token_cover_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-c/cover_1920x1920.png"
-            },
-            "tech.trait.wallet.nft_token_description": {
-                "nft_token_description": "DESCRIPTION-OF-NFT-TOKEN"
-            },
-            "tech.trait.wallet.nft_token_attributes": {
-                "attributes": [
-                    {
-                        "name": "Number attribute",
-                        "display_type": "number",
-                        "value": 123
-                    },
-                    {
-                        "name": "Percentage attribute",
-                        "display_type": "percentage",
-                        "value": -17
-                    },
-                    {
-                        "name": "String attribute",
-                        "display_type": "string",
-                        "value": "Some string"
-                    },
-                    {
-                        "name": "Boolean attribute",
-                        "display_type": "boolean",
-                        "value": true
-                    },
-                    {
-                        "name": "Date attribute 1",
-                        "display_type": "date",
-                        "value": "2018-11-13T20:20:39+00:00"
-                    },
-                    {
-                        "name": "Date attribute 2",
-                        "display_type": "date",
-                        "value": "2018-11-13"
-                    },
-                    {
-                        "name": "Date attribute 3",
-                        "display_type": "date",
-                        "value": "20:20:39+00:00"
-                    },
-                    {
-                        "name": "Duration attribute",
-                        "display_type": "duration",
-                        "value": "P3D"
-                    }
-                ]
-            }
+  "metadata_id": "demo-nft-token-c-d-c",
+  "title": "Metadata of the demo NFT token for the game ZoneX.",
+  "description": "Metadata of the demo NFT token for the game ZoneX.",
+  "traits": {
+    "named": {
+      "name": "Frost Blazer"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-c/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-c/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-c/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "As the cold wind howls through the snow-covered landscape, you spot a magnificent snowmobile glistening in the moonlight. Its sleek body, painted in striking shades of red and silver, reflects a fierce, untamed spirit. The powerful engine purrs, eager to unleash its speed on the treacherous terrain. With cutting-edge technology, this machine promises both agility and stability, preparing you for exhilarating races through dense forests and open fields. As you grip the handlebars and feel the adrenaline surge, a world of adventure awaits. Will you conquer the icy wilderness or succumb to the thrilling dangers that lie ahead?"
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Speed",
+          "display_type": "number",
+          "value": 78
         }
+      ]
     }
-    
+  }
+}

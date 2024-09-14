@@ -1,67 +1,36 @@
 {
-        "metadata_id": "demo-nft-token-a-c-h",
-        "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
-        "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
-        "traits": {
-            "named": {
-                "name": "NFT-TOKEN-NAME"
-            },
-            "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-h/icon_150x150.png"
-            },
-            "tech.trait.wallet.nft_token_listing_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-h/listing_512x512.png"
-            },
-            "tech.trait.wallet.nft_token_cover_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-h/cover_1920x1920.png"
-            },
-            "tech.trait.wallet.nft_token_description": {
-                "nft_token_description": "DESCRIPTION-OF-NFT-TOKEN"
-            },
-            "tech.trait.wallet.nft_token_attributes": {
-                "attributes": [
-                    {
-                        "name": "Number attribute",
-                        "display_type": "number",
-                        "value": 123
-                    },
-                    {
-                        "name": "Percentage attribute",
-                        "display_type": "percentage",
-                        "value": -17
-                    },
-                    {
-                        "name": "String attribute",
-                        "display_type": "string",
-                        "value": "Some string"
-                    },
-                    {
-                        "name": "Boolean attribute",
-                        "display_type": "boolean",
-                        "value": true
-                    },
-                    {
-                        "name": "Date attribute 1",
-                        "display_type": "date",
-                        "value": "2018-11-13T20:20:39+00:00"
-                    },
-                    {
-                        "name": "Date attribute 2",
-                        "display_type": "date",
-                        "value": "2018-11-13"
-                    },
-                    {
-                        "name": "Date attribute 3",
-                        "display_type": "date",
-                        "value": "20:20:39+00:00"
-                    },
-                    {
-                        "name": "Duration attribute",
-                        "display_type": "duration",
-                        "value": "P3D"
-                    }
-                ]
-            }
+  "metadata_id": "demo-nft-token-a-c-h",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "traits": {
+    "named": {
+      "name": "Silver Spear"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-h/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-h/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-h/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "This elegant spear embodies both beauty and lethality, crafted from a gleaming silver-hued metal that glimmers in the light. Its elongated shaft is meticulously designed, featuring intricate engravings that tell the tale of ancient warriors. The spearhead is shaped like a razor-sharp arrow, perfect for piercing through armor and striking foes from a distance. A prominent gemstone adorns the base of the spearhead, emanating a subtle glow that suggests magical properties. Whether wielded by a skilled fighter or displayed as a trophy, this spear serves as a symbol of strength, precision, and craftsmanship in any adventurous realm."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Base attack",
+          "display_type": "number",
+          "value": 54
+        },
+        {
+          "name": "Physical damage",
+          "display_type": "percentage",
+          "value": 20
         }
+      ]
     }
-    
+  }
+}

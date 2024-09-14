@@ -1,67 +1,51 @@
 {
-        "metadata_id": "demo-nft-token-b-d-i",
-        "title": "Metadata of the demo NFT token for the game Crown Clash.",
-        "description": "Metadata of the demo NFT token for the game Crown Clash.",
-        "traits": {
-            "named": {
-                "name": "NFT-TOKEN-NAME"
-            },
-            "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-i/icon_150x150.png"
-            },
-            "tech.trait.wallet.nft_token_listing_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-i/listing_512x512.png"
-            },
-            "tech.trait.wallet.nft_token_cover_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-i/cover_1920x1920.png"
-            },
-            "tech.trait.wallet.nft_token_description": {
-                "nft_token_description": "DESCRIPTION-OF-NFT-TOKEN"
-            },
-            "tech.trait.wallet.nft_token_attributes": {
-                "attributes": [
-                    {
-                        "name": "Number attribute",
-                        "display_type": "number",
-                        "value": 123
-                    },
-                    {
-                        "name": "Percentage attribute",
-                        "display_type": "percentage",
-                        "value": -17
-                    },
-                    {
-                        "name": "String attribute",
-                        "display_type": "string",
-                        "value": "Some string"
-                    },
-                    {
-                        "name": "Boolean attribute",
-                        "display_type": "boolean",
-                        "value": true
-                    },
-                    {
-                        "name": "Date attribute 1",
-                        "display_type": "date",
-                        "value": "2018-11-13T20:20:39+00:00"
-                    },
-                    {
-                        "name": "Date attribute 2",
-                        "display_type": "date",
-                        "value": "2018-11-13"
-                    },
-                    {
-                        "name": "Date attribute 3",
-                        "display_type": "date",
-                        "value": "20:20:39+00:00"
-                    },
-                    {
-                        "name": "Duration attribute",
-                        "display_type": "duration",
-                        "value": "P3D"
-                    }
-                ]
-            }
+  "metadata_id": "demo-nft-token-b-d-i",
+  "title": "Metadata of the demo NFT token for the game Crown Clash.",
+  "description": "Metadata of the demo NFT token for the game Crown Clash.",
+  "traits": {
+    "named": {
+      "name": "Cannon Blaster"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-i/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-i/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-i/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "In the vibrant land of Cannoport, where whimsical characters roam freely, mighty cannons stand ready for action! As the sun rises, the air hums with anticipation. You, the master strategist, must command your cannon to defend your realm against encroaching foes. Each round, plot your shots with precision, as enemy fortifications loom. Utilize terrain advantages to outsmart opponents, and unleash powerful ammunition to shatter their defenses! Gather resources, upgrade your arsenal, and forge alliances with local creatures. Will you master the art of cannon warfare and emerge victorious, or will your kingdom fall to chaos? The battle awaits!"
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Cost",
+          "display_type": "number",
+          "value": 35
+        },
+        {
+          "name": "Hitpoints",
+          "display_type": "number",
+          "value": 250
+        },
+        {
+          "name": "Damage per second",
+          "display_type": "number",
+          "value": 180
+        },
+        {
+          "name": "Range",
+          "display_type": "number",
+          "value": 8.5
+        },
+        {
+          "name": "Deploy Time",
+          "display_type": "number",
+          "value": 3.0
         }
+      ]
     }
-    
+  }
+}

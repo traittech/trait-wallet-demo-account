@@ -1,67 +1,41 @@
 {
-        "metadata_id": "demo-nft-token-b-c-a",
-        "title": "Metadata of the demo NFT token for the game Crown Clash.",
-        "description": "Metadata of the demo NFT token for the game Crown Clash.",
-        "traits": {
-            "named": {
-                "name": "NFT-TOKEN-NAME"
-            },
-            "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-a/icon_150x150.png"
-            },
-            "tech.trait.wallet.nft_token_listing_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-a/listing_512x512.png"
-            },
-            "tech.trait.wallet.nft_token_cover_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-a/cover_1920x1920.png"
-            },
-            "tech.trait.wallet.nft_token_description": {
-                "nft_token_description": "DESCRIPTION-OF-NFT-TOKEN"
-            },
-            "tech.trait.wallet.nft_token_attributes": {
-                "attributes": [
-                    {
-                        "name": "Number attribute",
-                        "display_type": "number",
-                        "value": 123
-                    },
-                    {
-                        "name": "Percentage attribute",
-                        "display_type": "percentage",
-                        "value": -17
-                    },
-                    {
-                        "name": "String attribute",
-                        "display_type": "string",
-                        "value": "Some string"
-                    },
-                    {
-                        "name": "Boolean attribute",
-                        "display_type": "boolean",
-                        "value": true
-                    },
-                    {
-                        "name": "Date attribute 1",
-                        "display_type": "date",
-                        "value": "2018-11-13T20:20:39+00:00"
-                    },
-                    {
-                        "name": "Date attribute 2",
-                        "display_type": "date",
-                        "value": "2018-11-13"
-                    },
-                    {
-                        "name": "Date attribute 3",
-                        "display_type": "date",
-                        "value": "20:20:39+00:00"
-                    },
-                    {
-                        "name": "Duration attribute",
-                        "display_type": "duration",
-                        "value": "P3D"
-                    }
-                ]
-            }
+  "metadata_id": "demo-nft-token-b-c-a",
+  "title": "Metadata of the demo NFT token for the game Crown Clash.",
+  "description": "Metadata of the demo NFT token for the game Crown Clash.",
+  "traits": {
+    "named": {
+      "name": "Inferno Elixir"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-a/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-a/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-a/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "In a shadowy corner of the alchemist's workshop, a potion bubbles with arcane energy. The glass vial, encased in a soft glow of purple and flickering flames, is a forbidden elixir known as the Ember Essence. Crafted from rare ingredients and infused with mystical properties, this potent brew grants its wielder temporary powers beyond imagination. One sip could ignite fire within, enhancing strength and resilience, while another may unleash a torrent of flames upon enemies. But beware, for the essence of chaos lurks within. Will you dare to harness its power, or will it consume you? The choice is yours!"
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Cost",
+          "display_type": "number",
+          "value": 30
+        },
+        {
+          "name": "Area damage",
+          "display_type": "number",
+          "value": 100
+        },
+        {
+          "name": "Radius",
+          "display_type": "number",
+          "value": 150
         }
+      ]
     }
-    
+  }
+}

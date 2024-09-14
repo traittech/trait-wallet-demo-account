@@ -1,67 +1,41 @@
 {
-        "metadata_id": "demo-nft-token-c-b-f",
-        "title": "Metadata of the demo NFT token for the game ZoneX.",
-        "description": "Metadata of the demo NFT token for the game ZoneX.",
-        "traits": {
-            "named": {
-                "name": "NFT-TOKEN-NAME"
-            },
-            "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-f/icon_150x150.png"
-            },
-            "tech.trait.wallet.nft_token_listing_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-f/listing_512x512.png"
-            },
-            "tech.trait.wallet.nft_token_cover_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-f/cover_1920x1920.png"
-            },
-            "tech.trait.wallet.nft_token_description": {
-                "nft_token_description": "DESCRIPTION-OF-NFT-TOKEN"
-            },
-            "tech.trait.wallet.nft_token_attributes": {
-                "attributes": [
-                    {
-                        "name": "Number attribute",
-                        "display_type": "number",
-                        "value": 123
-                    },
-                    {
-                        "name": "Percentage attribute",
-                        "display_type": "percentage",
-                        "value": -17
-                    },
-                    {
-                        "name": "String attribute",
-                        "display_type": "string",
-                        "value": "Some string"
-                    },
-                    {
-                        "name": "Boolean attribute",
-                        "display_type": "boolean",
-                        "value": true
-                    },
-                    {
-                        "name": "Date attribute 1",
-                        "display_type": "date",
-                        "value": "2018-11-13T20:20:39+00:00"
-                    },
-                    {
-                        "name": "Date attribute 2",
-                        "display_type": "date",
-                        "value": "2018-11-13"
-                    },
-                    {
-                        "name": "Date attribute 3",
-                        "display_type": "date",
-                        "value": "20:20:39+00:00"
-                    },
-                    {
-                        "name": "Duration attribute",
-                        "display_type": "duration",
-                        "value": "P3D"
-                    }
-                ]
-            }
+  "metadata_id": "demo-nft-token-c-b-f",
+  "title": "Metadata of the demo NFT token for the game ZoneX.",
+  "description": "Metadata of the demo NFT token for the game ZoneX.",
+  "traits": {
+    "named": {
+      "name": "Vector SMG"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-f/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-f/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-f/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "In a dimly lit arena, the air thick with tension, you lay eyes on your weapon of choice: the sleek submachine gun, a marvel of tactical engineering. Black and unyielding, it embodies precision and speed, perfect for close-quarters combat. The sound of the magazine clicking into place resonates in your ears as you load it, your heart racing with anticipation. As you grip the cool, textured handle, you feel the power it offers—swift bursts of fire ready to rain chaos on your foes. With this trusty sidearm, every encounter becomes a dance of strategy and survival. Will you emerge victorious?"
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Damage",
+          "display_type": "number",
+          "value": 30
+        },
+        {
+          "name": "Fire rate",
+          "display_type": "number",
+          "value": 2
+        },
+        {
+          "name": "Reload speed",
+          "display_type": "number",
+          "value": 2.5
         }
+      ]
     }
-    
+  }
+}
