@@ -1,67 +1,41 @@
 {
-        "metadata_id": "demo-nft-token-b-c-h",
-        "title": "Metadata of the demo NFT token for the game Crown Clash.",
-        "description": "Metadata of the demo NFT token for the game Crown Clash.",
-        "traits": {
-            "named": {
-                "name": "NFT-TOKEN-NAME"
-            },
-            "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-h/icon_150x150.png"
-            },
-            "tech.trait.wallet.nft_token_listing_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-h/listing_512x512.png"
-            },
-            "tech.trait.wallet.nft_token_cover_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-h/cover_1920x1920.png"
-            },
-            "tech.trait.wallet.nft_token_description": {
-                "nft_token_description": "DESCRIPTION-OF-NFT-TOKEN"
-            },
-            "tech.trait.wallet.nft_token_attributes": {
-                "attributes": [
-                    {
-                        "name": "Number attribute",
-                        "display_type": "number",
-                        "value": 123
-                    },
-                    {
-                        "name": "Percentage attribute",
-                        "display_type": "percentage",
-                        "value": -17
-                    },
-                    {
-                        "name": "String attribute",
-                        "display_type": "string",
-                        "value": "Some string"
-                    },
-                    {
-                        "name": "Boolean attribute",
-                        "display_type": "boolean",
-                        "value": true
-                    },
-                    {
-                        "name": "Date attribute 1",
-                        "display_type": "date",
-                        "value": "2018-11-13T20:20:39+00:00"
-                    },
-                    {
-                        "name": "Date attribute 2",
-                        "display_type": "date",
-                        "value": "2018-11-13"
-                    },
-                    {
-                        "name": "Date attribute 3",
-                        "display_type": "date",
-                        "value": "20:20:39+00:00"
-                    },
-                    {
-                        "name": "Duration attribute",
-                        "display_type": "duration",
-                        "value": "P3D"
-                    }
-                ]
-            }
+  "metadata_id": "demo-nft-token-b-c-h",
+  "title": "Metadata of the demo NFT token for the game Crown Clash.",
+  "description": "Metadata of the demo NFT token for the game Crown Clash.",
+  "traits": {
+    "named": {
+      "name": "Frostbite Elixir"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-h/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-h/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-h/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "As the frostbitten winds howl outside, you discover a shimmering vial of icy cerulean liquid, adorned with a delicate snowflake trapped within its depths. Glowing softly with an ethereal light, this enchanted bottle holds the essence of winter itself. Legends whisper that a single drop can conjure snowstorms or freeze foes in their tracks. Will you harness its power to protect your realm or unleash a chill upon your enemies? The choice is yours, brave adventurer, as you tread the fine line between magic and mayhem. Open the vial to reveal the secrets within—but beware, for every spell comes with its price."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Cost",
+          "display_type": "number",
+          "value": 25
+        },
+        {
+          "name": "Area damage",
+          "display_type": "number",
+          "value": 75
+        },
+        {
+          "name": "Radius",
+          "display_type": "number",
+          "value": 100
         }
+      ]
     }
-    
+  }
+}

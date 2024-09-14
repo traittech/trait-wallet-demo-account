@@ -1,67 +1,46 @@
 {
-        "metadata_id": "demo-nft-token-b-b-i",
-        "title": "Metadata of the demo NFT token for the game Crown Clash.",
-        "description": "Metadata of the demo NFT token for the game Crown Clash.",
-        "traits": {
-            "named": {
-                "name": "NFT-TOKEN-NAME"
-            },
-            "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-i/icon_150x150.png"
-            },
-            "tech.trait.wallet.nft_token_listing_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-i/listing_512x512.png"
-            },
-            "tech.trait.wallet.nft_token_cover_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-i/cover_1920x1920.png"
-            },
-            "tech.trait.wallet.nft_token_description": {
-                "nft_token_description": "DESCRIPTION-OF-NFT-TOKEN"
-            },
-            "tech.trait.wallet.nft_token_attributes": {
-                "attributes": [
-                    {
-                        "name": "Number attribute",
-                        "display_type": "number",
-                        "value": 123
-                    },
-                    {
-                        "name": "Percentage attribute",
-                        "display_type": "percentage",
-                        "value": -17
-                    },
-                    {
-                        "name": "String attribute",
-                        "display_type": "string",
-                        "value": "Some string"
-                    },
-                    {
-                        "name": "Boolean attribute",
-                        "display_type": "boolean",
-                        "value": true
-                    },
-                    {
-                        "name": "Date attribute 1",
-                        "display_type": "date",
-                        "value": "2018-11-13T20:20:39+00:00"
-                    },
-                    {
-                        "name": "Date attribute 2",
-                        "display_type": "date",
-                        "value": "2018-11-13"
-                    },
-                    {
-                        "name": "Date attribute 3",
-                        "display_type": "date",
-                        "value": "20:20:39+00:00"
-                    },
-                    {
-                        "name": "Duration attribute",
-                        "display_type": "duration",
-                        "value": "P3D"
-                    }
-                ]
-            }
+  "metadata_id": "demo-nft-token-b-b-i",
+  "title": "Metadata of the demo NFT token for the game Crown Clash.",
+  "description": "Metadata of the demo NFT token for the game Crown Clash.",
+  "traits": {
+    "named": {
+      "name": "Shadow Archer"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-i/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-i/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-i/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "In a mystical realm where shadows dance and secrets whisper, a fierce heroine emerges—an elven guardian clad in dark armor, her striking gaze piercing through the darkness. Adorned with a shimmering crown, she wields a bow of ancient power, ready to defend her kingdom from encroaching darkness. With every swift arrow, she channels the spirits of the forest, her agility unmatched. The fate of her world hangs in the balance as she embarks on a quest filled with peril and magic. Will her courage and skill be enough to restore peace, or will the shadows claim victory? The adventure begins now!"
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Hitpoints",
+          "display_type": "number",
+          "value": 3200
+        },
+        {
+          "name": "Damage per second",
+          "display_type": "number",
+          "value": 180
+        },
+        {
+          "name": "Hit Speed",
+          "display_type": "number",
+          "value": 3
+        },
+        {
+          "name": "Range",
+          "display_type": "number",
+          "value": 7
         }
+      ]
     }
-    
+  }
+}

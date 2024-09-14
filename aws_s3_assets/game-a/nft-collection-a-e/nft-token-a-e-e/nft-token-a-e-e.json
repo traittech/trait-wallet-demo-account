@@ -1,67 +1,41 @@
 {
-        "metadata_id": "demo-nft-token-a-e-e",
-        "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
-        "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
-        "traits": {
-            "named": {
-                "name": "NFT-TOKEN-NAME"
-            },
-            "tech.trait.wallet.square_icon": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-e/icon_150x150.png"
-            },
-            "tech.trait.wallet.nft_token_listing_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-e/listing_512x512.png"
-            },
-            "tech.trait.wallet.nft_token_cover_image": {
-                "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-e/cover_1920x1920.png"
-            },
-            "tech.trait.wallet.nft_token_description": {
-                "nft_token_description": "DESCRIPTION-OF-NFT-TOKEN"
-            },
-            "tech.trait.wallet.nft_token_attributes": {
-                "attributes": [
-                    {
-                        "name": "Number attribute",
-                        "display_type": "number",
-                        "value": 123
-                    },
-                    {
-                        "name": "Percentage attribute",
-                        "display_type": "percentage",
-                        "value": -17
-                    },
-                    {
-                        "name": "String attribute",
-                        "display_type": "string",
-                        "value": "Some string"
-                    },
-                    {
-                        "name": "Boolean attribute",
-                        "display_type": "boolean",
-                        "value": true
-                    },
-                    {
-                        "name": "Date attribute 1",
-                        "display_type": "date",
-                        "value": "2018-11-13T20:20:39+00:00"
-                    },
-                    {
-                        "name": "Date attribute 2",
-                        "display_type": "date",
-                        "value": "2018-11-13"
-                    },
-                    {
-                        "name": "Date attribute 3",
-                        "display_type": "date",
-                        "value": "20:20:39+00:00"
-                    },
-                    {
-                        "name": "Duration attribute",
-                        "display_type": "duration",
-                        "value": "P3D"
-                    }
-                ]
-            }
+  "metadata_id": "demo-nft-token-a-e-e",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "traits": {
+    "named": {
+      "name": "Verdant Embrace"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-e/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-e/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-e/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "This enchanting game item is a wreath adorned with vibrant green leaves, delicate white flowers, and shimmering blue gemstones. Symbolizing nature’s beauty and renewal, the wreath serves as a visual representation of harmony and tranquility. It captures the essence of the natural world, integrating elements of flora and magical sparkle. Players may use this item to enhance their character’s connection to nature, unlock unique abilities, or as part of a crafting recipe. Its intricate design not only adds aesthetic value but also signifies growth and the nurturing of life within the game’s universe. A cherished item for any adventurer!"
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "HP boost",
+          "display_type": "percentage",
+          "value": 23
+        },
+        {
+          "name": "Defence",
+          "display_type": "percentage",
+          "value": 15
+        },
+        {
+          "name": "Energy recharge",
+          "display_type": "percentage",
+          "value": 45
         }
+      ]
     }
-    
+  }
+}
