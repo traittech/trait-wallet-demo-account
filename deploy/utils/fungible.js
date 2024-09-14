@@ -3,7 +3,7 @@ const { Keyring } = require("@polkadot/keyring");
 const { encodeNamed } = require("./keyless");
 
 async function create_app_agent_fungible_token(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two, metadataUrl) {
-    // Create fungible token
+    console.log("Create fungible token");
     let token_admin = encodeNamed(appAgentId, "asset-admi");
 
     let create_fungible_token = api.tx.assets.create(
@@ -21,7 +21,7 @@ async function create_app_agent_fungible_token(api, appAgentOwner, appAgentId, t
         ]]
     );
 
-    // Wait for the event and get the token ID
+    console.log("Wait for the event and get the token ID");
     let token_id;
     await create_fungible_token_ct.signAndSend(appAgentOwner, { nonce: -1 }, ({ events = [], status }) => {
         if (status.isInBlock || status.isFinalized) {
@@ -37,10 +37,10 @@ async function create_app_agent_fungible_token(api, appAgentOwner, appAgentId, t
         console.error("Error creating fungible token:", error);
     });
 
-    // wait for the tx to propogate
+    console.log("Wait for the tx to propogate");
     await new Promise(resolve => setTimeout(resolve, 10_000));
 
-    // Configure app agent and mint tokens
+    console.log("Configure app agent and mint tokens");
     let set_metadata_call = api.tx.assets.setMetadata(
         token_id,
         metadataUrl
@@ -75,14 +75,14 @@ async function create_app_agent_fungible_token(api, appAgentOwner, appAgentId, t
             process.exit(1);
         });
 
-    // wait for the tx to propogate
+    console.log("Wait for the tx to propogate");
     await new Promise(resolve => setTimeout(resolve, 10_000));
 
     await create_token_transfers(api, token_id, token_recipient, token_recipient_two);
 }
 
 async function create_token_transfers(api, token_id, token_recipient, token_recipient_two) {
-    // generate 5 free transfers between the two users
+    console.log("Generate 5 free transfers between the two users");
     let batch_calls_two = [];
     for (let i = 0; i < 5; i++) {
         let free_transfer_call = api.tx.playerTransfers.submitTransferAssets(
@@ -105,7 +105,7 @@ async function create_token_transfers(api, token_id, token_recipient, token_reci
             process.exit(1);
         });
 
-    // wait for the tx to propogate
+    console.log("Wait for the tx to propogate");
     await new Promise(resolve => setTimeout(resolve, 10_000));
 
     console.log("App agent assets created successfully");

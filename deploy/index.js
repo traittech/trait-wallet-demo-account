@@ -18,16 +18,16 @@ const game_folders = [game_a_path, game_b_path, game_c_path];
 dotenv.config();
 
 async function main() {
-    // Read WS_PROVIDER_URL from .env file
+    console.log("Read WS_PROVIDER_URL from .env file");
     const wsProviderUrl = process.env.WS_PROVIDER_URL;
     if (!wsProviderUrl) {
         throw new Error("WS_PROVIDER_URL is not set in the .env file");
     }
 
-    // Create a provider with the URL from .env
+    console.log("Create a provider with the URL from .env");
     const provider = new WsProvider(wsProviderUrl);
 
-    // Instantiate the API with the provider
+    console.log("Instantiate the API with the provider");
     const api = await ApiPromise.create({
         provider,
         types: {
@@ -44,10 +44,10 @@ async function main() {
         }
     });
 
-    // Construct the keyring
+    console.log("Construct the keyring");
     const keyring = new Keyring({ type: "sr25519" });
 
-    // Load accounts from .env file
+    console.log("Load accounts from .env file");
     const faucetAccount = keyring.addFromUri(process.env.FAUCET_ACCOUNT_MNEMONIC);
     const appAgentOneOwner = keyring.addFromUri(process.env.APP_AGENT_OWNER_ONE_MNEMONIC);
     const appAgentTwoOwner = keyring.addFromUri(process.env.APP_AGENT_OWNER_TWO_MNEMONIC);
@@ -60,14 +60,14 @@ async function main() {
 
     const transferAmount = parseInt(process.env.TRANSFER_AMOUNT) * 1e12;
 
-    // Create a batch of transfers
+    console.log("Create a batch of transfers");
     const transfers = [
         api.tx.balances.transferKeepAlive(appAgentOneOwner.address, transferAmount.toString()),
         api.tx.balances.transferKeepAlive(appAgentTwoOwner.address, transferAmount.toString()),
         api.tx.balances.transferKeepAlive(appAgentThreeOwner.address, transferAmount.toString())
     ];
 
-    // Send the batch of transfers
+    console.log("Send the batch of transfers");
     await new Promise((resolve, reject) => {
         api.tx.utility
             .batchAll(transfers)
@@ -86,13 +86,13 @@ async function main() {
             .catch(reject);
     });
 
-    // traverse the game folders and create app-agents and assets for each game
+    console.log("traverse the game folders and create app-agents and assets for each game");
     for (const [index, folder] of game_folders.entries()) {
         console.log("folder:", folder);
         let appagentId = null;
         let appAgentOwner = appAgentOwners[index];
 
-        // Search for folders starting with app-agent- and print all files
+        console.log("Search for folders starting with app-agent- and print all files");
         const subFolders = fs.readdirSync(folder);
 
         for (const subFolder of subFolders) {
@@ -152,13 +152,13 @@ async function main() {
             }
 
             else {
-                console.log("unknown folder detected, ignoring...");
+                console.log("Unknown folder detected, ignoring...");
             }
         }
     }
 }
 
-// Function to read all files in a directory
+console.log("Function to read all files in a directory");
 function readFilesInDirectory(directory) {
     const files = fs.readdirSync(directory);
     const jsonFiles = files.filter(file => file.endsWith('.json'));
@@ -169,13 +169,13 @@ function readFilesInDirectory(directory) {
         if (stats.isFile()) {
             console.log(`File: ${filePath}`);
 
-            // Generate the URL based on the folder structure
+            console.log("Generate the URL based on the folder structure");
             const relativePath = path.relative(aws_s3_assets_path, filePath);
             const url = `https://trait-wallet-demo-account.trait.tech/${relativePath.replace(/\\/g, '/')}`;
 
             console.log(`Generated URL: ${url}`);
 
-            // Return the URL instead of reading the file content
+            console.log("Return the URL instead of reading the file content");
             return url;
         }
     }
