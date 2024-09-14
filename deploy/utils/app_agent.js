@@ -21,7 +21,8 @@ async function create_app_agent(api, appAgentOwner, metadataUrl) {
             .catch(reject);
     });
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
+    // wait for the tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000));
 
     // create the transaction to set the metadata
     let set_metadata_tx = api.tx.appAgents.setAppAgentMetadata(
@@ -38,7 +39,8 @@ async function create_app_agent(api, appAgentOwner, metadataUrl) {
             console.error("Error setting metadata URL:", err);
         });
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
+    // wait for the tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000));
 
     return appagentId;
 }

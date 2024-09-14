@@ -13,7 +13,8 @@ async function create_app_agent_nft_collection(api, appAgentOwner, appAgentId, m
 
     await balance_call.signAndSend(appAgentOwner);
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
+    // wait for the tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000));
 
     // Create the NFT Collection
     let create_nft_call = api.tx.nfts.create(
@@ -56,7 +57,8 @@ async function create_app_agent_nft_collection(api, appAgentOwner, appAgentId, m
         });
     });
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
+    // wait for the tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000));
 
     // set the metadata
     let set_team_metadata_call = api.tx.nfts.setTeam(
@@ -87,7 +89,8 @@ async function create_app_agent_nft_collection(api, appAgentOwner, appAgentId, m
 
     await set_team_metadata_ct.signAndSend(appAgentOwner, { nonce: -1 })
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
+    // wait for the tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000));
 
     console.log("App agent NFTs created successfully");
 
@@ -111,7 +114,8 @@ async function create_app_agent_nft_token(api, appAgentOwner, appAgentId, collec
 
     await balance_call.signAndSend(appAgentOwner);
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
+    // wait for the tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000));
 
     let mint_nft_call = api.tx.nfts.mint(
         collection_id,
@@ -142,7 +146,8 @@ async function create_app_agent_nft_token(api, appAgentOwner, appAgentId, collec
 
     await set_metadata_ct.signAndSend(appAgentOwner, { nonce: -1 });
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
+    // wait for the tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000));
 
     console.log("App agent NFT metadata set successfully");
 
@@ -173,7 +178,8 @@ async function create_nft_transfers(api, token_recipient, token_recipient_two, c
             process.exit(1);
         });
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
+    // wait for the tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000));
 }
 
 module.exports = {

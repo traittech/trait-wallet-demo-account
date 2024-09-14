@@ -37,7 +37,8 @@ async function create_app_agent_fungible_token(api, appAgentOwner, appAgentId, t
         console.error("Error creating fungible token:", error);
     });
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
+    // wait for the tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000));
 
     // Configure app agent and mint tokens
     let set_metadata_call = api.tx.assets.setMetadata(
@@ -74,7 +75,8 @@ async function create_app_agent_fungible_token(api, appAgentOwner, appAgentId, t
             process.exit(1);
         });
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
+    // wait for the tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000));
 
     await create_token_transfers(api, token_id, token_recipient, token_recipient_two);
 }
@@ -103,7 +105,8 @@ async function create_token_transfers(api, token_id, token_recipient, token_reci
             process.exit(1);
         });
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the tx to propogate
+    // wait for the tx to propogate
+    await new Promise(resolve => setTimeout(resolve, 10_000));
 
     console.log("App agent assets created successfully");
 }

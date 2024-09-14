@@ -49,10 +49,10 @@ async function main() {
 
     // Load accounts from .env file
     const faucetAccount = keyring.addFromUri(process.env.FAUCET_ACCOUNT_MNEMONIC);
-    const appAgentOne = keyring.addFromUri(process.env.APP_AGENT_OWNER_ONE_MNEMONIC);
-    const appAgentTwo = keyring.addFromUri(process.env.APP_AGENT_OWNER_TWO_MNEMONIC);
-    const appAgentThree = keyring.addFromUri(process.env.APP_AGENT_OWNER_THREE_MNEMONIC);
-    const appAgentOwners = [appAgentOne, appAgentTwo, appAgentThree];
+    const appAgentOneOwner = keyring.addFromUri(process.env.APP_AGENT_OWNER_ONE_MNEMONIC);
+    const appAgentTwoOwner = keyring.addFromUri(process.env.APP_AGENT_OWNER_TWO_MNEMONIC);
+    const appAgentThreeOwner = keyring.addFromUri(process.env.APP_AGENT_OWNER_THREE_MNEMONIC);
+    const appAgentOwners = [appAgentOneOwner, appAgentTwoOwner, appAgentThreeOwner];
 
     const demo_user_one = keyring.addFromUri(process.env.DEMO_ACCOUNT_ONE_MNEMONIC);
     const demo_user_two = keyring.addFromUri(process.env.DEMO_ACCOUNT_TWO_MNEMONIC);
@@ -62,9 +62,9 @@ async function main() {
 
     // Create a batch of transfers
     const transfers = [
-        api.tx.balances.transferKeepAlive(appAgentOne.address, transferAmount.toString()),
-        api.tx.balances.transferKeepAlive(appAgentTwo.address, transferAmount.toString()),
-        api.tx.balances.transferKeepAlive(appAgentThree.address, transferAmount.toString())
+        api.tx.balances.transferKeepAlive(appAgentOneOwner.address, transferAmount.toString()),
+        api.tx.balances.transferKeepAlive(appAgentTwoOwner.address, transferAmount.toString()),
+        api.tx.balances.transferKeepAlive(appAgentThreeOwner.address, transferAmount.toString())
     ];
 
     // Send the batch of transfers
