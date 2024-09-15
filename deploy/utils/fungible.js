@@ -1,9 +1,7 @@
-const { ApiPromise, WsProvider } = require("@polkadot/api");
-const { Keyring } = require("@polkadot/keyring");
 const { encodeNamed } = require("./keyless");
 
 async function create_fungible_token(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two, metadataUrl) {
-    console.log("Start to create fungible token for the ApPAgent ID " + appAgentId);
+    console.log("Start to create fungible token for the AppAgent ID " + appAgentId);
 
     let token_admin = encodeNamed(appAgentId, "asset-admi");
 
@@ -11,7 +9,6 @@ async function create_fungible_token(api, appAgentOwner, appAgentId, token_recip
         token_admin,
         1
     );
-
     let create_fungible_token_ct = api.tx.addressPools.submitClearingTransaction(
         appAgentId,
         [[
@@ -22,26 +19,31 @@ async function create_fungible_token(api, appAgentOwner, appAgentId, token_recip
         ]]
     );
 
-    console.log("Wait for the event and get the token ID");
     let token_id;
-    await create_fungible_token_ct.signAndSend(appAgentOwner, { nonce: -1 }, ({ events = [], status }) => {
-        if (status.isInBlock || status.isFinalized) {
-            events.forEach(({ event: { data, method, section } }) => {
-                if (section === 'assets' && method === 'Created') {
-                    const tokenId = data[0].toString();
-                    console.log(`Fungible token created with ID: ${tokenId}`);
-                    token_id = tokenId;
+    await new Promise(async (resolve, reject) => {
+        const unsubscribe = await create_fungible_token_ct
+            .signAndSend(appAgentOwner, { nonce: -1 }, ({ status, events}) => {
+                if (status.isFinalized) {
+                    events.forEach(({ event }) => {
+                        if (api.events.assets.Created.is(event)) {
+                            token_id = event.data[0].toString();
+                            console.log(`Fungible token created with ID: ${token_id}`);
+                            unsubscribe();
+                            resolve();
+                            return;
+                        }
+                    });
+                    unsubscribe();
+                    reject("Fungible token was not created despite the transaction was finalised.");
                 }
             });
-        }
-    }).catch((error) => {
-        console.error("Error creating fungible token:", error);
+    }).catch((err) => {
+        console.log(err);
+        console.log("Failed to create fungible token!");
+        process.exit(1);
     });
 
-    console.log("Wait for the tx to propogate");
-    await new Promise(resolve => setTimeout(resolve, 10_000));
-
-    console.log("Configure app agent and mint tokens");
+    console.log("Configure fungible token and mint tokens");
     let set_metadata_call = api.tx.assets.setMetadata(
         token_id,
         metadataUrl
@@ -72,46 +74,43 @@ async function create_fungible_token(api, appAgentOwner, appAgentId, token_recip
             console.log(`Fungible token ${token_id} configured.`);
         }).catch((err) => {
             console.log(err);
-            console.log(`Test failed : couldn't configure fungible token ${token_id}!`);
+            console.log(`Couldn't configure fungible token ${token_id}!`);
             process.exit(1);
         });
 
     console.log("Wait for the tx to propogate");
     await new Promise(resolve => setTimeout(resolve, 10_000));
 
-    await create_token_transfers(api, token_id, token_recipient, token_recipient_two);
+    // await create_token_transfers(api, token_id, token_recipient, token_recipient_two);
 }
 
 async function create_token_transfers(api, token_id, token_recipient, token_recipient_two) {
     console.log("Generate 5 free transfers between the two users");
-    let batch_calls_two = [];
+    // batchAll doesn't work here
+    // since it has it's own weight and accounts need to have some TRAIT tokens to pay fees
+
+    const nonce = await api.rpc.system.accountNextIndex(token_recipient.address);
+
     for (let i = 0; i < 5; i++) {
-        let free_transfer_call = api.tx.playerTransfers.submitTransferAssets(
+        await api.tx.playerTransfers.submitTransferAssets(
             token_id,
             token_recipient_two.address,
             10
-        );
-
-        batch_calls_two.push(free_transfer_call);
-    }
-
-    let batch_call_two = api.tx.utility.batch_all(batch_calls_two);
-
-    batch_call_two.signAndSend(token_recipient, { nonce: -1 })
+        ).signAndSend(token_recipient, { nonce: nonce + i })
         .then(() => {
             console.log(`Free transfer created`);
         }).catch((err) => {
             console.log(err);
-            console.log(`Test failed : free transfer creation failed!`);
+            console.log("Free transfer creation failed!");
             process.exit(1);
         });
+    }
 
     console.log("Wait for the tx to propogate");
     await new Promise(resolve => setTimeout(resolve, 10_000));
 
     console.log("App agent assets created successfully");
 }
-
 
 module.exports = {
     create_fungible_token

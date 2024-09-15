@@ -60,7 +60,6 @@ async function main() {
     const transferAmount = parseInt(process.env.TRANSFER_AMOUNT) * 1e12;
 
     console.log("Start to initialise the owners of the app agents");
-    console.log("Create a batch of transfers");
     const transfers = [
         api.tx.balances.transferKeepAlive(appAgentOneOwner.address, transferAmount.toString()),
         api.tx.balances.transferKeepAlive(appAgentTwoOwner.address, transferAmount.toString()),
@@ -119,7 +118,7 @@ async function main() {
                 }
                 console.log("Fungible token metadata URL:", metadataUrl);
 
-                create_fungible_token(api, appAgentOwner, appagentId, demo_user_one, demo_user_two, metadataUrl);
+                await create_fungible_token(api, appAgentOwner, appagentId, demo_user_one, demo_user_two, metadataUrl);
             }
 
             else if (subFolder.startsWith('nft-collection')) {
@@ -186,7 +185,7 @@ function getObjectMetadataURL(directory) {
             const relativePath = path.relative(aws_s3_assets_path, filePath);
             const url = `https://trait-wallet-demo-account.trait.tech/${relativePath.replace(/\\/g, '/')}`;
 
-            console.log(`Generated URL: ${url}`);
+            // console.log(`Generated URL: ${url}`);
             return url;
         }
     }
