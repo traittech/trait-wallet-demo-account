@@ -1,0 +1,67 @@
+[project]
+name = "trait-wallet-demo-account"
+version = "1.0.0"
+authors = [
+  { name="Trait Tech PTE LTD", email="info@trait.tech" },
+]
+description = "Assets for demo account in trait wallet"
+
+requires-python = ">=3.12"
+
+
+[project.optional-dependencies]
+dev = [ "requests", "ruff", "mypy" ]
+
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+fix = false
+
+exclude = ["env", ".env", ".venv", "build"]
+
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "W",
+    "F",
+    "C90",
+    "I",
+    "N",
+    "UP",
+    "ANN",
+    "S",
+    "B",
+    "A",
+    "COM",
+    "DTZ",
+    "EM",
+    "FA",
+    "PIE",
+    "T20",
+    "PYI",
+    "Q",
+    "RSE",
+    "RET",
+    "SLF",
+    "SLOT",
+    "SIM",
+    "TID",
+    "INT",
+    "ARG",
+    "PTH",
+    "TD",
+    "FIX",
+    "PL",
+    "TRY",
+    "RUF",
+]
+ignore = ["COM812", "ANN102", "UP040"]
+
+fixable = ["ALL"]
+
+
+[tool.mypy]
+python_version = "3.12"
+exclude = ["env", ".env", ".venv", "build"]

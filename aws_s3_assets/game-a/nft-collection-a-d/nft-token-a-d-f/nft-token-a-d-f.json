@@ -1,0 +1,36 @@
+{
+  "metadata_id": "demo-nft-token-a-d-f",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "traits": {
+    "named": {
+      "name": "Lunar Whisper"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-f/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-f/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-f/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "This exquisite bow gleams with an intricate design, showcasing a blend of elegance and deadly precision. Crafted from a rare metal, its sleek curves are adorned with shimmering gemstones that reflect light beautifully, enhancing its formidable presence. The bow's grip is ergonomically designed for comfort and optimal control, allowing archers to unleash their skill with finesse. Its powerful draw weight delivers arrows with remarkable speed and accuracy, making it a prized weapon in any adventurer's arsenal. Whether in battle or on a quest, this bow is a testament to both artistry and effectiveness in a fantastical world."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Base attack",
+          "display_type": "number",
+          "value": 55
+        },
+        {
+          "name": "Physical damage",
+          "display_type": "percentage",
+          "value": 10
+        }
+      ]
+    }
+  }
+}

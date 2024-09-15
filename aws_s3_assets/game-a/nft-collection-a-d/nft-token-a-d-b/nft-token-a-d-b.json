@@ -1,0 +1,36 @@
+{
+  "metadata_id": "demo-nft-token-a-d-b",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "traits": {
+    "named": {
+      "name": "Aqua Whisper Bow"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-b/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-b/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-b/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "The bow in this image is a striking weapon, renowned for its fluid, ethereal design. Its sleek curves and shimmering surface evoke a sense of elegance and agility, making it a visual representation of precision. The bow likely possesses unique attributes, such as enhanced speed or magical properties, allowing for precise and powerful shots. Its craftsmanship suggests it may be crafted from rare materials, potentially providing bonuses in combat scenarios. As a key tool for archers, this bow would be indispensable for overcoming challenges, delivering swift strikes while maintaining an enchanting aesthetic appeal that draws attention on the battlefield."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Base attack",
+          "display_type": "number",
+          "value": 19
+        },
+        {
+          "name": "Critical rate",
+          "display_type": "percentage",
+          "value": 24
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "metadata_id": "demo-nft-token-a-d-g",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "traits": {
+    "named": {
+      "name": "Venomstrike Bow"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-g/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-g/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-g/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "This exquisite bow features a dark, intricate design, highlighting an elegant blend of material and craftsmanship. The frame is accented with striking green elements that give it a mystical appearance, suggesting a connection to nature or magic. Its sharp curves and spikes imply both beauty and danger, making it a formidable weapon in the right hands. This bow is not just a tool for archery; it embodies a sense of ancient lore. Players wielding this item can expect enhanced accuracy and power, making it an invaluable asset in their quest for glory and conquest in the game world."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Base attack",
+          "display_type": "number",
+          "value": 15
+        },
+        {
+          "name": "Critical rate",
+          "display_type": "percentage",
+          "value": 28
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "metadata_id": "demo-nft-token-c-a-h",
+  "title": "Metadata of the demo NFT token for the game ZoneX.",
+  "description": "Metadata of the demo NFT token for the game ZoneX.",
+  "traits": {
+    "named": {
+      "name": "Golden Phantom"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-h/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-h/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-h/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "In the heart of the battlefield, the sleek and tactical rifle glimmers under the dim light. This versatile weapon, renowned for its precision and adaptability, is a favorite among elite operatives. Featuring a sturdy barrel and ergonomic design, it promises rapid fire and minimal recoil, empowering its wielder in intense firefights. Enhanced optics and modular attachments allow for customized performance, making it lethal at both close range and distance. As you grip the weapon, feel the power surge through you—ready to conquer foes and claim victory in the chaos of war. Every pull of the trigger echoes your determination."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Damage",
+          "display_type": "number",
+          "value": 76
+        },
+        {
+          "name": "Fire rate",
+          "display_type": "number",
+          "value": 12
+        },
+        {
+          "name": "Reload speed",
+          "display_type": "number",
+          "value": 3.0
+        }
+      ]
+    }
+  }
+}
