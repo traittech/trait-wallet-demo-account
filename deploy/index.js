@@ -108,7 +108,6 @@ async function main() {
 
     console.log("Traverse the game folders and collect entity data");
     const gameData = collectGameData(game_folders);
-    console.log("Computed gameData", gameData);
 
     // array of fungible ids
     let fungibles = [];
@@ -127,7 +126,7 @@ async function main() {
             const fungibleIds = await create_fungible_tokens(api, appAgentOwner, appAgentId, game.fungibles.length);
             // push fungible ids to the fungibles array
             fungibles = [...fungibles, ...fungibleIds];
-            await set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgentId, fungibleIds, game.fungibles.map(f => f.metadataUrl), demo_user_one);
+            await set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgentId, fungibleIds, game.fungibles.map(f => f.metadataUrl), demo_user_one, game.fungibles.map(f => f.decimals));
         }
 
         // Create and configure NFT collections and tokens
@@ -157,7 +156,9 @@ function collectGameData(gameFolders) {
     return gameFolders.map(gameFolder => {
         const gameData = {
             appAgent: null,
+            // array of { metadataUrl: metadataUrl, decimals: decimals }
             fungibles: [],
+            // array of { metadataUrl: metadataUrl, tokens: [{ metadataUrl: metadataUrl}]}
             nftCollections: []
         };
 
@@ -167,9 +168,9 @@ function collectGameData(gameFolders) {
             const folderPath = path.join(gameFolder, subFolder);
 
             if (subFolder.startsWith('app-agent-')) {
-                gameData.appAgent = { metadataUrl: getObjectMetadataURL(folderPath) };
+                gameData.appAgent = { metadataUrl: getObjectMetadataURL(folderPath).url };
             } else if (subFolder.startsWith('fungible-')) {
-                gameData.fungibles.push({ metadataUrl: getObjectMetadataURL(folderPath) });
+                gameData.fungibles.push({ metadataUrl: getObjectMetadataURL(folderPath).url, decimals: getObjectMetadataURL(folderPath).decimals });
             } else if (subFolder.startsWith('nft-collection')) {
                 const collection = { metadataUrl: null, tokens: [] };
                 const subsubFolders = fs.readdirSync(folderPath);
@@ -177,9 +178,9 @@ function collectGameData(gameFolders) {
                 for (const subsubFolder of subsubFolders) {
                     const subFolderPath = path.join(folderPath, subsubFolder);
                     if (subsubFolder.startsWith('nft-collection')) {
-                        collection.metadataUrl = getObjectMetadataURL(subFolderPath);
+                        collection.metadataUrl = getObjectMetadataURL(subFolderPath).url;
                     } else if (subsubFolder.startsWith('nft-token')) {
-                        collection.tokens.push({ metadataUrl: getObjectMetadataURL(subFolderPath) });
+                        collection.tokens.push({ metadataUrl: getObjectMetadataURL(subFolderPath).url });
                     }
                 }
 
@@ -206,13 +207,16 @@ function getObjectMetadataURL(directory) {
         const filePath = path.join(directory, file);
         const stats = fs.statSync(filePath);
         if (stats.isFile()) {
-            // console.log(`File: ${filePath}`);
+            const fileContent = fs.readFileSync(filePath, 'utf8');
+            const jsonData = JSON.parse(fileContent);
+            // get the decimals from the fungible metadata if it exists
+            let decimals = jsonData.traits.fungible ? jsonData.traits.fungible.decimals : null;
 
             const relativePath = path.relative(aws_s3_assets_path, filePath);
             const url = `https://trait-wallet-demo-account.trait.tech/${relativePath.replace(/\\/g, '/')}`;
 
             // console.log(`Generated URL: ${url}`);
-            return url;
+            return { url, decimals };
         }
     }
 

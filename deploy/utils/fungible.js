@@ -71,8 +71,17 @@ async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount
     return tokenIds;
 }
 
-async function set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgentId, tokenIds, metadataUrls, token_recipient) {
+function convertDecimalsToAmount(decimals, amount) {
+    if (decimals === undefined || decimals === null || decimals === 0) {
+        return amount;
+    }
+
+    return amount * Math.pow(10, decimals);
+}
+
+async function set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgentId, tokenIds, metadataUrls, token_recipient, decimals) {
     console.log("Start to create fungible token for the AppAgent ID " + appAgentId);
+    console.log("Decimals: ", decimals);
 
     let token_admin = encodeNamed(appAgentId, "asset-admi");
     let token_id;
@@ -80,7 +89,7 @@ async function set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgent
     // create atomics to mint and set metadata for each token
     let atomics = [];
     for (let i = 0; i < tokenIds.length; i++) {
-        atomics.push([{ NamedAddress: token_admin }, api.tx.assets.mint(tokenIds[i], token_recipient.address, 1000)]);
+        atomics.push([{ NamedAddress: token_admin }, api.tx.assets.mint(tokenIds[i], token_recipient.address, convertDecimalsToAmount(decimals[i], 1000))]);
         atomics.push([{ AppAgentId: appAgentId }, api.tx.assets.setMetadata(tokenIds[i], metadataUrls[i])]);
     }
 
