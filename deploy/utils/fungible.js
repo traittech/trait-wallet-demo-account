@@ -126,13 +126,12 @@ async function set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgent
     await new Promise(resolve => setTimeout(resolve, 12000));
 }
 
-async function create_token_transfers(api, token_id, token_recipient, token_recipient_two) {
-    console.log("Generate 5 free transfers between the two users");
+async function create_token_transfer(api, token_id, token_sender, token_recipients, amount) {
+    console.log("Generate free transfers between the two users");
     console.log("Token ID: ", token_id);
-    console.log("Token recipient: ", token_recipient.address);
-    console.log("Token recipient two: ", token_recipient_two.address);
+    console.log("Token sender: ", token_sender.address);
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < token_recipients.length; i++) {
         await retryOperation(async () => {
             return new Promise(async (resolve, reject) => {
                 const timeout = setTimeout(() => {
@@ -142,9 +141,9 @@ async function create_token_transfers(api, token_id, token_recipient, token_reci
                 try {
                     const unsubscribe = await api.tx.playerTransfers.submitTransferAssets(
                         token_id,
-                        token_recipient_two.address,
-                        10
-                    ).signAndSend(token_recipient, { nonce: -1 }, ({ status, events }) => {
+                        token_recipients[i].address,
+                        amount
+                    ).signAndSend(token_sender, { nonce: -1 }, ({ status, events }) => {
                         if (status.isInBlock) {
                             let extrinsicSuccess = false;
                             events.forEach(({ event }) => {
@@ -198,5 +197,6 @@ async function create_token_transfers(api, token_id, token_recipient, token_reci
 
 module.exports = {
     create_fungible_tokens,
-    set_metadata_and_mint_fungible_token
+    set_metadata_and_mint_fungible_token,
+    create_token_transfer
 }

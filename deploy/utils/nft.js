@@ -78,6 +78,8 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
     console.log("Collection ID ", collectionId);
     let asset_admin = encodeNamed(appAgentId, "asset-admi");
 
+    let nftInfo = [];
+
     // Send balance to admin with retry logic
     async function sendBalanceToAdmin() {
         console.log("Send some balance to admin");
@@ -149,10 +151,8 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
 
     for (const token of collectionInfo.tokens) {
         let metadataUrl = token.metadataUrl;
-
-
-
         let tokenId = Math.floor(Math.random() * 1000000) + 1;
+        nftInfo.push({ collectionId: collectionId, tokenId: tokenId });
 
         console.log("CollectionId ", collectionId);
         console.log("TokenId ", tokenId);
@@ -174,9 +174,6 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
         atomics.push([{ NamedAddress: asset_admin }, mint_nft_call]);
         metadata_set_atomics.push([{ NamedAddress: asset_admin }, set_metadata_call]);
     }
-
-
-    //console.log(atomics);
 
     async function sendConfigureNFTCollectionTx() {
         return new Promise((resolve, reject) => {
@@ -255,13 +252,16 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
 
     await retryOperation(sentNftTokenMetadataSet, "configuring Fungible Token");
 
+    return nftInfo;
+
 }
 
-async function create_nft_transfers(api, token_recipient, token_recipient_two, collection_id, token_id) {
+async function create_nft_transfers(api, collection_id, token_id, token_sender, token_recipient) {
     console.log("Generate free transfers between the two users");
     console.log("Collection ID: ", collection_id);
     console.log("Token ID: ", token_id);
-
+    console.log("Token Sender: ", token_sender.address);
+    console.log("Token Recipient: ", token_recipient.address);
 
     await retryOperation(async () => {
         return new Promise(async (resolve, reject) => {
@@ -273,8 +273,8 @@ async function create_nft_transfers(api, token_recipient, token_recipient_two, c
                 const unsubscribe = await api.tx.playerTransfers.submitTransferNfts(
                     collection_id,
                     token_id,
-                    token_recipient_two.address,
-                ).signAndSend(token_recipient, { nonce: -1 }, ({ status, events }) => {
+                    token_recipient.address,
+                ).signAndSend(token_sender, { nonce: -1 }, ({ status, events }) => {
                     if (status.isInBlock) {
                         let extrinsicSuccess = false;
                         events.forEach(({ event }) => {
@@ -301,10 +301,6 @@ async function create_nft_transfers(api, token_recipient, token_recipient_two, c
                 });
             } catch (error) {
                 clearTimeout(timeout);
-                if (error.message.includes("Priority is too low")) {
-                    console.log("Priority too low. Retrying with increased delay.");
-                    await new Promise(resolve => setTimeout(resolve, 5000)); // Additional delay
-                }
                 reject(error);
             }
         });
@@ -316,5 +312,6 @@ async function create_nft_transfers(api, token_recipient, token_recipient_two, c
 
 module.exports = {
     create_nft_collections,
-    set_metadata_and_mint_nft
+    set_metadata_and_mint_nft,
+    create_nft_transfers
 }

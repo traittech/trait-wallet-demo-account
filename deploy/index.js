@@ -4,8 +4,8 @@ const dotenv = require("dotenv");
 const fs = require('fs');
 const path = require('path');
 const { create_app_agent } = require('./utils/app_agent');
-const { create_fungible_tokens, set_metadata_and_mint_fungible_token } = require('./utils/fungible');
-const { create_nft_collections, set_metadata_and_mint_nft } = require('./utils/nft');
+const { create_fungible_tokens, set_metadata_and_mint_fungible_token, create_token_transfer } = require('./utils/fungible');
+const { create_nft_collections, set_metadata_and_mint_nft, create_nft_transfers } = require('./utils/nft');
 const { retryOperation, maxWaitTime } = require('./utils/utils');
 
 const aws_s3_assets_path = path.join(__dirname, '..', 'aws_s3_assets');
@@ -110,6 +110,12 @@ async function main() {
     const gameData = collectGameData(game_folders);
     console.log("Computed gameData", gameData);
 
+    // array of fungible ids
+    let fungibles = [];
+
+    // array of { collectionId: collectionId, tokenId: tokenId}
+    let collections = [];
+
     for (const [gameIndex, game] of gameData.entries()) {
         const appAgentOwner = appAgentOwners[gameIndex];
 
@@ -119,14 +125,31 @@ async function main() {
         // Create and configure fungible tokens
         if (game.fungibles.length > 0) {
             const fungibleIds = await create_fungible_tokens(api, appAgentOwner, appAgentId, game.fungibles.length);
+            // push fungible ids to the fungibles array
+            fungibles = [...fungibles, ...fungibleIds];
             await set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgentId, fungibleIds, game.fungibles.map(f => f.metadataUrl), demo_user_one);
         }
 
         // Create and configure NFT collections and tokens
         const collectionIds = await create_nft_collections(api, appAgentOwner, appAgentId, game.nftCollections.length);
         for (let i = 0; i < game.nftCollections.length; i++) {
-            await set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collectionIds[i], game.nftCollections[i], demo_user_one.address);
+            let nftInfo = await set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collectionIds[i], game.nftCollections[i], demo_user_one.address);
+            // push token ids to the tokens array
+            collections = [...collections, ...nftInfo];
         }
+    }
+
+    console.log("Create demo transfers for fungibles", fungibles);
+    for (const fungible of fungibles) {
+        await create_token_transfer(api, fungible, demo_user_one, [demo_user_two, demo_user_three], 10);
+        await create_token_transfer(api, fungible, demo_user_two, [demo_user_one, demo_user_three], 5);
+    }
+
+    console.log("Create demo transfers for NFTs", collections);
+    for (const collection of collections) {
+        // randomly determine the recipient
+        const recipient = Math.random() < 0.5 ? demo_user_three : demo_user_two;
+        await create_nft_transfers(api, collection.collectionId, collection.tokenId, demo_user_one, recipient);
     }
 }
 
