@@ -1,11 +1,23 @@
 const { encodeNamed } = require("./keyless");
 const { retryOperation, maxWaitTime } = require("./utils");
 
-async function create_fungible_token(api, appAgentOwner, appAgentId, token_recipient, token_recipient_two, metadataUrl) {
-    console.log("Start to create fungible token for the AppAgent ID " + appAgentId);
+async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount) {
+    console.log("Start to create fungible tokens for the AppAgent ID " + appAgentId);
+    console.log("Token count: ", tokenCount);
 
     let token_admin = encodeNamed(appAgentId, "asset-admi");
-    let token_id;
+    let tokenIds = [];
+
+    let atomics = [];
+
+    let create_fungible_token = api.tx.assets.create(token_admin, 1);
+
+    // create atomic and push to atomics
+    for (let i = 0; i < tokenCount; i++) {
+        atomics.push([{ AppAgentId: appAgentId }, create_fungible_token]);
+    }
+
+    //console.log("Atomics: ", atomics);
 
     async function sendCreateFungibleTokenTx() {
         return new Promise(async (resolve, reject) => {
@@ -13,10 +25,10 @@ async function create_fungible_token(api, appAgentOwner, appAgentId, token_recip
                 reject("Timeout: Fungible token creation took too long");
             }, maxWaitTime);
 
-            let create_fungible_token = api.tx.assets.create(token_admin, 1);
+            // generate create fungible token call
             let create_fungible_token_ct = api.tx.addressPools.submitClearingTransaction(
                 appAgentId,
-                [[[{ AppAgentId: appAgentId }, create_fungible_token]]]
+                [atomics]
             );
 
             const unsubscribe = await create_fungible_token_ct
@@ -25,11 +37,24 @@ async function create_fungible_token(api, appAgentOwner, appAgentId, token_recip
                         events.forEach(({ event }) => {
                             if (api.events.assets.Created.is(event)) {
                                 token_id = event.data[0].toString();
+                                // add token id to tokenIds
+                                tokenIds.push(token_id);
                                 console.log(`Fungible token created with ID: ${token_id}`);
                                 clearTimeout(timeout);
                                 unsubscribe();
                                 resolve();
                                 return;
+                            }
+
+                            if (api.events.addressPools.CTProcessingCompleted.is(event)) {
+                                let failed_atomic_number = event.data[4].toString();
+                                if (failed_atomic_number === "0") {
+                                    console.log("CT completed successfully");
+                                    clearTimeout(timeout);
+                                    unsubscribe();
+                                    resolve();
+                                    return;
+                                }
                             }
                         });
                         clearTimeout(timeout);
@@ -42,7 +67,22 @@ async function create_fungible_token(api, appAgentOwner, appAgentId, token_recip
 
     await retryOperation(sendCreateFungibleTokenTx, "creating Fungible Token");
 
-    console.log("Configure fungible token and mint tokens");
+    console.log("Generated token IDs: ", tokenIds);
+    return tokenIds;
+}
+
+async function set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgentId, tokenIds, metadataUrls, token_recipient) {
+    console.log("Start to create fungible token for the AppAgent ID " + appAgentId);
+
+    let token_admin = encodeNamed(appAgentId, "asset-admi");
+    let token_id;
+
+    // create atomics to mint and set metadata for each token
+    let atomics = [];
+    for (let i = 0; i < tokenIds.length; i++) {
+        atomics.push([{ NamedAddress: token_admin }, api.tx.assets.mint(tokenIds[i], token_recipient.address, 1000)]);
+        atomics.push([{ AppAgentId: appAgentId }, api.tx.assets.setMetadata(tokenIds[i], metadataUrls[i])]);
+    }
 
     async function sendConfigureFungibleTokenTx() {
         return new Promise((resolve, reject) => {
@@ -50,16 +90,10 @@ async function create_fungible_token(api, appAgentOwner, appAgentId, token_recip
                 reject("Timeout: Configuring fungible token took too long");
             }, maxWaitTime);
 
-            let set_metadata_call = api.tx.assets.setMetadata(token_id, metadataUrl);
-            const mint_tokens_call = api.tx.assets.mint(token_id, token_recipient.address, 1000);
-
             let configure_fungible_ct = api.tx.addressPools.submitClearingTransaction(
                 appAgentId,
                 [
-                    [
-                        [{ AppAgentId: appAgentId }, set_metadata_call],
-                        [{ NamedAddress: token_admin }, mint_tokens_call]
-                    ]
+                    atomics
                 ]
             );
 
@@ -90,7 +124,6 @@ async function create_fungible_token(api, appAgentOwner, appAgentId, token_recip
 
     // wait 12 secs
     await new Promise(resolve => setTimeout(resolve, 12000));
-    await create_token_transfers(api, token_id, token_recipient, token_recipient_two);
 }
 
 async function create_token_transfers(api, token_id, token_recipient, token_recipient_two) {
@@ -164,5 +197,6 @@ async function create_token_transfers(api, token_id, token_recipient, token_reci
 }
 
 module.exports = {
-    create_fungible_token
+    create_fungible_tokens,
+    set_metadata_and_mint_fungible_token
 }

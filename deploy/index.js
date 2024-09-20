@@ -4,8 +4,8 @@ const dotenv = require("dotenv");
 const fs = require('fs');
 const path = require('path');
 const { create_app_agent } = require('./utils/app_agent');
-const { create_fungible_token } = require('./utils/fungible');
-const { create_nft_collection, create_nft_token } = require('./utils/nft');
+const { create_fungible_tokens, set_metadata_and_mint_fungible_token } = require('./utils/fungible');
+const { create_nft_collections, set_metadata_and_mint_nft } = require('./utils/nft');
 const { retryOperation, maxWaitTime } = require('./utils/utils');
 
 const aws_s3_assets_path = path.join(__dirname, '..', 'aws_s3_assets');
@@ -106,83 +106,66 @@ async function main() {
     await create_balance_transfers(api, demo_user_one, demo_user_two);
     await create_balance_transfers(api, demo_user_three, demo_user_one);
 
-    console.log("Traverse the game folders and create app-agents and assets for each game");
-    for (const [game_index, game_folder] of game_folders.entries()) {
-        console.log("Game folder:", game_folder);
-        let appagentId = null;
-        let appAgentOwner = appAgentOwners[game_index];
+    console.log("Traverse the game folders and collect entity data");
+    const gameData = collectGameData(game_folders);
+    console.log("Computed gameData", gameData);
 
-        const subFolders = fs.readdirSync(game_folder);
+    for (const [gameIndex, game] of gameData.entries()) {
+        const appAgentOwner = appAgentOwners[gameIndex];
 
-        for (const subFolder of subFolders) {
-            if (subFolder.startsWith('app-agent-')) {
-                const appAgentPath = path.join(game_folder, subFolder);
-                console.log("AppAgent folder detected:", appAgentPath);
+        // Create app agent and set metadata
+        const appAgentId = await create_app_agent(api, appAgentOwner, game.appAgent.metadataUrl);
 
-                let metadataUrl = getObjectMetadataURL(appAgentPath);
-                if (!metadataUrl) {
-                    throw new Error(`Could not find metadata URL in ${appAgentPath}`);
-                }
-                console.log("AppAgent metadata URL:", metadataUrl);
+        // Create and configure fungible tokens
+        if (game.fungibles.length > 0) {
+            const fungibleIds = await create_fungible_tokens(api, appAgentOwner, appAgentId, game.fungibles.length);
+            await set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgentId, fungibleIds, game.fungibles.map(f => f.metadataUrl), demo_user_one);
+        }
 
-                appagentId = await create_app_agent(api, appAgentOwner, metadataUrl);
-            }
-
-            else if (subFolder.startsWith('fungible-')) {
-                const fungiblePath = path.join(game_folder, subFolder);
-                console.log("Fungible token folder detected:", fungiblePath);
-
-                let metadataUrl = getObjectMetadataURL(fungiblePath);
-                if (!metadataUrl) {
-                    throw new Error(`Could not find metadata URL in ${fungiblePath}`);
-                }
-                console.log("Fungible token metadata URL:", metadataUrl);
-
-                await create_fungible_token(api, appAgentOwner, appagentId, demo_user_one, demo_user_two, metadataUrl);
-            }
-
-            else if (subFolder.startsWith('nft-collection')) {
-                const folderPath = path.join(game_folder, subFolder);
-                console.log("NFT collection root folder detected:", folderPath);
-
-                const subsubFolders = fs.readdirSync(folderPath);
-
-                let collection_id = null;
-
-                for (const subsubFolder of subsubFolders) {
-                    if (subsubFolder.startsWith('nft-collection')) {
-                        const nftCollectionPath = path.join(folderPath, subsubFolder);
-                        console.log("NFT collection folder detected:", nftCollectionPath);
-
-                        let metadataUrl = getObjectMetadataURL(nftCollectionPath);
-                        if (!metadataUrl) {
-                            throw new Error(`Could not find metadata URL in ${nftCollectionPath}`);
-                        }
-                        console.log("NFT collection metadata URL:", metadataUrl);
-
-                        collection_id = await create_nft_collection(api, appAgentOwner, appagentId, metadataUrl);
-                    }
-
-                    else if (subsubFolder.startsWith('nft-token')) {
-                        const nftTokenPath = path.join(folderPath, subsubFolder);
-                        console.log("NFT token folder detected:", nftTokenPath);
-
-                        let metadataUrl = getObjectMetadataURL(nftTokenPath);
-                        if (!metadataUrl) {
-                            throw new Error(`Could not find metadata URL in ${nftTokenPath}`);
-                        }
-                        console.log("NFT token metadata URL:", metadataUrl);
-
-                        await create_nft_token(api, appAgentOwner, appagentId, collection_id, metadataUrl, demo_user_one, demo_user_three);
-                    }
-                }
-            }
-
-            else {
-                console.log("Unknown folder detected, ignoring: ", subFolder);
-            }
+        // Create and configure NFT collections and tokens
+        const collectionIds = await create_nft_collections(api, appAgentOwner, appAgentId, game.nftCollections.length);
+        for (let i = 0; i < game.nftCollections.length; i++) {
+            await set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collectionIds[i], game.nftCollections[i], demo_user_one.address);
         }
     }
+}
+
+function collectGameData(gameFolders) {
+    return gameFolders.map(gameFolder => {
+        const gameData = {
+            appAgent: null,
+            fungibles: [],
+            nftCollections: []
+        };
+
+        const subFolders = fs.readdirSync(gameFolder);
+
+        for (const subFolder of subFolders) {
+            const folderPath = path.join(gameFolder, subFolder);
+
+            if (subFolder.startsWith('app-agent-')) {
+                gameData.appAgent = { metadataUrl: getObjectMetadataURL(folderPath) };
+            } else if (subFolder.startsWith('fungible-')) {
+                gameData.fungibles.push({ metadataUrl: getObjectMetadataURL(folderPath) });
+            } else if (subFolder.startsWith('nft-collection')) {
+                const collection = { metadataUrl: null, tokens: [] };
+                const subsubFolders = fs.readdirSync(folderPath);
+
+                for (const subsubFolder of subsubFolders) {
+                    const subFolderPath = path.join(folderPath, subsubFolder);
+                    if (subsubFolder.startsWith('nft-collection')) {
+                        collection.metadataUrl = getObjectMetadataURL(subFolderPath);
+                    } else if (subsubFolder.startsWith('nft-token')) {
+                        collection.tokens.push({ metadataUrl: getObjectMetadataURL(subFolderPath) });
+                    }
+                }
+
+                gameData.nftCollections.push(collection);
+            }
+        }
+
+        return gameData;
+    });
 }
 
 /**
@@ -216,42 +199,50 @@ function getObjectMetadataURL(directory) {
 async function create_balance_transfers(api, token_recipient, token_recipient_two) {
     console.log("Generate free transfers between the two users");
 
-    for (let i = 0; i < 5; i++) {
-    await retryOperation(async () => {
-        return new Promise(async (resolve, reject) => {
-            const timeout = setTimeout(() => {
+    for (let i = 0; i < 2; i++) {
+        await retryOperation(async () => {
+            return new Promise(async (resolve, reject) => {
+                const timeout = setTimeout(() => {
                     reject(new Error(`Timeout: Transfer took too long`));
                 }, maxWaitTime);
 
+                try {
+                    const unsubscribe = await api.tx.playerTransfers.submitTransferBalances(
+                        token_recipient_two.address,
+                        1000000
+                    ).signAndSend(token_recipient, { nonce: -1 }, ({ status, events }) => {
+                        if (status.isInBlock) {
+                            let extrinsicSuccess = false;
+                            events.forEach(({ event }) => {
+                                if (api.events.system.ExtrinsicSuccess.is(event)) {
+                                    extrinsicSuccess = true;
+                                }
+                            });
 
-                const unsubscribe = await api.tx.playerTransfers.submitTransferBalances(
-                    token_recipient_two.address,
-                    1000000
-                ).signAndSend(token_recipient, { nonce: -1 }, ({ status, events }) => {
-                    if (status.isInBlock) {
-                        let extrinsicSuccess = false;
-                        events.forEach(({ event }) => {
-                            if (api.events.system.ExtrinsicSuccess.is(event)) {
-                                extrinsicSuccess = true;
+                            if (extrinsicSuccess) {
+                                console.log(`Transfer is in block and successful`);
+                                clearTimeout(timeout);
+                                unsubscribe();
+                                resolve();
+                            } else {
+                                clearTimeout(timeout);
+                                unsubscribe();
+                                reject(new Error(`Transfer failed: ExtrinsicSuccess event not found`));
                             }
-                        });
-
-                        if (extrinsicSuccess) {
-                            console.log(`Transfer is in block and successful`);
+                        } else if (status.isError) {
                             clearTimeout(timeout);
-                            unsubscribe();
-                            resolve();
-                        } else {
-                            clearTimeout(timeout);
-                            unsubscribe();
-                            reject(new Error(`Transfer failed: ExtrinsicSuccess event not found`));
+                            // unsubscribe();
+                            // reject(new Error(`Transfer failed with error status`));
                         }
-                    } else if (status.isError) {
-                        clearTimeout(timeout);
-                        // unsubscribe();
-                        // reject(new Error(`Transfer failed with error status`));
+                    });
+                } catch (error) {
+                    clearTimeout(timeout);
+                    if (error.message.includes("Priority is too low")) {
+                        console.log("Priority too low. Retrying with increased delay.");
+                        await new Promise(resolve => setTimeout(resolve, 5000)); // Additional delay
                     }
-                });
+                    reject(error);
+                }
             });
         }, `creating free transfer`);
     }
