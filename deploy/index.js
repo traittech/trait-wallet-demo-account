@@ -58,12 +58,16 @@ async function main() {
     const demo_user_three = keyring.addFromUri(process.env.DEMO_ACCOUNT_THREE_MNEMONIC);
 
     const transferAmount = parseInt(process.env.TRANSFER_AMOUNT) * 1e12;
+    const demotransferAmount = parseInt(process.env.TRANSFER_AMOUNT) * 1e10;
 
     console.log("Start to initialise the owners of the app agents");
     const transfers = [
         api.tx.balances.transferKeepAlive(appAgentOneOwner.address, transferAmount.toString()),
         api.tx.balances.transferKeepAlive(appAgentTwoOwner.address, transferAmount.toString()),
-        api.tx.balances.transferKeepAlive(appAgentThreeOwner.address, transferAmount.toString())
+        api.tx.balances.transferKeepAlive(appAgentThreeOwner.address, transferAmount.toString()),
+        api.tx.balances.transferKeepAlive(demo_user_one.address, demotransferAmount.toString()),
+        api.tx.balances.transferKeepAlive(demo_user_two.address, demotransferAmount.toString()),
+        api.tx.balances.transferKeepAlive(demo_user_three.address, demotransferAmount.toString()),
     ];
 
     console.log("Send the batch of transfers");
@@ -71,16 +75,28 @@ async function main() {
         const unsubscribe = await api.tx.utility
             .batchAll(transfers)
             .signAndSend(faucetAccount, ({ status, events }) => {
-                if (status.isFinalized) {
+                if (status.isInBlock) {
+                    let batchComplete = false;
                     events.forEach(({ event }) => {
                         if (api.events.balances.Transfer.is(event)) {
                             const [from, to, amount] = event.data;
-                            console.log(`Transferred ${amount.toNumber() / 1e12} tokens from ${from.toString()} to ${to.toString()}`);
+                            console.log(`Transferred ${amount} tokens from ${from.toString()} to ${to.toString()}`);
+                        }
+
+                        if (api.events.utility.BatchCompleted.is(event)) {
+                            batchComplete = true;
+                            console.log("Batch completed successfully");
                         }
                     });
-                    console.log("Initial transfers completed successfully");
-                    unsubscribe();
-                    resolve();
+                    if (batchComplete) {
+                        console.log("Initial transfers completed successfully");
+                        unsubscribe();
+                        resolve();
+                    } else {
+                        console.error("Batch did not complete successfully");
+                        unsubscribe();
+                        reject(new Error("Batch did not complete"));
+                    }
                 }
             })
             .catch(reject);
