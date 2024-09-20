@@ -88,6 +88,8 @@ async function create_fungible_token(api, appAgentOwner, appAgentId, token_recip
 
     await retryOperation(sendConfigureFungibleTokenTx, "configuring Fungible Token");
 
+    // wait 12 secs
+    await new Promise(resolve => setTimeout(resolve, 12000));
     await create_token_transfers(api, token_id, token_recipient, token_recipient_two);
 }
 
@@ -104,37 +106,55 @@ async function create_token_transfers(api, token_id, token_recipient, token_reci
                     reject(new Error(`Timeout: Transfer ${i + 1} took too long`));
                 }, maxWaitTime);
 
-                const unsubscribe = await api.tx.playerTransfers.submitTransferAssets(
-                    token_id,
-                    token_recipient_two.address,
-                    10
-                ).signAndSend(token_recipient, { nonce: -1 }, ({ status, events }) => {
-                    if (status.isInBlock) {
-                        let extrinsicSuccess = false;
-                        events.forEach(({ event }) => {
-                            if (api.events.system.ExtrinsicSuccess.is(event)) {
-                                extrinsicSuccess = true;
-                            }
-                        });
+                try {
+                    const unsubscribe = await api.tx.playerTransfers.submitTransferAssets(
+                        token_id,
+                        token_recipient_two.address,
+                        10
+                    ).signAndSend(token_recipient, { nonce: -1 }, ({ status, events }) => {
+                        if (status.isInBlock) {
+                            let extrinsicSuccess = false;
+                            events.forEach(({ event }) => {
+                                if (api.events.system.ExtrinsicSuccess.is(event)) {
+                                    extrinsicSuccess = true;
+                                }
+                            });
 
-                        if (extrinsicSuccess) {
-                            console.log(`Transfer ${i + 1} is in block and successful`);
+                            if (extrinsicSuccess) {
+                                console.log(`Transfer ${i + 1} is in block and successful`);
+                                clearTimeout(timeout);
+                                unsubscribe();
+                                resolve();
+                            } else {
+                                clearTimeout(timeout);
+                                unsubscribe();
+                                reject(new Error(`Transfer ${i + 1} failed: ExtrinsicSuccess event not found`));
+                            }
+                        } else if (status.isError) {
                             clearTimeout(timeout);
                             unsubscribe();
-                            resolve();
-                        } else {
-                            clearTimeout(timeout);
-                            unsubscribe();
-                            reject(new Error(`Transfer ${i + 1} failed: ExtrinsicSuccess event not found`));
+                            reject(new Error(`Transfer ${i + 1} failed with error status`));
                         }
-                    } else if (status.isError) {
-                        clearTimeout(timeout);
-                        unsubscribe();
-                        reject(new Error(`Transfer ${i + 1} failed with error status`));
+                    });
+                } catch (error) {
+                    clearTimeout(timeout);
+                    if (error.message.includes("Priority is too low")) {
+                        console.log("Priority too low. Retrying with increased delay.");
+                        await new Promise(resolve => setTimeout(resolve, 5000)); // Additional delay
                     }
-                });
+                    reject(error);
+                }
             });
-        }, `creating free transfer ${i + 1}`);
+        }, `creating free transfer ${i + 1}`, {
+            retryInterval: (attempt) => Math.min(2000 * Math.pow(2, attempt), 30000), // Exponential backoff
+            shouldRetry: (error) => {
+                if (error.message.includes("Priority is too low")) {
+                    console.log("Priority too low. Will retry with increased delay.");
+                    return true;
+                }
+                return error.message.includes("Timeout") || error.message.includes("failed");
+            }
+        });
 
         console.log(`Free transfer ${i + 1} created and in block`);
     }

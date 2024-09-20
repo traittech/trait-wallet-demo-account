@@ -6,6 +6,7 @@ const path = require('path');
 const { create_app_agent } = require('./utils/app_agent');
 const { create_fungible_token } = require('./utils/fungible');
 const { create_nft_collection, create_nft_token } = require('./utils/nft');
+const { retryOperation, maxWaitTime } = require('./utils/utils');
 
 const aws_s3_assets_path = path.join(__dirname, '..', 'aws_s3_assets');
 const game_a_path = path.join(aws_s3_assets_path, 'game-a/');
@@ -101,6 +102,9 @@ async function main() {
             })
             .catch(reject);
     });
+
+    await create_balance_transfers(api, demo_user_one, demo_user_two);
+    await create_balance_transfers(api, demo_user_three, demo_user_one);
 
     console.log("Traverse the game folders and create app-agents and assets for each game");
     for (const [game_index, game_folder] of game_folders.entries()) {
@@ -207,6 +211,53 @@ function getObjectMetadataURL(directory) {
     }
 
     return null;
+}
+
+async function create_balance_transfers(api, token_recipient, token_recipient_two) {
+    console.log("Generate free transfers between the two users");
+
+    for (let i = 0; i < 5; i++) {
+    await retryOperation(async () => {
+        return new Promise(async (resolve, reject) => {
+            const timeout = setTimeout(() => {
+                    reject(new Error(`Timeout: Transfer took too long`));
+                }, maxWaitTime);
+
+
+                const unsubscribe = await api.tx.playerTransfers.submitTransferBalances(
+                    token_recipient_two.address,
+                    1000000
+                ).signAndSend(token_recipient, { nonce: -1 }, ({ status, events }) => {
+                    if (status.isInBlock) {
+                        let extrinsicSuccess = false;
+                        events.forEach(({ event }) => {
+                            if (api.events.system.ExtrinsicSuccess.is(event)) {
+                                extrinsicSuccess = true;
+                            }
+                        });
+
+                        if (extrinsicSuccess) {
+                            console.log(`Transfer is in block and successful`);
+                            clearTimeout(timeout);
+                            unsubscribe();
+                            resolve();
+                        } else {
+                            clearTimeout(timeout);
+                            unsubscribe();
+                            reject(new Error(`Transfer failed: ExtrinsicSuccess event not found`));
+                        }
+                    } else if (status.isError) {
+                        clearTimeout(timeout);
+                        // unsubscribe();
+                        // reject(new Error(`Transfer failed with error status`));
+                    }
+                });
+            });
+        }, `creating free transfer`);
+    }
+
+    console.log(`Free transfer created and confirmed`);
+
 }
 
 main()

@@ -318,10 +318,10 @@ async function create_nft_transfers(api, token_recipient, token_recipient_two, c
     await retryOperation(async () => {
         return new Promise(async (resolve, reject) => {
             const timeout = setTimeout(() => {
-                    reject(new Error(`Timeout: Transfer took too long`));
-                }, maxWaitTime);
+                reject(new Error(`Timeout: Transfer took too long`));
+            }, maxWaitTime);
 
-
+            try {
                 const unsubscribe = await api.tx.playerTransfers.submitTransferNfts(
                     collection_id,
                     token_id,
@@ -347,12 +347,20 @@ async function create_nft_transfers(api, token_recipient, token_recipient_two, c
                         }
                     } else if (status.isError) {
                         clearTimeout(timeout);
-                        unsubscribe();
-                        reject(new Error(`Transfer failed with error status`));
+                        // unsubscribe();
+                        // reject(new Error(`Transfer failed with error status`));
                     }
                 });
-            });
-        }, `creating free transfer`);
+            } catch (error) {
+                clearTimeout(timeout);
+                if (error.message.includes("Priority is too low")) {
+                    console.log("Priority too low. Retrying with increased delay.");
+                    await new Promise(resolve => setTimeout(resolve, 5000)); // Additional delay
+                }
+                reject(error);
+            }
+        });
+    }, `creating free transfer`);
 
     console.log(`Free transfer created and confirmed`);
 
