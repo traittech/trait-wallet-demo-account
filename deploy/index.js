@@ -8,6 +8,8 @@ const { create_fungible_tokens, set_metadata_and_mint_fungible_token, create_tok
 const { create_nft_collections, set_metadata_and_mint_nft, create_nft_transfers } = require('./utils/nft');
 const { retryOperation, maxWaitTime } = require('./utils/utils');
 
+const startTime = Date.now();
+
 const aws_s3_assets_path = path.join(__dirname, '..', 'aws_s3_assets');
 const game_a_path = path.join(aws_s3_assets_path, 'game-a/');
 const game_b_path = path.join(aws_s3_assets_path, 'game-b/');
@@ -280,4 +282,9 @@ async function create_balance_transfers(api, token_recipient, token_recipient_tw
 
 main()
     .catch(console.error)
-    .finally(() => process.exit());
+    .finally(() => {
+        const endTime = Date.now();
+        const executionTime = (endTime - startTime) / 1000; // Convert to seconds
+        console.log(`Total execution time: ${executionTime.toFixed(2)} seconds`);
+        process.exit();
+});
