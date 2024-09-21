@@ -1,0 +1,41 @@
+{
+  "metadata_id": "demo-nft-token-a-e-i",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "traits": {
+    "named": {
+      "name": "Golden Chalice"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-i/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-i/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-i/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "The golden chalice is an exquisite game item symbolizing victory and achievement. Crafted with intricate details, it features a polished golden surface that gleams in the light, captivating all who behold it. With its elegant shape and a striking diamond emblem etched into the body, this trophy represents the pinnacle of success within the game. Collecting the chalice not only rewards players with points but also unlocks exclusive content and boosts character abilities. It serves as a reminder of hard-fought battles and triumphs, motivating players to strive for greatness as they journey through challenging quests and adventures."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Critical damage",
+          "display_type": "percentage",
+          "value": 15
+        },
+        {
+          "name": "Attack",
+          "display_type": "percentage",
+          "value": 20
+        },
+        {
+          "name": "HP boost",
+          "display_type": "percentage",
+          "value": 30
+        }
+      ]
+    }
+  }
+}

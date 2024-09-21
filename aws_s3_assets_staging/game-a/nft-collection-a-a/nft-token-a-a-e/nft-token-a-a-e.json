@@ -1,0 +1,36 @@
+{
+  "metadata_id": "demo-nft-token-a-a-e",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "traits": {
+    "named": {
+      "name": "Shadow Scepter"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-e/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-e/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-e/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "The item is an ornate staff, embodying a blend of elegance and dark power. Its sleek silver shaft glimmers with intricate engravings that tell tales of ancient magic. At either end, menacing, jewel-like fixtures display captivating purple stones, radiating an aura of mystique. The design is both functional and decorative, reflecting its use as a potent weapon in battle and a revered artifact among mages. Perfectly balanced, it allows for precise casting of spells while enhancing the wielder's magical abilities. This staff not only serves as a tool of sorcery but also as a symbol of authority and mastery over the arcane."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Attack",
+          "display_type": "percentage",
+          "value": 15
+        },
+        {
+          "name": "Critical damage",
+          "display_type": "percentage",
+          "value": 15
+        }
+      ]
+    }
+  }
+}

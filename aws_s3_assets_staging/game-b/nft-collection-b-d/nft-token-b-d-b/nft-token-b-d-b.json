@@ -1,0 +1,51 @@
+{
+  "metadata_id": "demo-nft-token-b-d-b",
+  "title": "Metadata of the demo NFT token for the game Crown Clash.",
+  "description": "Metadata of the demo NFT token for the game Crown Clash.",
+  "traits": {
+    "named": {
+      "name": "Explosive Barrel"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-b/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-b/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-b/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "In a vibrant world teetering on the brink of chaos, prepare to embark on an explosive adventure! You are the master of your own bombing barrel, a quirky but powerful contraption ready to defy gravity and challenge foes. Navigate treacherous landscapes, dodge incoming projectiles, and unleash a barrage of bombs on your enemies. Strategically plan your attacks, collect upgrades, and outsmart rivals to claim victory! With colorful graphics and dynamic gameplay, each match will demand quick thinking and precision. Will you rise to the challenge, outmaneuver opponents, and reign supreme in this thrilling, bombastic battlefield? The adventure awaits!"
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Cost",
+          "display_type": "number",
+          "value": 20
+        },
+        {
+          "name": "Hitpoints",
+          "display_type": "number",
+          "value": 200
+        },
+        {
+          "name": "Damage per second",
+          "display_type": "number",
+          "value": 180
+        },
+        {
+          "name": "Range",
+          "display_type": "number",
+          "value": 6.5
+        },
+        {
+          "name": "Deploy Time",
+          "display_type": "number",
+          "value": 2.5
+        }
+      ]
+    }
+  }
+}

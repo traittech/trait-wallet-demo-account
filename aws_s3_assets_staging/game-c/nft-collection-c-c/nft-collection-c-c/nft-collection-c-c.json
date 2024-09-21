@@ -1,0 +1,17 @@
+{
+        "metadata_id": "demo-nft-collection-c-c",
+        "title": "Metadata of the demo NFT collection for the game ZoneX.",
+        "description": "Metadata of the demo NFT collection for the game ZoneX.",
+        "traits": {
+            "named": {
+                "name": "Outfit"
+            },
+            "tech.trait.wallet.square_icon": {
+                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-collection-c-c/icon_150x150.png"
+            },
+            "tech.trait.wallet.nft_collection_listing_image": {
+                "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-collection-c-c/listing_512x512.png"
+            }
+        }
+    }
+    

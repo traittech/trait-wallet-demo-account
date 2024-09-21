@@ -1,0 +1,24 @@
+name: Upload assets to AWS S3
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+    - name: Checkout
+      uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # pin@v4
+      with:
+        aws-region: ${{ vars.AWS_REGION || 'us-east-1' }}
+        role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+
+    - name: Deploy static site to S3 bucket
+      run: aws s3 sync ./aws_s3_assets_staging/ s3://trait-wallet-demo-account-staging.trait.tech/ --delete
