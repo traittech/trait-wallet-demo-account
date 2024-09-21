@@ -1,0 +1,36 @@
+{
+  "metadata_id": "demo-nft-token-a-c-j",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "traits": {
+    "named": {
+      "name": "Voidspike Lance"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-j/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-j/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-j/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "The item is an ornate spear, embodying a mystical aura with its sleek, elongated design. Its shaft is a deep, shimmering purple, hinting at the power contained within. Adorned with intricate golden details, the spear’s head features a sharp, pointed tip, suggesting both elegance and deadliness. The decorative elements, including a swirling motif and gem inlay, enhance its ethereal quality. This weapon is not just a formidable tool in combat; it symbolizes status and mastery over the arcane. Ideal for skilled combatants or spellcasters, it serves as both a physical weapon and a conduit for magical energy."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Base attack",
+          "display_type": "number",
+          "value": 57
+        },
+        {
+          "name": "Critical damage",
+          "display_type": "percentage",
+          "value": 20
+        }
+      ]
+    }
+  }
+}

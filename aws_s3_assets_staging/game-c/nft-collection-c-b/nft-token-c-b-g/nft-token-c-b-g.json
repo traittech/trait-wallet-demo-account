@@ -1,0 +1,41 @@
+{
+  "metadata_id": "demo-nft-token-c-b-g",
+  "title": "Metadata of the demo NFT token for the game ZoneX.",
+  "description": "Metadata of the demo NFT token for the game ZoneX.",
+  "traits": {
+    "named": {
+      "name": "Shadow Viper"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-g/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-g/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-g/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "In the dim light of the abandoned warehouse, a sleek yet worn pistol rests on the cold concrete floor. Its metallic surface gleams faintly, hinting at stories of battles fought and dangers faced. The grip, though scuffed, offers a reassuring familiarity. As you pick it up, the weight feels just right, a partner in your quest for survival. With a single bullet chambered, this weapon brims with potential—an instrument of precision amidst chaos. Will you wield it to protect your allies or to unleash chaos upon your foes? The choice is yours in this unforgiving world."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Damage",
+          "display_type": "number",
+          "value": 28
+        },
+        {
+          "name": "Fire rate",
+          "display_type": "number",
+          "value": 2
+        },
+        {
+          "name": "Reload speed",
+          "display_type": "number",
+          "value": 3.5
+        }
+      ]
+    }
+  }
+}

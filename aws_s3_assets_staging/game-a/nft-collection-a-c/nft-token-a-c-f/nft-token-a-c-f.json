@@ -1,0 +1,36 @@
+{
+  "metadata_id": "demo-nft-token-a-c-f",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "traits": {
+    "named": {
+      "name": "Crystal Spear"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-f/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-f/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-f/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "The item is an intricately designed spear, shimmering with a captivating blue hue that suggests a connection to elemental magic. Its shaft features ornate engravings, hinting at ancient knowledge and craftsmanship. The spearhead is sleek and pointed, resembling a mythical creature’s fin, and is framed by angular edges that reflect light beautifully. At the base, additional embellishments echo the spear's magical properties, potentially enhancing the wielder's abilities. Ideal for warriors or spellcasters alike, this weapon not only serves as a formidable tool for battle but also as a striking symbol of power and elegance, suitable for any adventurer."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Base attack",
+          "display_type": "number",
+          "value": 84
+        },
+        {
+          "name": "Critical rate",
+          "display_type": "percentage",
+          "value": 20
+        }
+      ]
+    }
+  }
+}
