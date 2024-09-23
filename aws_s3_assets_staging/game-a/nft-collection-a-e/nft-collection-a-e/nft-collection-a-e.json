@@ -1,0 +1,17 @@
+{
+        "metadata_id": "demo-nft-collection-a-e",
+        "title": "Metadata of the demo NFT collection for the game Starlit Horizon.",
+        "description": "Metadata of the demo NFT collection for the game Starlit Horizon.",
+        "traits": {
+            "named": {
+                "name": "Artifacts"
+            },
+            "tech.trait.wallet.square_icon": {
+                "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-collection-a-e/icon_150x150.png"
+            },
+            "tech.trait.wallet.nft_collection_listing_image": {
+                "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-collection-a-e/listing_512x512.png"
+            }
+        }
+    }
+    

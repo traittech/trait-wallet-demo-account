@@ -1,0 +1,36 @@
+{
+  "metadata_id": "demo-nft-token-a-b-d",
+  "title": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "description": "Metadata of the demo NFT token for the game Starlit Horizon.",
+  "traits": {
+    "named": {
+      "name": "Stormcaller Spear"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-d/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-d/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-d/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "The item is a mystical staff, intricately designed for powerful spellcasters and warriors alike. Its shaft, adorned with intricate golden patterns, features a striking blue gemstone that pulsates with magical energy, symbolizing its potent powers. The staff is topped with a unique, ornate design, including sweeping curves and sharp edges that evoke a sense of danger and elegance. This item enhances both magical and physical prowess, making it a versatile weapon suitable for various combat styles. With its blend of aesthetics and functionality, it is an essential tool for any adventurer seeking to harness the forces of magic and might."
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Base attack",
+          "display_type": "number",
+          "value": 64
+        },
+        {
+          "name": "Critical rate",
+          "display_type": "percentage",
+          "value": 20
+        }
+      ]
+    }
+  }
+}

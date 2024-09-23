@@ -1,0 +1,31 @@
+{
+  "metadata_id": "demo-nft-token-c-c-a",
+  "title": "Metadata of the demo NFT token for the game ZoneX.",
+  "description": "Metadata of the demo NFT token for the game ZoneX.",
+  "traits": {
+    "named": {
+      "name": "Field Camo Backpack"
+    },
+    "tech.trait.wallet.square_icon": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-a/icon_150x150.png"
+    },
+    "tech.trait.wallet.nft_token_listing_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-a/listing_512x512.png"
+    },
+    "tech.trait.wallet.nft_token_cover_image": {
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-c/nft-token-c-c-a/cover_1920x1920.png"
+    },
+    "tech.trait.wallet.nft_token_description": {
+      "nft_token_description": "In the heart of the urban wilderness, a rugged backpack dangles, its tattered fabric a testament to countless adventures. Splashed in hues of deep gray and fiery orange, it echoes tales of survival and exploration. With weathered straps and sturdy clasps, this pack is built for the intrepid soul. Two front pockets beckon for essential gear while the main compartment promises to cradle vital supplies. As you approach, a sense of nostalgia washes over you—this backpack holds the weight of your journey, each scratch and scuff narrating stories of resilience. Will you claim it as your companion on the next quest?"
+    },
+    "tech.trait.wallet.nft_token_attributes": {
+      "attributes": [
+        {
+          "name": "Protection",
+          "display_type": "number",
+          "value": 20
+        }
+      ]
+    }
+  }
+}
