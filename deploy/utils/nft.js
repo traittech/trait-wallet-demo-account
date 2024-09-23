@@ -1,5 +1,5 @@
 const { encodeNamed } = require("./keyless");
-const { retryOperation, maxWaitTime } = require("./utils");
+const { processClearingTransaction, retryOperation, maxWaitTime } = require("./utils");
 
 async function create_nft_collections(api, appAgentOwner, appAgentId, collection_count) {
     console.log("Start to create NFT Collections for the AppAgent ID " + appAgentId);
@@ -25,52 +25,31 @@ async function create_nft_collections(api, appAgentOwner, appAgentId, collection
         atomics.push([{ AppAgentId: appAgentId }, create_nft_call]);
     }
 
-    async function sendCreateNFTCollectionTx() {
-        return new Promise(async (resolve, reject) => {
-            const timeout = setTimeout(() => {
-                reject("Timeout: NFT collection creation took too long");
-            }, maxWaitTime);
+    let create_nft_ct = api.tx.addressPools.submitClearingTransaction(
+        appAgentId,
+        [atomics]
+    );
 
-            // generate create fungible token call
-            let create_fungible_token_ct = api.tx.addressPools.submitClearingTransaction(
-                appAgentId,
-                [atomics]
-            );
-
-            const unsubscribe = await create_fungible_token_ct
-                .signAndSend(appAgentOwner, { nonce: -1 }, ({ status, events }) => {
-                    if (status.isInBlock) {
-                        events.forEach(({ event }) => {
-                            if (api.events.nfts.Created.is(event)) {
-                                collection_id = event.data[0].toString();
-                                console.log("NFT Collection created with ID: " + collection_id);
-                                collection_ids.push(collection_id);
-                            }
-
-                            if (api.events.addressPools.CTProcessingCompleted.is(event)) {
-                                let failed_atomic_number = event.data[4].toString();
-                                if (failed_atomic_number === "0") {
-                                    console.log("CT completed successfully");
-                                    clearTimeout(timeout);
-                                    unsubscribe();
-                                    resolve();
-                                    return;
-                                }
-                            }
-                        });
-                        clearTimeout(timeout);
-                        unsubscribe();
-                        reject("Fungible token was not created despite the transaction being finalised.");
-                    }
-                });
+    try {
+        await processClearingTransaction(api, appAgentOwner, create_nft_ct, (event) => {
+            if (event.event.section === 'nfts' && event.event.method === 'Created') {
+                const collection_id = event.event.data[0].toString();
+                console.log("NFT Collection created with ID: " + collection_id);
+                collection_ids.push(collection_id);
+            }
         });
+
+        console.log("Generated collection IDs: ", collection_ids);
+
+        if (collection_ids.length === 0) {
+            throw new Error("No collection IDs were generated");
+        }
+
+        return collection_ids;
+    } catch (error) {
+        console.error("Error creating NFT Collections:", error.message);
+        throw error;
     }
-
-    await retryOperation(sendCreateNFTCollectionTx, "creating NFT Collection");
-
-    console.log("Generated collection IDs: ", collection_ids);
-    return collection_ids;
-
 }
 
 async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collectionId, collectionInfo, token_recipient) {
@@ -133,7 +112,6 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
     let atomics = [];
     let metadata_set_atomics = [];
 
-
     let set_team_metadata_call = api.tx.nfts.setTeam(
         collectionId,
         asset_admin,
@@ -175,86 +153,44 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
         metadata_set_atomics.push([{ NamedAddress: asset_admin }, set_metadata_call]);
     }
 
-    async function sendConfigureNFTCollectionTx() {
-        return new Promise((resolve, reject) => {
-            const timeout = setTimeout(() => {
-                reject("Timeout: Configuring NFT Collection took too long");
-            }, maxWaitTime);
+    let configure_nft_ct = api.tx.addressPools.submitClearingTransaction(
+        appAgentId,
+        [atomics]
+    );
 
-            let configure_fungible_ct = api.tx.addressPools.submitClearingTransaction(
-                appAgentId,
-                [
-                    atomics
-                ]
-            );
-
-            configure_fungible_ct.signAndSend(appAgentOwner, { nonce: -1 }, ({ status, events }) => {
-                if (status.isInBlock) {
-                    events.forEach(({ event }) => {
-                        if (api.events.addressPools.CTProcessingCompleted.is(event)) {
-                            let failed_atomic_number = event.data[4].toString();
-                            if (failed_atomic_number === "0") {
-                                console.log("CT completed successfully");
-                                clearTimeout(timeout);
-                                resolve();
-                                return;
-                            }
-                        }
-                    });
-                    clearTimeout(timeout);
-                    reject("CT did not complete successfully");
-                }
-            }).catch((err) => {
-                clearTimeout(timeout);
-                reject(`Couldn't configure NFT token: ${err}`);
-            });
+    try {
+        await processClearingTransaction(api, appAgentOwner, configure_nft_ct, (event) => {
+            console.log(`Event: ${event.event.section}.${event.event.method}`);
         });
-    }
 
-    await retryOperation(sendConfigureNFTCollectionTx, "configuring Fungible Token");
+        console.log("NFT collection configured successfully");
+    } catch (error) {
+        console.error("Error configuring NFT Collection:", error.message);
+        throw error;
+    }
 
     console.log("Sending CT to set metadata for NFT Tokens");
-    async function sentNftTokenMetadataSet() {
-        return new Promise((resolve, reject) => {
-            const timeout = setTimeout(() => {
-                reject("Timeout: Configuring NFT Collection took too long");
-            }, maxWaitTime);
+    let set_metadata_ct = api.tx.addressPools.submitClearingTransaction(
+        appAgentId,
+        [metadata_set_atomics]
+    );
 
-            let configure_fungible_ct = api.tx.addressPools.submitClearingTransaction(
-                appAgentId,
-                [
-                    metadata_set_atomics
-                ]
-            );
-
-            configure_fungible_ct.signAndSend(appAgentOwner, { nonce: -1 }, ({ status, events }) => {
-                if (status.isInBlock) {
-                    events.forEach(({ event }) => {
-                        if (api.events.addressPools.CTProcessingCompleted.is(event)) {
-                            let failed_atomic_number = event.data[4].toString();
-                            if (failed_atomic_number === "0") {
-                                console.log("CT completed successfully");
-                                clearTimeout(timeout);
-                                resolve();
-                                return;
-                            }
-                        }
-                    });
-                    clearTimeout(timeout);
-                    reject("CT did not complete successfully");
-                }
-            }).catch((err) => {
-                clearTimeout(timeout);
-                reject(`Couldn't configure NFT token: ${err}`);
-            });
+    try {
+        await processClearingTransaction(api, appAgentOwner, set_metadata_ct, (event) => {
+            console.log(`Event: ${event.event.section}.${event.event.method}`);
+            if (event.event.section === 'nfts' && event.event.method === 'MetadataSet') {
+                console.log(`Metadata set for token: ${event.event.data[1].toString()} in collection: ${event.event.data[0].toString()}`);
+            }
         });
+
+        console.log("NFT token metadata set successfully");
+        return nftInfo;
+    } catch (error) {
+        console.error("Error setting NFT token metadata:", error.message);
+        throw error;
     }
-
-    await retryOperation(sentNftTokenMetadataSet, "configuring Fungible Token");
-
-    return nftInfo;
-
 }
+
 
 async function create_nft_transfers(api, collection_id, token_id, token_sender, token_recipient) {
     console.log("Generate free transfers between the two users");

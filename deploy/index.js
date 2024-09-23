@@ -117,38 +117,48 @@ async function main() {
     // array of { collectionId: collectionId, tokenId: tokenId}
     let collections = [];
 
+    console.log("Starting to process game data");
     for (const [gameIndex, game] of gameData.entries()) {
+        console.log(`Processing game ${gameIndex + 1}`);
         const appAgentOwner = appAgentOwners[gameIndex];
 
         // Create app agent and set metadata
+        console.log(`Creating app agent for game ${gameIndex + 1}`);
         const appAgentId = await create_app_agent(api, appAgentOwner, game.appAgent.metadataUrl);
+        console.log(`App agent created for game ${gameIndex + 1}: ${appAgentId}`);
 
         // Create and configure fungible tokens
         if (game.fungibles.length > 0) {
+            console.log(`Creating fungible tokens for game ${gameIndex + 1}`);
             const fungibleIds = await create_fungible_tokens(api, appAgentOwner, appAgentId, game.fungibles.length);
-            // push fungible ids to the fungibles array
             fungibles = [...fungibles, ...fungibleIds];
+            console.log(`Setting metadata and minting fungible tokens for game ${gameIndex + 1}`);
             await set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgentId, fungibleIds, game.fungibles.map(f => f.metadataUrl), demo_user_one, game.fungibles.map(f => f.decimals));
+            console.log(`Fungible tokens created and configured for game ${gameIndex + 1}`);
         }
 
         // Create and configure NFT collections and tokens
+        console.log(`Creating NFT collections for game ${gameIndex + 1}`);
         const collectionIds = await create_nft_collections(api, appAgentOwner, appAgentId, game.nftCollections.length);
         for (let i = 0; i < game.nftCollections.length; i++) {
+            console.log(`Setting metadata and minting NFTs for collection ${i + 1} of game ${gameIndex + 1}`);
             let nftInfo = await set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collectionIds[i], game.nftCollections[i], demo_user_one.address);
-            // push token ids to the tokens array
             collections = [...collections, ...nftInfo];
         }
+        console.log(`NFT collections created and configured for game ${gameIndex + 1}`);
     }
 
-    console.log("Create demo transfers for fungibles", fungibles);
+    console.log("All games processed. Fungibles:", fungibles);
+    console.log("Collections:", collections);
+
+    console.log("Create demo transfers for fungibles");
     for (const fungible of fungibles) {
         await create_token_transfer(api, fungible, demo_user_one, [demo_user_two, demo_user_three], 10);
         await create_token_transfer(api, fungible, demo_user_two, [demo_user_one, demo_user_three], 5);
     }
 
-    console.log("Create demo transfers for NFTs", collections);
+    console.log("Create demo transfers for NFTs");
     for (const collection of collections) {
-        // randomly determine the recipient
         const recipient = Math.random() < 0.5 ? demo_user_three : demo_user_two;
         await create_nft_transfers(api, collection.collectionId, collection.tokenId, demo_user_one, recipient);
     }
