@@ -1,5 +1,5 @@
 const { encodeNamed } = require("./keyless");
-const { retryOperation, maxWaitTime, processClearingTransaction } = require("./utils");
+const { processClearingTransaction, processSignedTransaction } = require("./utils");
 
 async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount) {
     return new Promise(async (resolve, reject) => {
@@ -71,7 +71,9 @@ async function set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgent
             );
 
             await processClearingTransaction(api, appAgentOwner, configure_fungible_ct, (event) => {
-                console.log(`Event in callback: ${event.event.section}.${event.event.method}`);
+                if (event.event.section === 'assets' && event.event.method === 'SetMetadata') {
+                    console.log("Fungible token metadata set successfully");
+                }
             });
 
             console.log("Fungible tokens configured successfully");
@@ -93,61 +95,14 @@ async function create_token_transfer(api, token_id, token_sender, token_recipien
     console.log("Token sender: ", token_sender.address);
 
     for (let i = 0; i < token_recipients.length; i++) {
-        await retryOperation(async () => {
-            return new Promise(async (resolve, reject) => {
-                const timeout = setTimeout(() => {
-                    reject(new Error(`Timeout: Transfer ${i + 1} took too long`));
-                }, maxWaitTime);
 
-                try {
-                    const unsubscribe = await api.tx.playerTransfers.submitTransferAssets(
-                        token_id,
-                        token_recipients[i].address,
-                        amount
-                    ).signAndSend(token_sender, { nonce: -1 }, ({ status, events }) => {
-                        if (status.isInBlock) {
-                            let extrinsicSuccess = false;
-                            events.forEach(({ event }) => {
-                                if (api.events.system.ExtrinsicSuccess.is(event)) {
-                                    extrinsicSuccess = true;
-                                }
-                            });
+        let tx = api.tx.playerTransfers.submitTransferAssets(
+            token_id,
+            token_recipients[i].address,
+            amount
+        );
 
-                            if (extrinsicSuccess) {
-                                console.log(`Transfer ${i + 1} is in block and successful`);
-                                clearTimeout(timeout);
-                                unsubscribe();
-                                resolve();
-                            } else {
-                                clearTimeout(timeout);
-                                unsubscribe();
-                                reject(new Error(`Transfer ${i + 1} failed: ExtrinsicSuccess event not found`));
-                            }
-                        } else if (status.isError) {
-                            clearTimeout(timeout);
-                            unsubscribe();
-                            reject(new Error(`Transfer ${i + 1} failed with error status`));
-                        }
-                    });
-                } catch (error) {
-                    clearTimeout(timeout);
-                    if (error.message.includes("Priority is too low")) {
-                        console.log("Priority too low. Retrying with increased delay.");
-                        await new Promise(resolve => setTimeout(resolve, 5000)); // Additional delay
-                    }
-                    reject(error);
-                }
-            });
-        }, `creating free transfer ${i + 1}`, {
-            retryInterval: (attempt) => Math.min(2000 * Math.pow(2, attempt), 30000), // Exponential backoff
-            shouldRetry: (error) => {
-                if (error.message.includes("Priority is too low")) {
-                    console.log("Priority too low. Will retry with increased delay.");
-                    return true;
-                }
-                return error.message.includes("Timeout") || error.message.includes("failed");
-            }
-        });
+        await processSignedTransaction(api, token_sender, tx);
 
         console.log(`Free transfer ${i + 1} created and in block`);
     }

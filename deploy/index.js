@@ -6,7 +6,7 @@ const path = require('path');
 const { create_app_agent } = require('./utils/app_agent');
 const { create_fungible_tokens, set_metadata_and_mint_fungible_token, create_token_transfer } = require('./utils/fungible');
 const { create_nft_collections, set_metadata_and_mint_nft, create_nft_transfers } = require('./utils/nft');
-const { retryOperation, maxWaitTime } = require('./utils/utils');
+const { processSignedTransaction, processSignedBatchTransaction } = require('./utils/utils');
 
 const startTime = Date.now();
 
@@ -74,37 +74,7 @@ async function main() {
     ];
 
     console.log("Send the batch of transfers");
-    await new Promise(async (resolve, reject) => {
-        const unsubscribe = await api.tx.utility
-            .batchAll(transfers)
-            .signAndSend(faucetAccount, ({ status, events }) => {
-                if (status.isInBlock) {
-                    let batchComplete = false;
-                    events.forEach(({ event }) => {
-                        if (api.events.balances.Transfer.is(event)) {
-                            const [from, to, amount] = event.data;
-                            console.log(`Transferred ${amount} tokens from ${from.toString()} to ${to.toString()}`);
-                        }
-
-                        if (api.events.utility.BatchCompleted.is(event)) {
-                            batchComplete = true;
-                            console.log("Batch completed successfully");
-                        }
-                    });
-                    if (batchComplete) {
-                        console.log("Initial transfers completed successfully");
-                        unsubscribe();
-                        resolve();
-                    } else {
-                        console.error("Batch did not complete successfully");
-                        unsubscribe();
-                        reject(new Error("Batch did not complete"));
-                    }
-                }
-            })
-            .catch(reject);
-    });
-
+    await processSignedBatchTransaction(api, faucetAccount, api.tx.utility.batchAll(transfers));
     await create_balance_transfers(api, demo_user_one, demo_user_two);
     await create_balance_transfers(api, demo_user_three, demo_user_one);
 
@@ -140,8 +110,9 @@ async function main() {
         // Create and configure NFT collections and tokens
         console.log(`Creating NFT collections for game ${gameIndex + 1}`);
         const collectionIds = await create_nft_collections(api, appAgentOwner, appAgentId, game.nftCollections.length);
+        console.log(`NFT collections created for game ${gameIndex + 1}:`, collectionIds);
         for (let i = 0; i < game.nftCollections.length; i++) {
-            console.log(`Setting metadata and minting NFTs for collection ${i + 1} of game ${gameIndex + 1}`);
+            console.log(`Setting metadata and minting NFTs for collection ${collectionIds[i]} of game ${gameIndex + 1}`);
             let nftInfo = await set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collectionIds[i], game.nftCollections[i], demo_user_one.address);
             collections = [...collections, ...nftInfo];
         }
@@ -239,55 +210,13 @@ async function create_balance_transfers(api, token_recipient, token_recipient_tw
     console.log("Generate free transfers between the two users");
 
     for (let i = 0; i < 2; i++) {
-        await retryOperation(async () => {
-            return new Promise(async (resolve, reject) => {
-                const timeout = setTimeout(() => {
-                    reject(new Error(`Timeout: Transfer took too long`));
-                }, maxWaitTime);
-
-                try {
-                    const unsubscribe = await api.tx.playerTransfers.submitTransferBalances(
-                        token_recipient_two.address,
-                        1000000
-                    ).signAndSend(token_recipient, { nonce: -1 }, ({ status, events }) => {
-                        if (status.isInBlock) {
-                            let extrinsicSuccess = false;
-                            events.forEach(({ event }) => {
-                                if (api.events.system.ExtrinsicSuccess.is(event)) {
-                                    extrinsicSuccess = true;
-                                }
-                            });
-
-                            if (extrinsicSuccess) {
-                                console.log(`Transfer is in block and successful`);
-                                clearTimeout(timeout);
-                                unsubscribe();
-                                resolve();
-                            } else {
-                                clearTimeout(timeout);
-                                unsubscribe();
-                                reject(new Error(`Transfer failed: ExtrinsicSuccess event not found`));
-                            }
-                        } else if (status.isError) {
-                            clearTimeout(timeout);
-                            // unsubscribe();
-                            // reject(new Error(`Transfer failed with error status`));
-                        }
-                    });
-                } catch (error) {
-                    clearTimeout(timeout);
-                    if (error.message.includes("Priority is too low")) {
-                        console.log("Priority too low. Retrying with increased delay.");
-                        await new Promise(resolve => setTimeout(resolve, 5000)); // Additional delay
-                    }
-                    reject(error);
-                }
-            });
-        }, `creating free transfer`);
+        let tx = api.tx.playerTransfers.submitTransferBalances(
+            token_recipient_two.address,
+            1000000
+        );
+        await processSignedTransaction(api, token_recipient, tx);
     }
-
     console.log(`Free transfer created and confirmed`);
-
 }
 
 main()
@@ -297,4 +226,4 @@ main()
         const executionTime = (endTime - startTime) / 1000; // Convert to seconds
         console.log(`Total execution time: ${executionTime.toFixed(2)} seconds`);
         process.exit();
-});
+    });

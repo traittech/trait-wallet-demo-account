@@ -1,6 +1,6 @@
 const maxWaitTime = 12000; // 12 seconds in milliseconds
 const maxRetries = 5;
-const initialBackoff = 6000; // 6 seconds
+const initialBackoff = 3000; // 3 seconds
 
 async function retryOperation(operation, operationName) {
     let retries = 0;
@@ -21,68 +21,114 @@ async function retryOperation(operation, operationName) {
     }
 }
 
-async function processClearingTransaction(api, signer, ctCall, eventCallback = {}, maxWaitTime = 300000) {
+async function processClearingTransaction(api, signer, ct, eventCallback) {
     return retryOperation(async () => {
         return new Promise((resolve, reject) => {
             const timeout = setTimeout(() => {
-                reject(new Error("Timeout: CT processing took too long"));
+                reject(new Error(`CT processing timed out after ${maxWaitTime}ms`));
             }, maxWaitTime);
 
-            try {
-                ctCall.signAndSend(signer, { nonce: -1 }, ({ status, events }) => {
-                    if (status.isInBlock || status.isFinalized) {
+            ct.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
+                if (status.isInBlock) {
+                    events.forEach((event) => {
+                        eventCallback(event);
+                    });
+
+                    if (events.some(({ event }) =>
+                        api.events.addressPools.CTProcessingCompleted.is(event)
+                    )) {
+                        console.log("CT processing completed, resolving promise");
                         clearTimeout(timeout);
-
-                        let ctCompleted = false;
-                        let errorMessage = null;
-
-                        console.log("Processing events for CT:");
-                        events.forEach((event) => {
-                            console.log(`Event: ${event.event.section}.${event.event.method}`);
-                            
-                            // Check for CTProcessingCompleted event
-                            if (event.event.section === 'addressPools' && event.event.method === 'CTProcessingCompleted') {
-                                console.log("CTProcessingCompleted event found");
-                                const [, , , , failedAtomicNumber] = event.event.data;
-                                console.log(`CTProcessingCompleted event data: ${event.event.data.toString()}`);
-                                console.log(`Failed atomic number: ${failedAtomicNumber.toString()}`);
-                                
-                                if (failedAtomicNumber.eq(0)) {
-                                    console.log("CT completed successfully");
-                                    ctCompleted = true;
-                                } else {
-                                    errorMessage = `CT processing failed at atomic number: ${failedAtomicNumber.toString()}`;
-                                    console.log(errorMessage);
-                                }
-                            }
-
-                            // Allow user to process other events
-                            if (eventCallback) {
-                                eventCallback(event);
-                            }
-                        });
-
-                        if (ctCompleted) {
-                            console.log("Resolving promise - CT completed successfully");
-                            resolve();
-                        } else {
-                            console.log("Rejecting promise - CT did not complete successfully");
-                            reject(new Error(errorMessage || "CT did not complete successfully"));
-                        }
+                        resolve();
                     }
-                });
-            } catch (error) {
+                }
+            }).catch((error) => {
                 clearTimeout(timeout);
-                console.log("Caught error in signAndSend:", error);
+                console.error("Error in processClearingTransaction:", error);
                 reject(error);
-            }
+            });
         });
-    }, "processing Clearing Transaction");
+    }, "processing clearing transaction");
 }
+
+async function processSignedTransaction(api, signer, tx, eventCallback = () => { }) {
+    return retryOperation(async () => {
+        return new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => {
+                reject(new Error(`Transaction timed out after ${maxWaitTime}ms`));
+            }, maxWaitTime);
+
+            tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
+                if (status.isInBlock) {
+                    let extrinsicSuccess = false;
+                    events.forEach(({ event }) => {
+                        eventCallback(event);
+                        if (api.events.system.ExtrinsicSuccess.is(event)) {
+                            extrinsicSuccess = true;
+                        }
+                    });
+
+                    if (extrinsicSuccess) {
+                        console.log(`Transaction is in block and successful`);
+                        clearTimeout(timeout);
+                        resolve();
+                    } else {
+                        clearTimeout(timeout);
+                        reject(new Error(`Transfer failed: ExtrinsicSuccess event not found`));
+                    }
+                }
+            }).catch((error) => {
+                clearTimeout(timeout);
+                console.error("Error in processSignedTransaction:", error);
+                reject(error);
+            });
+        });
+    }, "processing signed transaction");
+}
+
+async function processSignedBatchTransaction(api, signer, tx, eventCallback = () => { }) {
+    return retryOperation(async () => {
+        return new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => {
+                reject(new Error(`Transaction timed out after ${maxWaitTime}ms`));
+            }, maxWaitTime);
+
+            tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
+                if (status.isInBlock) {
+                    let extrinsicSuccess = false;
+                    events.forEach(({ event }) => {
+                        eventCallback(event);
+                        if (api.events.utility.BatchCompleted.is(event)) {
+                            extrinsicSuccess = true;
+                            console.log("Batch completed successfully");
+                        }
+                    });
+
+                    if (extrinsicSuccess) {
+                        console.log(`Transaction is in block and successful`);
+                        clearTimeout(timeout);
+                        resolve();
+                    } else {
+                        clearTimeout(timeout);
+                        reject(new Error(`Transfer failed: ExtrinsicSuccess event not found`));
+                    }
+                }
+            }).catch((error) => {
+                clearTimeout(timeout);
+                console.error("Error in processSignedTransaction:", error);
+                reject(error);
+            });
+        });
+    }, "processing signed transaction");
+}
+
+
 
 module.exports = {
     retryOperation,
     maxWaitTime,
     maxRetries,
-    processClearingTransaction
+    processClearingTransaction,
+    processSignedTransaction,
+    processSignedBatchTransaction
 }
