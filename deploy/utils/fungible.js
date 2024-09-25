@@ -29,6 +29,12 @@ async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount
             });
 
             console.log("Generated token IDs: ", tokenIds);
+
+            if (tokenIds.length != tokenCount) {
+                throw new Error("Not all required fungibles were created");
+            }
+
+            console.log("Resolving promise with tokenIds:", collection_ids);
             resolve(tokenIds);
         } catch (error) {
             console.error("Error creating fungible tokens:", error);
@@ -108,7 +114,6 @@ async function create_token_transfer(api, token_id, token_sender, token_recipien
     }
 
     console.log("All transfers completed successfully");
-    console.log("App agent assets created successfully");
 }
 
 module.exports = {

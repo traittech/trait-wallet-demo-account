@@ -42,8 +42,8 @@ async function create_nft_collections(api, appAgentOwner, appAgentId, collection
 
             console.log("Generated collection IDs: ", collection_ids);
 
-            if (collection_ids.length === 0) {
-                throw new Error("No collection IDs were generated");
+            if (collection_ids.length != collection_count) {
+                throw new Error("Not all NFT collections were created");
             }
 
             console.log("Resolving promise with collection_ids:", collection_ids);
