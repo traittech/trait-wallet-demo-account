@@ -30,16 +30,24 @@ async function processClearingTransaction(api, signer, ct, eventCallback) {
 
             ct.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
                 if (status.isInBlock) {
+                    let extrinsicSuccess = false;
                     events.forEach((event) => {
+                        // Pass every event to the events callback
                         eventCallback(event);
+                        // Check TX status
+                        if (api.events.addressPools.CTProcessingCompleted.is(event)) {
+                            extrinsicSuccess = true;
+                        }
                     });
 
-                    if (events.some(({ event }) =>
-                        api.events.addressPools.CTProcessingCompleted.is(event)
-                    )) {
-                        console.log("CT processing completed, resolving promise");
+                    // Check TX status
+                    if (extrinsicSuccess) {
+                        console.log(`Transaction is in block and successful`);
                         clearTimeout(timeout);
                         resolve();
+                    } else {
+                        clearTimeout(timeout);
+                        reject(new Error(`Transaction failed: CTProcessingCompleted event not found`));
                     }
                 }
             }).catch((error) => {
@@ -62,19 +70,22 @@ async function processSignedTransaction(api, signer, tx, eventCallback = () => {
                 if (status.isInBlock) {
                     let extrinsicSuccess = false;
                     events.forEach(({ event }) => {
+                        // Pass every event to the events callback
                         eventCallback(event);
+                        // Check TX status
                         if (api.events.system.ExtrinsicSuccess.is(event)) {
                             extrinsicSuccess = true;
                         }
                     });
 
+                    // Check TX status
                     if (extrinsicSuccess) {
                         console.log(`Transaction is in block and successful`);
                         clearTimeout(timeout);
                         resolve();
                     } else {
                         clearTimeout(timeout);
-                        reject(new Error(`Transfer failed: ExtrinsicSuccess event not found`));
+                        reject(new Error(`Transaction failed: ExtrinsicSuccess event not found`));
                     }
                 }
             }).catch((error) => {
@@ -90,36 +101,38 @@ async function processSignedBatchTransaction(api, signer, tx, eventCallback = ()
     return retryOperation(async () => {
         return new Promise((resolve, reject) => {
             const timeout = setTimeout(() => {
-                reject(new Error(`Transaction timed out after ${maxWaitTime}ms`));
+                reject(new Error(`Batch transaction timed out after ${maxWaitTime}ms`));
             }, maxWaitTime);
 
             tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
                 if (status.isInBlock) {
                     let extrinsicSuccess = false;
                     events.forEach(({ event }) => {
+                        // Pass every event to the events callback
                         eventCallback(event);
+                        // Check TX status
                         if (api.events.utility.BatchCompleted.is(event)) {
                             extrinsicSuccess = true;
-                            console.log("Batch completed successfully");
                         }
                     });
 
+                    // Check TX status
                     if (extrinsicSuccess) {
                         console.log(`Transaction is in block and successful`);
                         clearTimeout(timeout);
                         resolve();
                     } else {
                         clearTimeout(timeout);
-                        reject(new Error(`Transfer failed: ExtrinsicSuccess event not found`));
+                        reject(new Error(`Transaction failed: BatchCompleted event not found`));
                     }
                 }
             }).catch((error) => {
                 clearTimeout(timeout);
-                console.error("Error in processSignedTransaction:", error);
+                console.error("Error in processSignedBatchTransaction:", error);
                 reject(error);
             });
         });
-    }, "processing signed transaction");
+    }, "processing signed batch transaction");
 }
 
 
