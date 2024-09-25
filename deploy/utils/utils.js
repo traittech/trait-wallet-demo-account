@@ -23,13 +23,16 @@ async function retryOperation(operation, operationName) {
 
 async function processClearingTransaction(api, signer, ct, eventCallback) {
     return retryOperation(async () => {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const timeout = setTimeout(() => {
                 reject(new Error(`CT processing timed out after ${maxWaitTime}ms`));
             }, maxWaitTime);
 
-            ct.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
+            const unsubscribe = await ct.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
                 if (status.isInBlock) {
+                    // Unsubscribe from the further updates for the TX
+                    unsubscribe();
+
                     let extrinsicSuccess = false;
                     events.forEach((event) => {
                         // Pass every event to the events callback
@@ -61,13 +64,16 @@ async function processClearingTransaction(api, signer, ct, eventCallback) {
 
 async function processSignedTransaction(api, signer, tx, eventCallback = () => { }) {
     return retryOperation(async () => {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const timeout = setTimeout(() => {
                 reject(new Error(`Transaction timed out after ${maxWaitTime}ms`));
             }, maxWaitTime);
 
-            tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
+            const unsubscribe = await tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
                 if (status.isInBlock) {
+                    // Unsubscribe from the further updates for the TX
+                    unsubscribe();
+
                     let extrinsicSuccess = false;
                     events.forEach(({ event }) => {
                         // Pass every event to the events callback
@@ -99,13 +105,16 @@ async function processSignedTransaction(api, signer, tx, eventCallback = () => {
 
 async function processSignedBatchTransaction(api, signer, tx, eventCallback = () => { }) {
     return retryOperation(async () => {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const timeout = setTimeout(() => {
                 reject(new Error(`Batch transaction timed out after ${maxWaitTime}ms`));
             }, maxWaitTime);
 
-            tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
+            const unsubscribe = await tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
                 if (status.isInBlock) {
+                    // Unsubscribe from the further updates for the TX
+                    unsubscribe();
+
                     let extrinsicSuccess = false;
                     events.forEach(({ event }) => {
                         // Pass every event to the events callback
