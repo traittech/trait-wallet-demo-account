@@ -1,6 +1,6 @@
-const maxWaitTime = 12000; // 12 seconds in milliseconds
-const maxRetries = 5;
-const initialBackoff = 3000; // 3 seconds
+const maxWaitTime = 120000; // 120 seconds in milliseconds
+const maxRetries = 3;
+const initialBackoff = 30000; // 30 seconds
 
 async function retryOperation(operation, operationName) {
     let retries = 0;
@@ -21,7 +21,7 @@ async function retryOperation(operation, operationName) {
     }
 }
 
-async function processClearingTransaction(api, signer, ct, eventCallback) {
+async function processClearingTransaction(api, signer, ct, eventCallback = () => { }) {
     return retryOperation(async () => {
         return new Promise(async (resolve, reject) => {
             const timeout = setTimeout(() => {
@@ -29,7 +29,7 @@ async function processClearingTransaction(api, signer, ct, eventCallback) {
             }, maxWaitTime);
 
             const unsubscribe = await ct.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
-                if (status.isInBlock) {
+                if (status.isFinalized) {
                     // Unsubscribe from the further updates for the TX
                     unsubscribe();
 
@@ -70,7 +70,7 @@ async function processSignedTransaction(api, signer, tx, eventCallback = () => {
             }, maxWaitTime);
 
             const unsubscribe = await tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
-                if (status.isInBlock) {
+                if (status.isFinalized) {
                     // Unsubscribe from the further updates for the TX
                     unsubscribe();
 
@@ -111,7 +111,7 @@ async function processSignedBatchTransaction(api, signer, tx, eventCallback = ()
             }, maxWaitTime);
 
             const unsubscribe = await tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
-                if (status.isInBlock) {
+                if (status.isFinalized) {
                     // Unsubscribe from the further updates for the TX
                     unsubscribe();
 
