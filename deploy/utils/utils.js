@@ -78,34 +78,38 @@ async function processSignedTransaction(api, signer, tx, eventCallback = () => {
                 reject(new Error(`Transaction timed out after ${maxWaitTime}ms`));
             }, maxWaitTime);
 
-            const unsubscribe = await tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status, txHash }) => {
-                if (status.isInBlock) {
-                    console.log(`Transaction finalized with hash: ${txHash}`);
+            let unsubscribe;
+            let eventsUnsubscribe;
+            let transactionCompleted = false;
 
-                    let extrinsicSuccess = false;
-                    events.forEach(({ event }) => {
-                        // Pass every event to the events callback
-                        eventCallback(event);
-                        // Check TX status
-                        if (api.events.system.ExtrinsicSuccess.is(event)) {
-                            extrinsicSuccess = true;
-                        }
-                    });
-
-                    // Check TX status
-                    if (extrinsicSuccess) {
-                        console.log(`Transaction is in block and successful`);
-                        clearTimeout(timeout);
-                        resolve();
-                    } else {
-                        clearTimeout(timeout);
-                        reject(new Error(`Transaction failed: ExtrinsicSuccess event not found`));
+            const checkEvents = (events) => {
+                events.forEach((event) => {
+                    eventCallback(event);
+                    
+                    if (api.events.system.ExtrinsicSuccess.is(event)) {
+                        transactionCompleted = true;
                     }
+                });
+
+                if (transactionCompleted) {
+                    console.log(`Transaction successful and processing completed`);
+                    clearTimeout(timeout);
+                    if (unsubscribe) unsubscribe();
+                    if (eventsUnsubscribe) eventsUnsubscribe();
+                    resolve();
                 }
-            }).catch((error) => {
+            };
+
+            await tx.signAndSend(signer, { nonce: -1 }).catch((error) => {
                 clearTimeout(timeout);
                 console.error("Error in processSignedTransaction:", error);
                 reject(error);
+            });
+
+            // Subscribe to system events via storage
+            eventsUnsubscribe = await api.query.system.events((events) => {
+                console.log(`Waiting to confirm transaction success`);
+                checkEvents(events);
             });
         });
     }, "processing signed transaction");
@@ -118,33 +122,40 @@ async function processSignedBatchTransaction(api, signer, tx, eventCallback = ()
                 reject(new Error(`Batch transaction timed out after ${maxWaitTime}ms`));
             }, maxWaitTime);
 
-            const unsubscribe = await tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status, txHash }) => {
-                if (status.isInBlock) {
-                    console.log(`Transaction finalized with hash: ${txHash}`);
-                    let extrinsicSuccess = false;
-                    events.forEach(({ event }) => {
-                        // Pass every event to the events callback
-                        eventCallback(event);
-                        // Check TX status
-                        if (api.events.utility.BatchCompleted.is(event)) {
-                            extrinsicSuccess = true;
-                        }
-                    });
+            let unsubscribe;
+            let eventsUnsubscribe;
+            let batchCompleted = false;
 
-                    // Check TX status
-                    if (extrinsicSuccess) {
-                        console.log(`Transaction is in block and successful`);
-                        clearTimeout(timeout);
-                        resolve();
-                    } else {
-                        clearTimeout(timeout);
-                        reject(new Error(`Transaction failed: BatchCompleted event not found`));
+            const checkEvents = (events) => {
+                events.forEach((event) => {
+                    eventCallback(event);
+                    
+                    if (api.events.utility.BatchCompleted.is(event)) {
+                        batchCompleted = true;
+                        console.log(`Batch completed`);
                     }
+                });
+
+                if (batchCompleted) {
+                    console.log(`Transaction successful and batch processing completed`);
+                    clearTimeout(timeout);
+                    if (unsubscribe) unsubscribe();
+                    if (eventsUnsubscribe) eventsUnsubscribe();
+                    resolve();
                 }
-            }).catch((error) => {
+            };
+
+            await tx.signAndSend(signer, { nonce: -1 })
+            .catch((error) => {
                 clearTimeout(timeout);
                 console.error("Error in processSignedBatchTransaction:", error);
                 reject(error);
+            });
+
+            // Subscribe to system events via storage
+            eventsUnsubscribe = await api.query.system.events((events) => {
+                console.log(`Waiting to confirm transaction success`);
+                checkEvents(events);
             });
         });
     }, "processing signed batch transaction");
