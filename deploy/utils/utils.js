@@ -1,4 +1,4 @@
-const maxWaitTime = 120000; // 120 seconds in milliseconds
+const maxWaitTime = 300000; // 5 minutes in milliseconds
 const maxRetries = 3;
 const initialBackoff = 30000; // 30 seconds
 
@@ -28,35 +28,44 @@ async function processClearingTransaction(api, signer, ct, eventCallback = () =>
                 reject(new Error(`CT processing timed out after ${maxWaitTime}ms`));
             }, maxWaitTime);
 
-            const unsubscribe = await ct.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
-                if (status.isFinalized) {
-                    // Unsubscribe from the further updates for the TX
-                    unsubscribe();
+            let unsubscribe;
+            let eventsUnsubscribe;
+            let ctProcessingCompleted = false;
 
-                    let extrinsicSuccess = false;
-                    events.forEach((event) => {
-                        // Pass every event to the events callback
-                        eventCallback(event);
-                        // Check TX status
-                        if (api.events.addressPools.CTProcessingCompleted.is(event)) {
-                            extrinsicSuccess = true;
-                        }
-                    });
-
-                    // Check TX status
-                    if (extrinsicSuccess) {
-                        console.log(`Transaction is in block and successful`);
-                        clearTimeout(timeout);
-                        resolve();
-                    } else {
-                        clearTimeout(timeout);
-                        reject(new Error(`Transaction failed: CTProcessingCompleted event not found`));
+            const checkEvents = (events) => {
+                events.forEach((event) => {
+                    //console.log(event);
+                    eventCallback(event);
+                    
+                    if (api.events.addressPools.CTProcessingCompleted.is(event)) {
+                        ctProcessingCompleted = true;
                     }
+                });
+
+                if (ctProcessingCompleted) {
+                    console.log(`Transaction successful and CT processing completed`);
+                    clearTimeout(timeout);
+                    if (unsubscribe) unsubscribe();
+                    if (eventsUnsubscribe) eventsUnsubscribe();
+                    resolve();
+                }
+            };
+
+            unsubscribe = await ct.signAndSend(signer, { nonce: -1 }, ({ events = [], status, txHash }) => {
+                if (status.isInBlock) {
+                    console.log(`Transaction included in block with hash: ${txHash}`);
+                    checkEvents(events);
                 }
             }).catch((error) => {
                 clearTimeout(timeout);
                 console.error("Error in processClearingTransaction:", error);
                 reject(error);
+            });
+
+            // Subscribe to system events via storage
+            eventsUnsubscribe = await api.query.system.events((events) => {
+                console.log(`\nReceived ${events.length} events:`);
+                checkEvents(events);
             });
         });
     }, "processing clearing transaction");
@@ -69,10 +78,9 @@ async function processSignedTransaction(api, signer, tx, eventCallback = () => {
                 reject(new Error(`Transaction timed out after ${maxWaitTime}ms`));
             }, maxWaitTime);
 
-            const unsubscribe = await tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
-                if (status.isFinalized) {
-                    // Unsubscribe from the further updates for the TX
-                    unsubscribe();
+            const unsubscribe = await tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status, txHash }) => {
+                if (status.isInBlock) {
+                    console.log(`Transaction finalized with hash: ${txHash}`);
 
                     let extrinsicSuccess = false;
                     events.forEach(({ event }) => {
@@ -110,11 +118,9 @@ async function processSignedBatchTransaction(api, signer, tx, eventCallback = ()
                 reject(new Error(`Batch transaction timed out after ${maxWaitTime}ms`));
             }, maxWaitTime);
 
-            const unsubscribe = await tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status }) => {
-                if (status.isFinalized) {
-                    // Unsubscribe from the further updates for the TX
-                    unsubscribe();
-
+            const unsubscribe = await tx.signAndSend(signer, { nonce: -1 }, ({ events = [], status, txHash }) => {
+                if (status.isInBlock) {
+                    console.log(`Transaction finalized with hash: ${txHash}`);
                     let extrinsicSuccess = false;
                     events.forEach(({ event }) => {
                         // Pass every event to the events callback
