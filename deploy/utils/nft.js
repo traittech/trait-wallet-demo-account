@@ -35,7 +35,7 @@ async function create_nft_collections(api, appAgentOwner, appAgentId, collection
 
             let events = await processClearingTransaction(api, appAgentOwner, create_nft_ct);
 
-            console.log("Clearing transaction successfully execute, collect IDs of created NFT collections.");
+            console.log("Clearing transaction successfully processed, collect IDs of created NFT collections.");
             let collection_ids = [];
             for (const event of events) {
                 if (event.receipt.event_module === 'Nfts' && event.receipt.event_name === 'Created') {
@@ -114,12 +114,14 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
                     token_recipient,
                     {}
                 );
+                let mint_nft_action = [{ NamedAddress: asset_admin }, mint_nft_call];
                 let set_metadata_call = api.tx.nfts.setMetadata(
                     collectionId,
                     tokenId,
                     metadataUrl
                 );
-                nft_atomic = [mint_nft_call, set_metadata_call];
+                let set_metadata_action = [{ NamedAddress: asset_admin }, set_metadata_call];
+                let nft_atomic = [mint_nft_action, set_metadata_action];
                 atomics.push(nft_atomic);
             }
             
