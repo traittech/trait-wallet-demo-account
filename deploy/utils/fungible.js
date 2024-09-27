@@ -35,7 +35,7 @@ async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount
                 throw new Error("Not all required fungibles were created");
             }
 
-            console.log("Resolving promise with tokenIds:", collection_ids);
+            console.log("Resolving promise with tokenIds:", tokenIds);
             resolve(tokenIds);
         } catch (error) {
             console.error("Error creating fungible tokens:", error);
