@@ -31,7 +31,6 @@ async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount
             }
 
             console.log("Generated token IDs: ", tokenIds);
-
             if (tokenIds.length != tokenCount) {
                 throw new Error("Not all required fungibles were created");
             }
@@ -63,27 +62,25 @@ async function set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgent
 
             let token_admin = encodeNamed(appAgentId, "asset-admi");
 
-            // create atomics to mint and set metadata for each token
+            console.log("Create atomics to mint and set metadata for each token");
             let atomics = [];
             for (let i = 0; i < tokenIds.length; i++) {
                 console.log(`Creating atomic for token ${tokenIds[i]}`);
-                atomics.push([{ NamedAddress: token_admin }, api.tx.assets.mint(tokenIds[i], token_recipient.address, convertDecimalsToAmount(decimals[i], 1000))]);
-                atomics.push([{ AppAgentId: appAgentId }, api.tx.assets.setMetadata(tokenIds[i], metadataUrls[i])]);
+                let mint_token_call = api.tx.assets.mint(tokenIds[i], token_recipient.address, convertDecimalsToAmount(decimals[i], 1000));
+                let mint_token_action = [{ NamedAddress: token_admin }, mint_token_call];
+                let set_metadata_call = api.tx.assets.setMetadata(tokenIds[i], metadataUrls[i]);
+                let set_metadata_action = [{ AppAgentId: appAgentId }, set_metadata_call];
+                token_atomic = [mint_token_action, set_metadata_action];
+                atomics.push(token_atomic);
             }
-
             console.log(`Total atomics created: ${atomics.length}`);
 
             let configure_fungible_ct = api.tx.addressPools.submitClearingTransaction(
                 appAgentId,
-                [atomics]
+                atomics
             );
-
-            let events = await processClearingTransaction(api, appAgentOwner, configure_fungible_ct);
-
+            await processClearingTransaction(api, appAgentOwner, configure_fungible_ct);
             console.log("Fungible tokens configured successfully");
-
-            // wait 12 secs
-            await new Promise(resolve => setTimeout(resolve, 12000));
 
             resolve();
         } catch (error) {
