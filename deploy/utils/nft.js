@@ -1,189 +1,165 @@
-const { ApiPromise, WsProvider } = require("@polkadot/api");
-const { Keyring } = require("@polkadot/keyring");
 const { encodeNamed } = require("./keyless");
+const { processClearingTransaction, processSignedTransaction } = require("./utils");
 
-async function create_app_agent_nft_collection(api, appAgentOwner, appAgentId, metadataUrl) {
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+async function create_nft_collections(api, appAgentOwner, appAgentId, collection_count) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            console.log("Start to create NFT Collections for the AppAgent ID " + appAgentId);
 
-    let asset_admin = encodeNamed(appAgentId, "asset-admi");
+            let asset_admin = encodeNamed(appAgentId, "asset-admi");
 
-    // send some balance to admin
-    let balance_call = api.tx.balances.transferKeepAlive(
-        asset_admin,
-        10
-    );
+            console.log("Create Clearing transaction");
+            let atomics = [];
 
-    await balance_call.signAndSend(appAgentOwner);
-
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
-
-    // Create the NFT Collection
-    let create_nft_call = api.tx.nfts.create(
-        asset_admin,
-        {
-            settings: 0,
-            mintSettings: {
-                mintType: "issuer",
-                defaultItemSettings: 0
-            }
-        }
-    );
-
-    let create_nft_ct = api.tx.addressPools.submitClearingTransaction(
-        appAgentId,
-        [[
-            [
-                { AppAgentId: appAgentId },
-                create_nft_call
-            ]
-        ]]
-    );
-
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
-
-    // Wait for the event and get the collection ID
-    let collection_id;
-    await new Promise((resolve, reject) => {
-        create_nft_ct.signAndSend(appAgentOwner, { nonce: -1 }, ({ events = [], status }) => {
-            if (status.isInBlock || status.isFinalized) {
-                events.forEach(({ event: { data, method, section } }) => {
-                    if (section === 'nfts' && method === 'Created') {
-                        collection_id = data[0].toString();
-                        console.log(`NFT Collection created with ID: ${collection_id}`);
-                        resolve();
+            let create_nft_call = api.tx.nfts.create(
+                asset_admin,
+                {
+                    settings: 0,
+                    mintSettings: {
+                        mintType: "issuer",
+                        defaultItemSettings: 0
                     }
-                });
+                }
+            );
+            
+            for (let i = 0; i < collection_count; i++) {
+                let create_nft_action = [{ AppAgentId: appAgentId }, create_nft_call];
+                let create_nft_atomic = [create_nft_action];
+                atomics.push(create_nft_atomic);
             }
-        }).catch((error) => {
-            console.error("Error creating NFT collection:", error);
+
+            let create_nft_ct = api.tx.addressPools.submitClearingTransaction(
+                appAgentId,
+                atomics
+            );
+
+            let events = await processClearingTransaction(appAgentOwner, create_nft_ct);
+
+            console.log("Clearing transaction successfully processed, collect IDs of created NFT collections.");
+            let collection_ids = [];
+            for (const event of events) {
+                if (event.receipt.event_module === 'Nfts' && event.receipt.event_name === 'Created') {
+                    const collection_id = event.attributes.collection.toString();
+                    console.log("NFT Collection created with ID: " + collection_id);
+                    collection_ids.push(collection_id);
+                }
+            }
+            console.log("Generated collection IDs: ", collection_ids);
+
+            if (collection_ids.length != collection_count) {
+                throw new Error("Not all NFT collections were created");
+            }
+
+            console.log("Resolving promise with collection_ids:", collection_ids);
+            resolve(collection_ids);
+        } catch (error) {
+            console.error("Error creating NFT Collections:", error.message);
             reject(error);
-        });
+        }
     });
-
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
-
-    // set the metadata
-    let set_team_metadata_call = api.tx.nfts.setTeam(
-        collection_id,
-        asset_admin,
-        asset_admin,
-        asset_admin,
-    );
-
-    let set_metadata_call = api.tx.nfts.setCollectionMetadata(
-        collection_id,
-        metadataUrl
-    );
-
-    let set_team_metadata_ct = api.tx.addressPools.submitClearingTransaction(
-        appAgentId,
-        [[
-            [
-                { NamedAddress: asset_admin },
-                set_team_metadata_call
-            ],
-            [
-                { AppAgentId: appAgentId },
-                set_metadata_call
-            ]
-        ]]
-    );
-
-    await set_team_metadata_ct.signAndSend(appAgentOwner, { nonce: -1 })
-
-    console.log("App agent NFTs created successfully");
-
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
-
-    return collection_id;
 }
 
+async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collectionId, collectionInfo, token_recipient) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            console.log("Start to configure NFT Collection `" + collectionId + "` for the AppAgent ID " + appAgentId);
+            let asset_admin = encodeNamed(appAgentId, "asset-admi");
 
-async function create_app_agent_nft_token(api, appAgentOwner, appAgentId, collection_id, metadataUrl, recipient_one, recipient_two) {
-    let asset_admin = encodeNamed(appAgentId, "asset-admi");
+            let nftInfo = [];
 
-    // Generate a random token ID within a specific range (e.g., 1 to 1000)
-    let tokenId = Math.floor(Math.random() * 1000) + 1;
+            console.log("Send some balance to admin");
+            let balance_call = api.tx.balances.transferKeepAlive(
+                asset_admin,
+                100000000000000
+            );
 
-    console.log(`Generated token ID: ${tokenId}`);
+            await processSignedTransaction(appAgentOwner, balance_call);
 
-    // send some balance to admin
-    let balance_call = api.tx.balances.transferKeepAlive(
-        asset_admin,
-        10 * 1e12
-    );
+            console.log("Build Clearing transaction to setup NFT collection");
+            // As we have a small number of NFT tokens in each collection - only 10 -
+            // we can join all operations into a single CT.
+            let atomics = [];
 
-    await balance_call.signAndSend(appAgentOwner);
+            console.log("Create atomic to provide required permissions to the admin");
+            let set_team_call = api.tx.nfts.setTeam(
+                collectionId,
+                asset_admin,
+                asset_admin,
+                asset_admin,
+            );
+            let set_team_action = [{ AppAgentId: appAgentId }, set_team_call];
+            let set_team_atomic = [set_team_action];
+            atomics.push(set_team_atomic);
 
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+            console.log("Create atomic to set collection metadata");
+            let set_collection_metadata_call = api.tx.nfts.setCollectionMetadata(
+                collectionId,
+                collectionInfo.metadataUrl
+            );
+            let set_collection_metadata_action = [{ NamedAddress: asset_admin }, set_collection_metadata_call];
+            let set_collection_metadata_atomic = [set_collection_metadata_action];
+            atomics.push(set_collection_metadata_atomic);
 
-    let mint_nft_call = api.tx.nfts.mint(
-        collection_id,
-        tokenId,
-        recipient_one.address,
-        {}
-    );
+            console.log("Create atomics to mint and configure NFT tokens.");
+            for (const token of collectionInfo.tokens) {
+                let metadataUrl = token.metadataUrl;
+                let tokenId = Math.floor(Math.random() * 1000000) + 1;
+                nftInfo.push({ collectionId: collectionId, tokenId: tokenId });
 
-    let set_metadata_call = api.tx.nfts.setMetadata(
-        collection_id,
-        tokenId,
-        metadataUrl
-    );
+                console.log("Create atomic for NFT token: CollectionId - " + collectionId + "; TokenId - " + tokenId + "; metadata URL: " + metadataUrl);
 
-    let set_metadata_ct = api.tx.addressPools.submitClearingTransaction(
-        appAgentId,
-        [[
-            [
-                { NamedAddress: asset_admin },
-                mint_nft_call
-            ],
-            [
-                { NamedAddress: asset_admin },
-                set_metadata_call
-            ]
-        ]]
-    );
+                let mint_nft_call = api.tx.nfts.mint(
+                    collectionId,
+                    tokenId,
+                    token_recipient,
+                    {}
+                );
+                let mint_nft_action = [{ NamedAddress: asset_admin }, mint_nft_call];
+                let set_metadata_call = api.tx.nfts.setMetadata(
+                    collectionId,
+                    tokenId,
+                    metadataUrl
+                );
+                let set_metadata_action = [{ NamedAddress: asset_admin }, set_metadata_call];
+                let nft_atomic = [mint_nft_action, set_metadata_action];
+                atomics.push(nft_atomic);
+            }
+            
+            console.log("Sending CT to mint & configure NFT Tokens, and to set Collection metadata.");
+            let configure_nft_collection_ct = api.tx.addressPools.submitClearingTransaction(
+                appAgentId,
+                atomics
+            );
+            await processClearingTransaction(appAgentOwner, configure_nft_collection_ct);
 
-    await set_metadata_ct.signAndSend(appAgentOwner, { nonce: -1 });
-
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
-
-    console.log("App agent NFT metadata set successfully");
-
-    await create_nft_transfers(api, recipient_one, recipient_two, collection_id, tokenId);
-
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+            console.log("Resolving promise with nftInfo:", nftInfo);
+            resolve(nftInfo);
+        } catch (error) {
+            console.error("Error in set_metadata_and_mint_nft:", error.message);
+            reject(error);
+        }
+    });
 }
 
-async function create_nft_transfers(api, token_recipient, token_recipient_two, collection_id, token_id) {
+async function create_nft_transfers(api, collection_id, token_id, token_sender, token_recipient) {
+    console.log("Generate free transfers between the two users");
+    console.log("Collection ID: ", collection_id);
+    console.log("Token ID: ", token_id);
+    console.log("Token Sender: ", token_sender.address);
+    console.log("Token Recipient: ", token_recipient.address);
 
-    // generate 5 free transfers between the two users
-    let batch_calls_two = [];
-    for (let i = 0; i < 5; i++) {
-        let free_transfer_call = api.tx.playerTransfers.submitTransferNfts(
-            collection_id,
-            token_id,
-            token_recipient_two.address,
-        );
-        batch_calls_two.push(free_transfer_call);
-    }
+    const tx = api.tx.playerTransfers.submitTransferNfts(
+        collection_id,
+        token_id,
+        token_recipient.address
+    );
 
-    let batch_call_two = api.tx.utility.batch(batch_calls_two);
-
-    batch_call_two.signAndSend(token_recipient, { nonce: -1 })
-        .then(() => {
-            console.log(`Free transfer created`);
-        }).catch((err) => {
-            console.log(err);
-            console.log(`Test failed : free transfer creation failed!`);
-            process.exit(1);
-        });
-
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
-
+    await processSignedTransaction(token_sender, tx);
+    console.log(`Free transfer created and confirmed`);
 }
 
 module.exports = {
-    create_app_agent_nft_collection,
-    create_app_agent_nft_token
+    create_nft_collections,
+    set_metadata_and_mint_nft,
+    create_nft_transfers
 }

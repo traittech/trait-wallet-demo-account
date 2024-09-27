@@ -1,46 +1,33 @@
-const { ApiPromise, WsProvider } = require("@polkadot/api");
-const { Keyring } = require("@polkadot/keyring");
-const { encodeNamed } = require("./keyless");
+const { processSignedTransaction } = require("./utils");
 
 async function create_app_agent(api, appAgentOwner, metadataUrl) {
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
+    return new Promise(async (resolve, reject) => {
+        try {
+            console.log("Start to create AppAgent for the owner: " + appAgentOwner.address);
 
-    let appagentId;
-    await new Promise((resolve, reject) => {
-        api.tx.appAgents.createAppAgent()
-            .signAndSend(appAgentOwner, ({ status, events }) => {
-                if (status.isInBlock || status.isFinalized) {
-                    events.forEach(({ event }) => {
-                        if (api.events.appAgents.AppAgentCreated.is(event)) {
-                            const [newAppAgentId, ownerAddress] = event.data;
-                            console.log(`App agent created: ID ${newAppAgentId.toString()} for owner ${ownerAddress.toString()}`);
-                            appagentId = newAppAgentId;
-                            resolve();
-                        }
-                    });
+            let appagentId;
+
+            let tx = api.tx.appAgents.createAppAgent();
+            let events = await processSignedTransaction(appAgentOwner, tx);
+            // console.log("events: ", events);
+            for (const event of events) {
+                if (event.receipt.event_module === "AppAgents" && event.receipt.event_name === "AppAgentCreated") {
+                    appagentId = event.attributes.app_agent_id.toString();
                 }
-            })
-            .catch(reject);
+            }
+
+            console.log("Create the transaction to set the metadata");
+            let set_metadata_tx = api.tx.appAgents.setAppAgentMetadata(
+                appagentId,
+                metadataUrl
+            );
+            await processSignedTransaction(appAgentOwner, set_metadata_tx);
+
+            resolve(appagentId);
+        } catch (error) {
+            reject(error);
+        }
     });
-
-    await new Promise(resolve => setTimeout(resolve, 10_000)); // wait for the previous tx to propogate
-
-    // create the transaction to set the metadata
-    let set_metadata_tx = api.tx.appAgents.setAppAgentMetadata(
-        appagentId,
-        metadataUrl
-    );
-
-    // sign and send the transaction
-    await set_metadata_tx.signAndSend(appAgentOwner)
-        .then(() => {
-            console.log("Metadata URL set successfully");
-        })
-        .catch(err => {
-            console.error("Error setting metadata URL:", err);
-        });
-
-    return appagentId;
 }
 
 module.exports = {
