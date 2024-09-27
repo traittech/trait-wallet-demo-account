@@ -11,15 +11,16 @@ async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount
             let tokenIds = [];
 
             let atomics = [];
-
             for (let i = 0; i < tokenCount; i++) {
-                let create_fungible_token = api.tx.assets.create(token_admin, 1);
-                atomics.push([{ AppAgentId: appAgentId }, create_fungible_token]);
+                let create_fungible_token_call = api.tx.assets.create(token_admin, 1);
+                let create_fungible_token_action = [{ AppAgentId: appAgentId }, create_fungible_token_call];
+                let create_fungible_token_atomic = [create_fungible_token_action];
+                atomics.push(create_fungible_token_atomic);
             }
 
             let create_fungible_token_ct = api.tx.addressPools.submitClearingTransaction(
                 appAgentId,
-                [atomics]
+                atomics
             );
 
             let events = await processClearingTransaction(api, appAgentOwner, create_fungible_token_ct);
