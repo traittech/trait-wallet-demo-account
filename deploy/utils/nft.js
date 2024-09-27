@@ -35,7 +35,7 @@ async function create_nft_collections(api, appAgentOwner, appAgentId, collection
             let events = await processClearingTransaction(api, appAgentOwner, create_nft_ct);
             for (const event of events) {
                 if (event.receipt.event_module === 'Nfts' && event.receipt.event_name === 'Created') {
-                    const collection_id = event.attributes.collection_id.toString();
+                    const collection_id = event.attributes.collection.toString();
                     console.log("NFT Collection created with ID: " + collection_id);
                     collection_ids.push(collection_id);
                 }
