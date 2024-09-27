@@ -8,8 +8,8 @@ async function create_app_agent(api, appAgentOwner, metadataUrl) {
             let appagentId;
 
             let tx = api.tx.appAgents.createAppAgent();
-            let events = await processSignedTransaction(api, appAgentOwner, tx);
-            console.log("events: ", events);
+            let events = await processSignedTransaction(appAgentOwner, tx);
+            // console.log("events: ", events);
             for (const event of events) {
                 if (event.receipt.event_module === "AppAgents" && event.receipt.event_name === "AppAgentCreated") {
                     appagentId = event.attributes.app_agent_id.toString();
@@ -21,7 +21,7 @@ async function create_app_agent(api, appAgentOwner, metadataUrl) {
                 appagentId,
                 metadataUrl
             );
-            await processSignedTransaction(api, appAgentOwner, set_metadata_tx);
+            await processSignedTransaction(appAgentOwner, set_metadata_tx);
 
             resolve(appagentId);
         } catch (error) {

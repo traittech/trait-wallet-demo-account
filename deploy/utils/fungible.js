@@ -23,7 +23,7 @@ async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount
                 atomics
             );
 
-            let events = await processClearingTransaction(api, appAgentOwner, create_fungible_token_ct);
+            let events = await processClearingTransaction(appAgentOwner, create_fungible_token_ct);
             for (const event of events) {
                 if (event.receipt.event_module === 'Assets' && event.receipt.event_name === 'Created') {
                     tokenIds.push(event.attributes.asset_id.toString());
@@ -79,7 +79,7 @@ async function set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgent
                 appAgentId,
                 atomics
             );
-            await processClearingTransaction(api, appAgentOwner, configure_fungible_ct);
+            await processClearingTransaction(appAgentOwner, configure_fungible_ct);
             console.log("Fungible tokens configured successfully");
 
             resolve();
@@ -103,7 +103,7 @@ async function create_token_transfer(api, token_id, token_sender, token_recipien
             amount
         );
 
-        await processSignedTransaction(api, token_sender, tx);
+        await processSignedTransaction(token_sender, tx);
 
         console.log(`Free transfer ${i + 1} created and in block`);
     }

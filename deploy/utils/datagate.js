@@ -38,7 +38,7 @@ function checkEventOccurrence(transaction_hash, module_name, event_name) {
         try {
             const response = await axios.post(apiUrl, requestBody);
 
-            console.log("DATAGATE:Response:", response.data);
+            // console.log("DATAGATE:Response:", response.data);
 
             if (response.data && response.data.data && response.data.data.length > 0) {
                 resolve(true);
@@ -75,7 +75,7 @@ function getAllEvents(transaction_hash) {
         try {
             const response = await axios.post(apiUrl, requestBody);
 
-            console.log("DATAGATE:Response:", response.data);
+            // console.log("DATAGATE:Response:", response.data);
 
             if (response.data && response.data.data && response.data.data.length > 0) {
                 resolve(response.data.data);

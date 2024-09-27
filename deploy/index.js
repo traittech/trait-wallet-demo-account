@@ -214,7 +214,7 @@ async function create_balance_transfers(api, token_recipient, token_recipient_tw
             token_recipient_two.address,
             1000000
         );
-        await processSignedTransaction(api, token_recipient, tx);
+        await processSignedTransaction(token_recipient, tx);
     }
     console.log(`Free transfer created and confirmed`);
 }

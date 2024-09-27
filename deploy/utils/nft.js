@@ -33,7 +33,7 @@ async function create_nft_collections(api, appAgentOwner, appAgentId, collection
                 atomics
             );
 
-            let events = await processClearingTransaction(api, appAgentOwner, create_nft_ct);
+            let events = await processClearingTransaction(appAgentOwner, create_nft_ct);
 
             console.log("Clearing transaction successfully processed, collect IDs of created NFT collections.");
             let collection_ids = [];
@@ -73,7 +73,7 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
                 100000000000000
             );
 
-            await processSignedTransaction(api, appAgentOwner, balance_call);
+            await processSignedTransaction(appAgentOwner, balance_call);
 
             console.log("Build Clearing transaction to setup NFT collection");
             // As we have a small number of NFT tokens in each collection - only 10 -
@@ -130,7 +130,7 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
                 appAgentId,
                 atomics
             );
-            await processClearingTransaction(api, appAgentOwner, configure_nft_collection_ct);
+            await processClearingTransaction(appAgentOwner, configure_nft_collection_ct);
 
             console.log("Resolving promise with nftInfo:", nftInfo);
             resolve(nftInfo);
@@ -154,7 +154,7 @@ async function create_nft_transfers(api, collection_id, token_id, token_sender, 
         token_recipient.address
     );
 
-    await processSignedTransaction(api, token_sender, tx);
+    await processSignedTransaction(token_sender, tx);
     console.log(`Free transfer created and confirmed`);
 }
 
