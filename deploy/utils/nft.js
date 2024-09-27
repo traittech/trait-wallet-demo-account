@@ -32,13 +32,14 @@ async function create_nft_collections(api, appAgentOwner, appAgentId, collection
                 [atomics]
             );
 
-            await processClearingTransaction(api, appAgentOwner, create_nft_ct, (event) => {
-                if (event.event.section === 'nfts' && event.event.method === 'Created') {
-                    const collection_id = event.event.data[0].toString();
+            let events = await processClearingTransaction(api, appAgentOwner, create_nft_ct);
+            for (const event of events) {
+                if (event.receipt.event_module === 'Nfts' && event.receipt.event_name === 'Created') {
+                    const collection_id = event.attributes.collection_id.toString();
                     console.log("NFT Collection created with ID: " + collection_id);
                     collection_ids.push(collection_id);
                 }
-            });
+            }
 
             console.log("Generated collection IDs: ", collection_ids);
 
@@ -72,8 +73,6 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
             );
 
             await processSignedTransaction(api, appAgentOwner, balance_call);
-
-
 
             let atomics = [];
             let metadata_set_atomics = [];
@@ -124,12 +123,7 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
                 [atomics]
             );
 
-            await processClearingTransaction(api, appAgentOwner, configure_nft_ct, (event) => {
-                // if (event.event.section === 'nfts' && event.event.method === 'SetTeam') {
-                //     console.log("NFT collection configured successfully");
-                // }
-            });
-
+            await processClearingTransaction(api, appAgentOwner, configure_nft_ct);
 
             console.log("Sending CT to set metadata for NFT Tokens");
             let set_metadata_ct = api.tx.addressPools.submitClearingTransaction(
@@ -137,11 +131,7 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
                 [metadata_set_atomics]
             );
 
-            await processClearingTransaction(api, appAgentOwner, set_metadata_ct, (event) => {
-                // if (event.event.section === 'nfts' && event.event.method === 'SetMetadata') {
-                //     console.log("NFT token metadata set successfully");
-                // }
-            });
+            await processClearingTransaction(api, appAgentOwner, set_metadata_ct);
 
             console.log("Resolving promise with nftInfo:", nftInfo);
             resolve(nftInfo);

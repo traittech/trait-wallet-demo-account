@@ -64,19 +64,19 @@ async function main() {
     const demotransferAmount = parseInt(process.env.TRANSFER_AMOUNT) * 1e10;
 
     console.log("Start to initialise the owners of the app agents");
-    const transfers = [
-        api.tx.balances.transferKeepAlive(appAgentOneOwner.address, transferAmount.toString()),
-        api.tx.balances.transferKeepAlive(appAgentTwoOwner.address, transferAmount.toString()),
-        api.tx.balances.transferKeepAlive(appAgentThreeOwner.address, transferAmount.toString()),
-        api.tx.balances.transferKeepAlive(demo_user_one.address, demotransferAmount.toString()),
-        api.tx.balances.transferKeepAlive(demo_user_two.address, demotransferAmount.toString()),
-        api.tx.balances.transferKeepAlive(demo_user_three.address, demotransferAmount.toString()),
-    ];
+    // const transfers = [
+    //     api.tx.balances.transferKeepAlive(appAgentOneOwner.address, transferAmount.toString()),
+    //     api.tx.balances.transferKeepAlive(appAgentTwoOwner.address, transferAmount.toString()),
+    //     api.tx.balances.transferKeepAlive(appAgentThreeOwner.address, transferAmount.toString()),
+    //     api.tx.balances.transferKeepAlive(demo_user_one.address, demotransferAmount.toString()),
+    //     api.tx.balances.transferKeepAlive(demo_user_two.address, demotransferAmount.toString()),
+    //     api.tx.balances.transferKeepAlive(demo_user_three.address, demotransferAmount.toString()),
+    // ];
 
-    console.log("Send the batch of transfers");
-    await processSignedBatchTransaction(api, faucetAccount, api.tx.utility.batchAll(transfers));
-    await create_balance_transfers(api, demo_user_one, demo_user_two);
-    await create_balance_transfers(api, demo_user_three, demo_user_one);
+    // console.log("Send the batch of transfers");
+    // await processSignedBatchTransaction(api, faucetAccount, api.tx.utility.batchAll(transfers));
+    // await create_balance_transfers(api, demo_user_one, demo_user_two);
+    // await create_balance_transfers(api, demo_user_three, demo_user_one);
 
     console.log("Traverse the game folders and collect entity data");
     const gameData = collectGameData(game_folders);

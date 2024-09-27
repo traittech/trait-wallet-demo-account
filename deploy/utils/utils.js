@@ -1,4 +1,6 @@
-const maxWaitTime = 300000; // 5 minutes in milliseconds
+const { getAllEvents } = require('./datagate');
+
+const maxWaitTime = 6000000; // 10 minutes in milliseconds
 const maxRetries = 3;
 const initialBackoff = 30000; // 30 seconds
 
@@ -6,8 +8,8 @@ async function retryOperation(operation, operationName) {
     let retries = 0;
     while (retries < maxRetries) {
         try {
-            await operation();
-            break;
+            let result = await operation();
+            return result;
         } catch (err) {
             retries++;
             if (retries === maxRetries) {
@@ -29,44 +31,31 @@ async function processClearingTransaction(api, signer, ct, eventCallback = () =>
             }, maxWaitTime);
 
             let unsubscribe;
-            let eventsUnsubscribe;
-            let ctProcessingCompleted = false;
 
-            const checkEvents = (events) => {
-                events.forEach((event) => {
-                    //console.log(event);
-                    eventCallback(event);
-                    
-                    if (api.events.addressPools.CTProcessingCompleted.is(event)) {
-                        ctProcessingCompleted = true;
+            try {
+                unsubscribe = await ct.signAndSend(signer, { nonce: -1 }, async ({ status, txHash }) => {
+                    if (status.isFinalized) {
+                        console.log(`Transaction finalized in block with hash: ${txHash}`);
+                        try {
+                            // Check if event has occurred in datagate
+                            const events = await checkEventOccurrenceWithRetry(txHash.toString(), "AddressPools", "CTProcessingCompleted");
+                            console.log(`CT processing completed successfully`);
+                            clearTimeout(timeout);
+                            if (unsubscribe) unsubscribe();
+                            resolve(events);
+                        } catch (error) {
+                            console.error("Error checking event occurrence:", error);
+                            reject(error);
+                        }
+                    } else if (status.isInBlock) {
+                        console.log(`Transaction included in block: ${status.asInBlock}`);
                     }
                 });
-
-                if (ctProcessingCompleted) {
-                    console.log(`Transaction successful and CT processing completed`);
-                    clearTimeout(timeout);
-                    if (unsubscribe) unsubscribe();
-                    if (eventsUnsubscribe) eventsUnsubscribe();
-                    resolve();
-                }
-            };
-
-            unsubscribe = await ct.signAndSend(signer, { nonce: -1 }, ({ events = [], status, txHash }) => {
-                if (status.isInBlock) {
-                    console.log(`Transaction included in block with hash: ${txHash}`);
-                    checkEvents(events);
-                }
-            }).catch((error) => {
+            } catch (error) {
                 clearTimeout(timeout);
                 console.error("Error in processClearingTransaction:", error);
                 reject(error);
-            });
-
-            // Subscribe to system events via storage
-            eventsUnsubscribe = await api.query.system.events((events) => {
-                console.log(`\nReceived ${events.length} events:`);
-                checkEvents(events);
-            });
+            }
         });
     }, "processing clearing transaction");
 }
@@ -79,38 +68,31 @@ async function processSignedTransaction(api, signer, tx, eventCallback = () => {
             }, maxWaitTime);
 
             let unsubscribe;
-            let eventsUnsubscribe;
-            let transactionCompleted = false;
 
-            const checkEvents = (events) => {
-                events.forEach((event) => {
-                    eventCallback(event);
-                    
-                    if (api.events.system.ExtrinsicSuccess.is(event)) {
-                        transactionCompleted = true;
+            try {
+                unsubscribe = await tx.signAndSend(signer, { nonce: -1 }, async ({ events = [], status, txHash }) => {
+                    if (status.isFinalized) {
+                        console.log(`Transaction finalized in block with hash: ${txHash}`);
+                        try {
+                            // check if event has occurred in datagate
+                            let events = await checkEventOccurrenceWithRetry(txHash.toString(), "System", "ExtrinsicSuccess");
+                            console.log(`Transaction completed successfully with events: ${events}`);
+                            clearTimeout(timeout);
+                            if (unsubscribe) unsubscribe();
+                            resolve(events);
+                        } catch (error) {
+                            console.error("Error checking event occurrence:", error);
+                            reject(error);
+                        }
+                    } else if (status.isInBlock) {
+                        console.log(`Transaction included in block: ${status.asInBlock}`);
                     }
                 });
-
-                if (transactionCompleted) {
-                    console.log(`Transaction successful and processing completed`);
-                    clearTimeout(timeout);
-                    if (unsubscribe) unsubscribe();
-                    if (eventsUnsubscribe) eventsUnsubscribe();
-                    resolve();
-                }
-            };
-
-            await tx.signAndSend(signer, { nonce: -1 }).catch((error) => {
+            } catch (error) {
                 clearTimeout(timeout);
                 console.error("Error in processSignedTransaction:", error);
                 reject(error);
-            });
-
-            // Subscribe to system events via storage
-            eventsUnsubscribe = await api.query.system.events((events) => {
-                console.log(`Waiting to confirm transaction success`);
-                checkEvents(events);
-            });
+            }
         });
     }, "processing signed transaction");
 }
@@ -123,44 +105,55 @@ async function processSignedBatchTransaction(api, signer, tx, eventCallback = ()
             }, maxWaitTime);
 
             let unsubscribe;
-            let eventsUnsubscribe;
-            let batchCompleted = false;
 
-            const checkEvents = (events) => {
-                events.forEach((event) => {
-                    eventCallback(event);
-                    
-                    if (api.events.utility.BatchCompleted.is(event)) {
-                        batchCompleted = true;
-                        console.log(`Batch completed`);
+            try {
+                unsubscribe = await tx.signAndSend(signer, { nonce: -1 }, async ({ events = [], status, txHash }) => {
+                    if (status.isInBlock) {
+                        console.log(`Transaction included in block with hash: ${txHash}, waiting for finalization`);
+                    }
+                    if (status.isFinalized) {
+                        console.log(`Transaction finalized with hash: ${txHash}`);
+                        try {
+                            // check if event has occurred in datagate
+                            let events = await checkEventOccurrenceWithRetry(txHash.toString(), "Utility", "BatchCompleted");
+                            console.log(`Batch transaction completed successfully`);
+                            clearTimeout(timeout);
+                            if (unsubscribe) unsubscribe();
+                            resolve(events);
+                        } catch (error) {
+                            console.error("Error checking event occurrence:", error);
+                            reject(error);
+                        }
                     }
                 });
-
-                if (batchCompleted) {
-                    console.log(`Transaction successful and batch processing completed`);
-                    clearTimeout(timeout);
-                    if (unsubscribe) unsubscribe();
-                    if (eventsUnsubscribe) eventsUnsubscribe();
-                    resolve();
-                }
-            };
-
-            await tx.signAndSend(signer, { nonce: -1 })
-            .catch((error) => {
+            } catch (error) {
                 clearTimeout(timeout);
                 console.error("Error in processSignedBatchTransaction:", error);
                 reject(error);
-            });
-
-            // Subscribe to system events via storage
-            eventsUnsubscribe = await api.query.system.events((events) => {
-                console.log(`Waiting to confirm transaction success`);
-                checkEvents(events);
-            });
+            }
         });
     }, "processing signed batch transaction");
 }
 
+async function checkEventOccurrenceWithRetry(transaction_hash, module_name, event_name) {
+    return retryOperation(async () => {
+        console.log(`Checking events for transaction ${transaction_hash}`);
+        const result = await getAllEvents(transaction_hash);
+        if (result) {
+            console.log(result);
+            for (const event of result) {
+                console.log(event);
+                if (event.receipt.event_module === module_name && event.receipt.event_name === event_name) {
+                    console.log(`Event ${module_name}.${event_name} confirmed for transaction ${transaction_hash}`);
+                    return result;
+                }
+            }
+            throw new Error(`Event ${module_name}.${event_name} not found for transaction ${transaction_hash}`);
+        } else {
+            throw new Error(`Event ${module_name}.${event_name} not found for transaction ${transaction_hash}`);
+        }
+    }, "checking event occurrence");
+}
 
 
 module.exports = {

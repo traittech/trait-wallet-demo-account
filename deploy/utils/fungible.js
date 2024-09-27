@@ -22,11 +22,12 @@ async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount
                 [atomics]
             );
 
-            await processClearingTransaction(api, appAgentOwner, create_fungible_token_ct, (event) => {
-                if (event.event.section === 'assets' && event.event.method === 'Created') {
-                    tokenIds.push(event.event.data[0].toString());
+            let events = await processClearingTransaction(api, appAgentOwner, create_fungible_token_ct);
+            for (const event of events) {
+                if (event.receipt.event_module === 'Assets' && event.receipt.event_name === 'Created') {
+                    tokenIds.push(event.attributes.asset_id.toString());
                 }
-            });
+            }
 
             console.log("Generated token IDs: ", tokenIds);
 
@@ -76,11 +77,7 @@ async function set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgent
                 [atomics]
             );
 
-            await processClearingTransaction(api, appAgentOwner, configure_fungible_ct, (event) => {
-                if (event.event.section === 'assets' && event.event.method === 'SetMetadata') {
-                    console.log("Fungible token metadata set successfully");
-                }
-            });
+            let events = await processClearingTransaction(api, appAgentOwner, configure_fungible_ct);
 
             console.log("Fungible tokens configured successfully");
 
