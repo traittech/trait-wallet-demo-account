@@ -11,47 +11,6 @@ function buildDatagateUrl() {
     return datagateUrl + "/history/events";
 }
 
-function checkEventOccurrence(transaction_hash, module_name, event_name) {
-    return new Promise(async (resolve, reject) => {
-        const apiUrl = buildDatagateUrl();
-
-        console.log("DATAGATE:Checking event occurrence for transaction:", transaction_hash);
-
-        const requestBody = {
-            "block_receipt": {
-                "block_index": {
-                    "max_index": "blockchain_head"
-                }
-            },
-            "tx_receipt": {
-                "tx_hash": transaction_hash
-            },
-            "event": {
-                "module_name": module_name,
-                "event_name": event_name
-            },
-            "presentation": {
-                "sorting": "time_ascending"
-            }
-        };
-
-        try {
-            const response = await axios.post(apiUrl, requestBody);
-
-            // console.log("DATAGATE:Response:", response.data);
-
-            if (response.data && response.data.data && response.data.data.length > 0) {
-                resolve(true);
-            } else {
-                reject(new Error("Event not found"));
-            }
-        } catch (error) {
-            console.error('Error calling the API:', error);
-            reject(error);
-        }
-    });
-}
-
 function getAllEvents(transaction_hash) {
     return new Promise(async (resolve, reject) => {
         const apiUrl = buildDatagateUrl();
@@ -80,7 +39,9 @@ function getAllEvents(transaction_hash) {
             if (response.data && response.data.data && response.data.data.length > 0) {
                 resolve(response.data.data);
             } else {
-                reject(new Error("Event not found"));
+                console.log(`No events found for the transaction '${transaction_hash}'`)
+                // console.log("DATAGATE:Response:", response.data);
+                resolve(false);
             }
         } catch (error) {
             console.error('Error calling the API:', error);
@@ -90,7 +51,6 @@ function getAllEvents(transaction_hash) {
 }
 
 module.exports = {
-    checkEventOccurrence,
     getAllEvents
 };
 
