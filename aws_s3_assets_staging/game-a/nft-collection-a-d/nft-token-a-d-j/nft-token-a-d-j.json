@@ -7,13 +7,13 @@
       "name": "Thorned Bow"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-j/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The item is an intricately designed bow featuring a sleek, dark aesthetic intertwined with thorn-like spikes and a vivid green hue. This bow emanates a menacing aura, hinting at its lethal potential in combat. Crafted from a mysterious and resilient material, it promises superior durability and performance. The bow’s unique design not only enhances its visual appeal but also suggests an affinity for stealthy and agile hunters. Each shot fired from this weapon is said to be accompanied by a whispering wind, adding an enchanting touch to its functionality. Perfect for those who thrive in shadowy environments."

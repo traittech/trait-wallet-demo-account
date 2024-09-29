@@ -7,13 +7,13 @@
       "name": "Thorned Crown"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-b/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-b/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-b/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-b/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-b/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-e/nft-token-a-e-b/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "This game item is a striking, thorned crown that exudes an aura of darkness and power. Composed of sharp, metallic spikes, it glimmers with a menacing silver hue, accented by vibrant purple energy that radiates from its core. The item symbolizes both strength and sacrifice, embodying a duality of beauty and danger. Wearing this crown bestows significant enhancements to its wearer, amplifying their abilities and influence within the game world. Its formidable design not only makes a bold statement visually but also serves as a testament to the challenges faced and conquered by those who wield its power."

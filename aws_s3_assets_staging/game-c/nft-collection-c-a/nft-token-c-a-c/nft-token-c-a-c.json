@@ -7,13 +7,13 @@
       "name": "Red Fury"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-c/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-c/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-c/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-c/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-c/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-c/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the dimly lit arena of conflict, the iconic AK-47 lies ready, its steel glinting under flickering lights. A blend of durability and lethality, this weapon is revered yet feared. With a wooden stock that boasts history and an unmistakable curve of its magazine, it promises unwavering reliability amidst chaos. Its distinct crack reverberates through the air, a harbinger of intense battles to come. As soldiers advance, the rhythm of gunfire melds with adrenaline-fueled heartbeats, each shot echoing with purpose. In this unforgiving landscape, the AK-47 is not just a weapon; it’s a symbol of survival and tenacity in the face of adversity."

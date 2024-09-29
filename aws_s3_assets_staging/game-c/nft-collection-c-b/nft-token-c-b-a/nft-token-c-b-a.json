@@ -7,13 +7,13 @@
       "name": "Shadow Blaster"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-a/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-a/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-a/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-a/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-a/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-a/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the dim light of the abandoned warehouse, a glint catches your eye—a sleek, formidable handgun lies partially concealed beneath a layer of dust. Its matte black finish shows the wear of countless battles, yet it exudes an undeniable aura of power. With a weight that feels reassuring in your grip, this sidearm offers a promise of protection and precision. The magazine is full, and the trigger is surprisingly smooth. As you hear the faint echoes of footsteps approaching, you realize this may be your only chance for survival. Will you wield it wisely, or let it fall to the shadows?"

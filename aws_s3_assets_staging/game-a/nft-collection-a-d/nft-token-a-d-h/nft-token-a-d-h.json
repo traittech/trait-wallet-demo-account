@@ -7,13 +7,13 @@
       "name": "Elegant Recurve"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-h/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-h/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-h/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-h/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-h/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-h/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The ornate bow is a stunning piece of weaponry, intricately designed with golden engravings and elegant curves that reflect masterful craftsmanship. Its lightweight construction allows for swift maneuvering, making it an excellent choice for archers who value speed and precision. The bow's string, finely crafted for durability, ensures powerful shots with each release. Ideal for both close encounters and long-range engagements, this item enhances the user's stealth and agility in gameplay. As a symbol of skill and artistry, the bow not only serves as a functional weapon but also as a stunning display of craftsmanship in any adventurer's arsenal."

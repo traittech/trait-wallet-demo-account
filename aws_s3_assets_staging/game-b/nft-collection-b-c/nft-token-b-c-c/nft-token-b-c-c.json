@@ -7,13 +7,13 @@
       "name": "Necrotic Elixir"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-c/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-c/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-c/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-c/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-c/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-c/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In a realm shrouded in shadow, a sinister potion brews, swirling with dark energy. This arcane elixir, contained within a glass vial, glimmers ominously as ominous skulls hover above, whispering secrets of ancient spells. As you, the brave alchemist, prepare to harness its power, the air thickens with danger and intrigue. Will you unveil the secrets of the undead, or succumb to the potion’s tainted allure? Hidden within this concoction lie vast possibilities—dark curses, twisted transformations, and untold power. Choose wisely, for every drop could change the very fabric of reality, steering your fate towards glory or doom!"

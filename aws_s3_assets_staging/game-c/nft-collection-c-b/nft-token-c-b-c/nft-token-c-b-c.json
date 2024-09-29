@@ -7,13 +7,13 @@
       "name": "Iron Requiem"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-c/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-c/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-c/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-c/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-c/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-b/nft-token-c-b-c/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the dimly lit corner of the forsaken chamber lies a relic of the past: a weathered revolver, its metal surface marred by time and battles once fought. The grip, worn and polished, whispers tales of desperation and resolve. Its barrel gazes defiantly into the shadows, a silent guardian of secrets long buried. Loaded with a single bullet, this weapon is both a blessing and a curse. Will you wield its power wisely, or will it draw you into the abyss of chaos? As you reach for it, the air thickens with tension—your choices will shape the fate of this dark journey."

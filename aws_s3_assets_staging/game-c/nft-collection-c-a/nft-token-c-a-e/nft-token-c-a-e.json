@@ -7,13 +7,13 @@
       "name": "Spectral Assault Rifle"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-e/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-e/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-e/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-e/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-e/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-e/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the heart of a chaotic battlefield, you wield the sleek and formidable weapon, a masterclass in modern firearms. Its polished surface gleams under the harsh light, a testament to both engineering and elegance. With a comfortable grip and intuitive controls, it feels like an extension of your will. As you peer down the sights, the chaotic sounds of war fade into focus. Each pull of the trigger unleashes a thunderous roar, sending precise rounds downrange. In your hands, this weapon isn't just an instrument of destruction—it's a lifeline, a key to survival in the ever-evolving warfare around you."

@@ -7,13 +7,13 @@
       "name": "Verdant Bow"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-i/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-i/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-i/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-i/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-i/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-d/nft-token-a-d-i/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The item is an intricately designed bow, showcasing a blend of elegance and nature. Its frame is adorned with delicate, green leaves, symbolizing a connection to the wilderness. The craftsmanship highlights a resilient yet flexible material, giving it both beauty and functionality. The bowstring is taut, ready for action, suggesting it is not just a decorative piece but a reliable weapon in combat. Ideal for stealthy hunters or archers in magical realms, this bow embodies the spirit of nature while promising precision and power, making it a standout choice for any adventurer seeking to harness the forces of the wild."

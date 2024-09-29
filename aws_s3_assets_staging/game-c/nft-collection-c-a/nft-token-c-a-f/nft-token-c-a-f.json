@@ -7,13 +7,13 @@
       "name": "MPX Storm"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-f/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-f/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-f/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-f/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-f/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-f/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the dim light of the abandoned warehouse, the sleek silhouette of the weapon catches your eye. The compact submachine gun, adorned in a matte black finish, exudes an aura of precision and power. Its lightweight frame ensures swift maneuverability, making it the perfect companion in close-quarters combat. With an extended magazine, it promises relentless firepower, ready to unleash a hailstorm of bullets at a moment's notice. As you grip the sturdy polymer handle, a rush of adrenaline courses through you. Will you wield it to dominate the battlefield, or will it become a burden in your hands? The choice is yours."

@@ -7,13 +7,13 @@
       "name": "Tempest Axe"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-g/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-g/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-g/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-g/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-g/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-g/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The weapon in question is a beautifully crafted battle axe, renowned for its striking design and formidable power. Featuring a handle adorned with intricate engravings, this axe boasts a dual-bladed head that glimmers with a deep blue hue, suggesting a mystical quality. Perfectly balanced, it allows for swift and decisive strikes in combat. The combination of its aesthetic appeal and lethal efficiency makes this weapon a prized possession among warriors. Legends say it possesses ancient enchantments that enhance its wielder's strength and agility, making it not only a tool for destruction but also a symbol of its owner's prowess on the battlefield."

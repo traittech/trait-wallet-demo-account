@@ -7,13 +7,13 @@
       "name": "Celestial Featherblade"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-c/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-c/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-c/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-c/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-c/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-c/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "This exquisite sword features a sleek, curved blade crafted from shimmering silver, reflecting light with a pristine finish. Adorned with intricate engravings, its hilt boasts elegant filigree and stunning gemstones that enhance its majestic appearance. The guard is embellished with ornamental feathers, adding a touch of ethereal grace. This weapon is not just a tool of combat; it serves as a symbol of nobility and honor, embodying both beauty and strength. Perfect for both aesthetic appreciation and fierce battles, it is favored by heroes and adventurers alike, enhancing their prowess while making a bold statement in any realm."

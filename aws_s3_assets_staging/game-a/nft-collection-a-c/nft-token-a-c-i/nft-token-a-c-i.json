@@ -7,13 +7,13 @@
       "name": "Crimson Starstaff"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-i/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-i/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-i/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-i/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-i/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-i/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The item is an ornate staff, featuring a striking red shaft adorned with intricate patterns and a menacing star-shaped head at its top. This staff radiates an aura of dark power, suggesting its use in arcane rituals and formidable spells. The materials appear to be a blend of sturdy wood and dark metal, symbolizing both elegance and durability. Its design indicates a keen affinity for magic users, particularly those specializing in destruction or chaos. The staff's visual elements hint at a rich lore, making it not just a weapon, but a significant artifact in the game's narrative universe."

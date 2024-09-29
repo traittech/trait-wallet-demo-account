@@ -7,13 +7,13 @@
       "name": "Gleaming Edge"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-a/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-a/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-a/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-a/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-a/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-b/nft-token-a-b-a/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The artfully designed sword showcases a striking blend of elegance and menace, featuring a polished silver blade accented with intricate gold detailing. Its sleek, elongated form is both aerodynamic and intimidating, optimized for swift, precise strikes. The hilt, adorned with a dark, ornate design, offers a firm grip, ensuring stability in battle. A central emblem, possibly symbolizing power or honor, adds a captivating focal point. This weapon is not just a tool for combat but a testament to craftsmanship and lore, likely hinting at a rich backstory within the game's universe, where it serves as a symbol of strength and legacy."

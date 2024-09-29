@@ -7,13 +7,13 @@
       "name": "Azure Spear"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-e/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-e/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-e/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-e/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-e/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-e/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The Elegant Scepter is a beautifully crafted staff, exemplifying both artistry and power. Adorned with intricate golden designs and shimmering blue gemstones, it radiates a mystical aura that enhances its wielder's magic abilities. The slender, polished silver shaft provides a perfect balance, making it a formidable weapon in combat as well as a stunning piece for ceremonial occasions. This scepter not only boosts spell potency but also offers unique abilities, such as increased mana regeneration. As a symbol of wisdom and authority, the Elegant Scepter is highly sought after by mages and leaders alike, embodying the essence of magical prowess."
