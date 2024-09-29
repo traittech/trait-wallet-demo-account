@@ -196,7 +196,7 @@ function getObjectMetadataURL(directory) {
             let decimals = jsonData.traits.fungible ? jsonData.traits.fungible.decimals : null;
 
             const relativePath = path.relative(aws_s3_assets_path, filePath);
-            const url = `https://trait-wallet-demo-account.trait.tech/${relativePath.replace(/\\/g, '/')}`;
+            const url = `${process.env.CONTENT_BASE_URL}/${relativePath.replace(/\\/g, '/')}`;
 
             // console.log(`Generated URL: ${url}`);
             return { url, decimals };
