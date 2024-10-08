@@ -4,7 +4,7 @@
   "description": "Metadata of the demo NFT token for the game Crown Clash.",
   "traits": {
     "named": {
-      "name": "Goblin Berserker"
+      "name": "Goblin Barracks"
     },
     "tech.trait.wallet.square_icon": {
       "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-g/icon_150x150.png"
