@@ -7,13 +7,13 @@
       "name": "Frost Wyrm"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-i/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-i/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-i/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-i/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-i/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-i/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the shadowy realms of dread, a fearsome creature stirs—a Frost Dragon, its icy breath sending shivers through the air. With scaled, shimmering skin and striking purple wings, it emerges from the ruins, eyes glowing a menacing blue. This beast, known for its speed and cunning, glides silently through the night, ready to unleash its chilling fury. Beware! When it swoops down, ice shards rain upon its foes, freezing them in fear. Strategize wisely, brave warriors, for only the bold can harness its terrifying power. Will you tame this beast or fall victim to its frostbitten grasp? The choice is yours!"

@@ -7,13 +7,13 @@
       "name": "Thunder Tower"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-h/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-h/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-h/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-h/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-h/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-h/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In a realm where chaos reigns and secrets lurk within every corner, behold the mighty Thunder Forge! This towering machine, brimming with mystical energy, channels the very essence of storms. Its swirling gears and thunderous roars promise the forging of legendary weaponry to aid in your quest. As bolts of electricity crackle around, heroes gather their courage, knowing that within its depths lie the power to turn the tide of battle. Will you harness this vibrant force to craft your destiny, or will you simply watch the storms rage? The choice is yours, brave adventurer! Forge your legend!"
