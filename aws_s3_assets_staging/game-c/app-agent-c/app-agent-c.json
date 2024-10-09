@@ -4,7 +4,7 @@
         "description": "Metadata of the demo AppAgent that represents the game ZoneX.",
         "traits": {
             "named": {
-                "name": "ZoneX"
+                "name": "Zone-X"
             },
             "tech.trait.wallet.square_icon": {
                 "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/app-agent-c/icon_150x150.png"
