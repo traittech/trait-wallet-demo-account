@@ -7,13 +7,13 @@
       "name": "Eclipsed Lance"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-g/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-g/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-g/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-g/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-g/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-g/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The enchanted spear is a striking weapon, crafted from a shimmering silver metal that glistens with an ethereal glow. Its sleek, elongated shaft is adorned with intricate designs and sharp, pointed embellishments, hinting at its deadly precision. At the top, a menacing spearhead culminates in a triangular shape, featuring swirling motifs that suggest ancient magic imbued within the weapon. This spear is not only a tool for combat but also a symbol of power, often favored by legendary warriors in their quests. Its balance and design render it both beautiful and deadly, making it a prized possession for any adventurer."

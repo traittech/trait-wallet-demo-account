@@ -7,13 +7,13 @@
       "name": "Frostball"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-b/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-b/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-b/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-b/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-b/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-b/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "As the battle intensifies, a glimmering snowball materializes, infused with arcane energy. This isn't just any ordinary frost; it's a mystical orb of wintry power, charged with potential. Thrown with precision, it soars through the air, trailing a shimmering path of frost behind it. Upon impact, it bursts in a dazzling explosion, showering the battlefield with glistening snowflakes and stunning foes caught in its icy grip. The air crackles with chill, slowing enemies and leaving them vulnerable. Will you harness this power to turn the tide in your favor, or watch as it cascades into chaos? The choice is yours!"
