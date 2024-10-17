@@ -12,7 +12,7 @@ async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount
 
             let atomics = [];
             for (let i = 0; i < tokenCount; i++) {
-                let create_fungible_token_call = api.tx.assets.create(token_admin, 1);
+                let create_fungible_token_call = api.tx.assets.create(1);
                 let create_fungible_token_action = [{ AppAgentId: appAgentId }, create_fungible_token_call];
                 let create_fungible_token_atomic = [create_fungible_token_action];
                 atomics.push(create_fungible_token_atomic);
