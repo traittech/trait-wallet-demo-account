@@ -6,21 +6,12 @@ async function create_nft_collections(api, appAgentOwner, appAgentId, collection
         try {
             console.log("Start to create NFT Collections for the AppAgent ID " + appAgentId);
 
-            let asset_admin = encodeNamed(appAgentId, "asset-admi");
+            let asset_admin = encodeNamed(appAgentId, "assetadmin");
 
             console.log("Create Clearing transaction");
             let atomics = [];
 
-            let create_nft_call = api.tx.nfts.create(
-                asset_admin,
-                {
-                    settings: 0,
-                    mintSettings: {
-                        mintType: "issuer",
-                        defaultItemSettings: 0
-                    }
-                }
-            );
+            let create_nft_call = api.tx.nfts.create();
             
             for (let i = 0; i < collection_count; i++) {
                 let create_nft_action = [{ AppAgentId: appAgentId }, create_nft_call];
@@ -63,7 +54,7 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
     return new Promise(async (resolve, reject) => {
         try {
             console.log("Start to configure NFT Collection `" + collectionId + "` for the AppAgent ID " + appAgentId);
-            let asset_admin = encodeNamed(appAgentId, "asset-admi");
+            let asset_admin = encodeNamed(appAgentId, "assetadmin");
 
             let nftInfo = [];
 
@@ -111,8 +102,7 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
                 let mint_nft_call = api.tx.nfts.mint(
                     collectionId,
                     tokenId,
-                    token_recipient,
-                    {}
+                    token_recipient
                 );
                 let mint_nft_action = [{ NamedAddress: asset_admin }, mint_nft_call];
                 let set_metadata_call = api.tx.nfts.setMetadata(
