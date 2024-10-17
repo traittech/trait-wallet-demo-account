@@ -7,7 +7,7 @@ async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount
             console.log("Start to create fungible tokens for the AppAgent ID " + appAgentId);
             console.log("Token count: ", tokenCount);
 
-            let token_admin = encodeNamed(appAgentId, "asset-admi");
+            let token_admin = encodeNamed(appAgentId, "assetadmin");
             let tokenIds = [];
 
             let atomics = [];
@@ -60,7 +60,7 @@ async function set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgent
             console.log("Token IDs: ", tokenIds);
             console.log("Metadata URLs: ", metadataUrls);
 
-            let token_admin = encodeNamed(appAgentId, "asset-admi");
+            let token_admin = encodeNamed(appAgentId, "assetadmin");
 
             console.log("Create atomics to mint and set metadata for each token");
             let atomics = [];

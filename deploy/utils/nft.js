@@ -6,7 +6,7 @@ async function create_nft_collections(api, appAgentOwner, appAgentId, collection
         try {
             console.log("Start to create NFT Collections for the AppAgent ID " + appAgentId);
 
-            let asset_admin = encodeNamed(appAgentId, "asset-admi");
+            let asset_admin = encodeNamed(appAgentId, "assetadmin");
 
             console.log("Create Clearing transaction");
             let atomics = [];
@@ -54,7 +54,7 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
     return new Promise(async (resolve, reject) => {
         try {
             console.log("Start to configure NFT Collection `" + collectionId + "` for the AppAgent ID " + appAgentId);
-            let asset_admin = encodeNamed(appAgentId, "asset-admi");
+            let asset_admin = encodeNamed(appAgentId, "assetadmin");
 
             let nftInfo = [];
 
