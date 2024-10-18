@@ -7,13 +7,13 @@
       "name": "Storm's Edge"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-i/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-i/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-i/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-i/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-i/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-i/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The ornate blade, known for its elegant design, features a finely crafted silver edge that gleams with a lethal sharpness. Intricate gold engravings adorn the hilt and blade, showcasing masterful craftsmanship that highlights its status as a prestigious weapon. The handle, wrapped in textured black material, provides a firm grip for swift, agile strikes. This weapon not only symbolizes power and prestige but also serves as a formidable tool in battle, capable of inflicting devastating damage on foes. Perfect for skilled warriors, this sword represents both art and lethality in the realm of combat."

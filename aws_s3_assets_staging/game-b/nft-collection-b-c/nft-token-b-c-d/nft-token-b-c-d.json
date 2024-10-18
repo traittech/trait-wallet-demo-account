@@ -7,13 +7,13 @@
       "name": "Thunderbolt Elixir"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-d/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-d/icon_150x150.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-d/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-d/listing_512x512.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-d/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-d/cover_1920x1920.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In a world crackling with chaotic energy, you stumble upon a mystical lightning vial. This shimmering blue container pulses with arcane power, its contents swirling like a storm contained. Legends tell of its ability to harness the fury of the tempest, granting the user mastery over thunder and lightning. As you grasp the vial, you feel an electric surge coursing through you, awakening dormant powers within. With a single drop, unleash bolts of energy upon your foes, illuminating the darkness with blinding flashes. Beware, however, for such power comes at a price—will you wield it wisely or succumb to its chaos?"
