@@ -7,13 +7,13 @@
       "name": "Shadowstrike"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-b/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-b/icon_512x512.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-b/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-b/listing_1024x1024.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-b/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-b/cover_2048x2048.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the shadowy depths of a war-torn city, you stumble upon a weapon of precision and power: the sleek, modern rifle glistens ominously in the dim light. Its streamlined design promises unparalleled accuracy, while the adjustable stock ensures adaptability in the heat of battle. With a hefty magazine capacity, it empowers you to unleash a relentless barrage on foes. Each pull of the trigger resounds like thunder, echoing through the ruins as you take aim. This is not just a weapon—it's a symbol of survival. Master it, and the tides of war may just turn in your favor. Choose wisely!"

@@ -7,13 +7,13 @@
       "name": "Bladesinger's Edge"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-d/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-d/icon_512x512.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-d/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-d/listing_1024x1024.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-d/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-d/cover_2048x2048.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "This exquisite sword features a long, gleaming blade with intricate red and silver designs that catch the light beautifully. Its hilt is adorned with elegant gold accents, providing an eye-catching contrast to the ornate craftsmanship of the blade. The sword's guard is unique, with a shape that offers both style and functional protection for the wielder’s hand. Perfectly balanced, this weapon is not only a symbol of power and prestige but is also designed for combat efficiency, making it a coveted item for adventurers and collectors alike. Its history adds to its allure, hinting at legendary battles fought with it."

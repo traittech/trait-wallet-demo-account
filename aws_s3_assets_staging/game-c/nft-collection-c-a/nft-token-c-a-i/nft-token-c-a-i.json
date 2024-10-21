@@ -7,13 +7,13 @@
       "name": "Steel Sentinel"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-i/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-i/icon_512x512.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-i/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-i/listing_1024x1024.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-i/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-i/cover_2048x2048.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the heart of the battlefield, a classic weapon emerges: the M16 rifle. Known for its versatility and reliability, this lightweight assault rifle is the symbol of military might. Its sleek design boasts a 5.56mm caliber, allowing for precise, rapid fire. With a firing rate that commands respect and a range that ensures dominance, the M16 is favored by seasoned soldiers and new recruits alike. Clutched firmly in their hands, operators find confidence in its iconic presence. The tension builds as they take aim, preparing to unleash its power against any who threaten the mission’s success. Victory is within reach!"

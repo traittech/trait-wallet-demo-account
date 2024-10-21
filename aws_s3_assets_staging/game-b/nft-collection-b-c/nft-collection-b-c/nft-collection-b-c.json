@@ -7,10 +7,10 @@
                 "name": "Spells"
             },
             "tech.trait.wallet.square_icon": {
-                "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-collection-b-c/icon_150x150.png"
+                "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-collection-b-c/icon_512x512.png"
             },
             "tech.trait.wallet.nft_collection_listing_image": {
-                "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-collection-b-c/listing_512x512.png"
+                "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-collection-b-c/listing_1024x1024.png"
             }
         }
     }

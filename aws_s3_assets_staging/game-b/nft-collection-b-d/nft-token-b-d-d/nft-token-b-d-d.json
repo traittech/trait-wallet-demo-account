@@ -7,13 +7,13 @@
       "name": "Cauldron of Chaos"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-d/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-d/icon_512x512.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-d/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-d/listing_1024x1024.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-d/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-d/cover_2048x2048.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the heart of the dimly lit dungeon, a sturdy black cauldron sits atop a weathered stone platform, surrounded by swirling wisps of steam. Flickering flames dance beneath, casting shadows that flicker along the jagged walls. Each pot is a promise of adventure, ready to concoct potions both healing and deadly. The air is thick with the scents of herbs and spices, whispering ancient secrets of alchemy. Beyond its simple exterior lies the potential for transformation—mixing rare ingredients gathered from perilous quests. Will you brave the unknown and stir the pot, discovering what mysteries await within? The choice is yours!"

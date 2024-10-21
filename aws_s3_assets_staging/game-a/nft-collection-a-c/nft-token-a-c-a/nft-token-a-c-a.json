@@ -7,13 +7,13 @@
       "name": "Trident of the Abyss"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-a/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-a/icon_512x512.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-a/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-a/listing_1024x1024.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-a/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-a/cover_2048x2048.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The item is a beautifully crafted staff, showcasing intricate design details. The shaft is dark and elegant, hinting at its powerful capabilities, while the ornate golden top features sharp, trident-like prongs that gleam, symbolizing its mastery over elemental forces. This weapon is not only a formidable tool for spellcasters but also a striking piece of art, reflecting skillful craftsmanship. Its balance and weight are tailored for precision and control, making it a favored choice among magicians and warriors alike. With its imposing presence, this staff is a symbol of authority and mystique, ready to channel potent energies in any battle."

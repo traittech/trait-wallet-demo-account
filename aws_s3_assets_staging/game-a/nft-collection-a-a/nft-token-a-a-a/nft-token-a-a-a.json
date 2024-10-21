@@ -7,13 +7,13 @@
       "name": "Blood Reaver"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-a/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-a/icon_512x512.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-a/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-a/listing_1024x1024.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-a/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-a/cover_2048x2048.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "This striking sword features a long, sleek blade with a dark metallic sheen, accentuated by glowing red patterns that hint at its magical properties. Its design includes a dramatic, ornate hilt with pronounced cross-guard elements, enhancing both its aesthetic appeal and combat functionality. The balance of the sword allows for swift, powerful strikes, making it an ideal choice for both melee encounters and display. Crafted with an ancient technique, this weapon not only serves as a formidable tool in battle but also as a symbol of power and mastery. Wielding this blade might invoke fear in enemies and awe among allies."

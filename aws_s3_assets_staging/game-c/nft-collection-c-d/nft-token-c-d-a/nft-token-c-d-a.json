@@ -7,13 +7,13 @@
       "name": "Rusty Blue Pickup"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-a/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-a/icon_512x512.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-a/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-a/listing_1024x1024.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-a/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-a/cover_2048x2048.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the heart of the wasteland, a rugged blue pickup stands as a testament to resilience. Its once-vibrant paint is now faded and scratched, hinting at countless adventures and harsh terrains behind it. Mud splatters coat the sides, whispers of daring off-road escapades and narrow escapes. The wheels, marked with the scars of the journey, promise a steady grip on both gravel and muck. Inside, the scent of adventure lingers, inviting brave souls to take the wheel. This trusty steed, unpolished but undeniably charismatic, awaits its next champion, ready to conquer sweeping landscapes and defy the odds!"

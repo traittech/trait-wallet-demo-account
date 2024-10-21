@@ -7,13 +7,13 @@
       "name": "Goblin Scout"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-d/icon_150x150.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-d/icon_512x512.png"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-d/listing_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-d/listing_1024x1024.png"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-d/cover_1920x1920.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-d/cover_2048x2048.png"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In a vibrant land filled with magic and adventure, meet our courageous Goblin hero! With dazzling green skin and bright, expressive eyes, this pint-sized warrior dons a stylish pair of glasses and a mischievous grin that can charm the fiercest foes. Clad in a snug tunic and armed with a trusty spear, this clever goblin is not just agile but also incredibly resourceful. As shadows loom and threats emerge from the depths of the forest, our hero stands ready to defend their village, embarking on daring quests, forging alliances, and uncovering the secrets of the enchanted realm. Adventure awaits!"
