@@ -7,13 +7,13 @@
       "name": "Mystic Brew Station"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-c/icon_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-c/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-c/listing_1024x1024.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-c/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-c/cover_2048x2048.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-c/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In a vibrant land where imagination reigns, you stumble upon the Mystic Juice Extractor, a whimsical contraption bubbling with playful energy. Its gleaming purple reservoir is adorned with shiny pipes that twist and turn, drawing in the essence of enchanted fruits. As you activate its mechanisms, a stream of sparkling liquid flows forth, promising power and vitality. This magical machine not only boosts your crafting abilities but also unlocks new recipes and delights. Beware, adventurer! Each drop you collect carries the weight of choice, as you weave your destiny in this adventurous realm. Will you harness its magic wisely?"

@@ -7,13 +7,13 @@
       "name": "Crystal Spear"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-f/icon_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-f/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-f/listing_1024x1024.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-f/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-f/cover_2048x2048.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-f/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The item is an intricately designed spear, shimmering with a captivating blue hue that suggests a connection to elemental magic. Its shaft features ornate engravings, hinting at ancient knowledge and craftsmanship. The spearhead is sleek and pointed, resembling a mythical creature’s fin, and is framed by angular edges that reflect light beautifully. At the base, additional embellishments echo the spear's magical properties, potentially enhancing the wielder's abilities. Ideal for warriors or spellcasters alike, this weapon not only serves as a formidable tool for battle but also as a striking symbol of power and elegance, suitable for any adventurer."

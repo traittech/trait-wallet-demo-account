@@ -7,13 +7,13 @@
       "name": "Verdant Spear"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-c/icon_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-c/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-c/listing_1024x1024.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-c/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-c/cover_2048x2048.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-c/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The item is a beautifully crafted spear, featuring an elegant emerald-green shaft adorned with intricate golden engravings. Its spearhead is striking, resembling a finely detailed leaf or a mythical creature's fang, set with shimmering gemstones that catch the light. This weapon radiates an aura of power and elegance, suggesting it is not just a tool for combat but also a symbol of prestige. The design hints at its usage in both melee and ranged attacks, making it a versatile addition to any adventurer’s arsenal. Perfect for those who seek to blend beauty with lethality."

@@ -7,13 +7,13 @@
       "name": "Rusty Cruiser"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-f/icon_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-f/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-f/listing_1024x1024.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-f/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-f/cover_2048x2048.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-f/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the dimly lit garage, a relic of the past awaits—an old brown sedan, its faded paint whispering tales of adventures long gone. The chrome accents shine dully, tarnished by time, while the tires show signs of wear from countless journeys. Dust gathers on the hood like a forgotten memory, yet the vehicle stands resilient, a reminder of road trips under starlit skies and lazy Sundays. As you approach, a sense of nostalgia envelops you, urging you to jump in and relive the thrill of the open road. Will you restore its glory or leave it to rust? The choice is yours."

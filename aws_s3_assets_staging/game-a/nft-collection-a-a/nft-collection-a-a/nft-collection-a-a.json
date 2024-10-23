@@ -7,10 +7,10 @@
                 "name": "Swords"
             },
             "tech.trait.wallet.square_icon": {
-                "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-collection-a-a/icon_512x512.png"
+                "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-collection-a-a/icon_512x512.jpg"
             },
             "tech.trait.wallet.nft_collection_listing_image": {
-                "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-collection-a-a/listing_1024x1024.png"
+                "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-a/nft-collection-a-a/listing_1024x1024.jpg"
             }
         }
     }

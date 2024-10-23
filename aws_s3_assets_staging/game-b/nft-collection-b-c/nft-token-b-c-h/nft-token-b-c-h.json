@@ -7,13 +7,13 @@
       "name": "Frostbite Elixir"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-h/icon_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-h/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-h/listing_1024x1024.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-h/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-h/cover_2048x2048.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-c/nft-token-b-c-h/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "As the frostbitten winds howl outside, you discover a shimmering vial of icy cerulean liquid, adorned with a delicate snowflake trapped within its depths. Glowing softly with an ethereal light, this enchanted bottle holds the essence of winter itself. Legends whisper that a single drop can conjure snowstorms or freeze foes in their tracks. Will you harness its power to protect your realm or unleash a chill upon your enemies? The choice is yours, brave adventurer, as you tread the fine line between magic and mayhem. Open the vial to reveal the secrets within—but beware, for every spell comes with its price."

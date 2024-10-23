@@ -7,13 +7,13 @@
       "name": "Silver Spear"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-h/icon_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-h/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-h/listing_1024x1024.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-h/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-h/cover_2048x2048.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-h/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "This elegant spear embodies both beauty and lethality, crafted from a gleaming silver-hued metal that glimmers in the light. Its elongated shaft is meticulously designed, featuring intricate engravings that tell the tale of ancient warriors. The spearhead is shaped like a razor-sharp arrow, perfect for piercing through armor and striking foes from a distance. A prominent gemstone adorns the base of the spearhead, emanating a subtle glow that suggests magical properties. Whether wielded by a skilled fighter or displayed as a trophy, this spear serves as a symbol of strength, precision, and craftsmanship in any adventurous realm."

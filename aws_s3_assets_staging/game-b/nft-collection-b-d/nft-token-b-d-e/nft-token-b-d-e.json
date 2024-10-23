@@ -7,13 +7,13 @@
       "name": "Armory"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-e/icon_512x512.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-e/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-e/listing_1024x1024.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-e/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-e/cover_2048x2048.png"
+      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-d/nft-token-b-d-e/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "As you approach the wooden outpost nestled in the heart of the lush forest, the smell of fresh timber mingles with the crisp mountain air. The quaint hut, topped with a vibrant blue roof, stands as a beacon for weary travelers. Two gleaming swords are embedded in a sturdy barrel, emblems of past victories and challenges yet to come. Nearby, a stack of logs waits, hinting at the tools of craftsmanship within. This is no ordinary dwelling; it is a sanctuary for heroes, where quests begin, and legends are forged. What adventures will unfold in this enchanted abode?"
