@@ -78,7 +78,7 @@ class TestAssets(unittest.TestCase):
             icon_url: str = appagent_meta["traits"]["tech.trait.wallet.square_icon"]["image_url"]
             icon_path = icon_url.replace(TestConfig.CDN_URL, str(TestConfig.AWS_S3_ASSETS_DIR))
             self.assertTrue(Path(icon_path).is_file(), f"Can't find a file {Path(icon_path)}")
-            self.assertTrue(Path(icon_path).name.endswith(".png"))
+            self.assertTrue(Path(icon_path).name.endswith(".jpg"))
 
 
         # Validate metadata of fungible token
@@ -96,7 +96,7 @@ class TestAssets(unittest.TestCase):
             icon_url: str = fungible_meta["traits"]["tech.trait.wallet.square_icon"]["image_url"]
             icon_path = icon_url.replace(TestConfig.CDN_URL, str(TestConfig.AWS_S3_ASSETS_DIR))
             self.assertTrue(Path(icon_path).is_file())
-            self.assertTrue(Path(icon_path).name.endswith(".png"))
+            self.assertTrue(Path(icon_path).name.endswith(".jpg"))
 
         # Validate metadata of nft collection
         for meta_path in meta_nft_collections:
@@ -117,11 +117,11 @@ class TestAssets(unittest.TestCase):
             icon_url: str = nft_collection_meta["traits"]["tech.trait.wallet.square_icon"]["image_url"]
             icon_path = icon_url.replace(TestConfig.CDN_URL, str(TestConfig.AWS_S3_ASSETS_DIR))
             self.assertTrue(Path(icon_path).is_file())
-            self.assertTrue(Path(icon_path).name.endswith(".png"))
+            self.assertTrue(Path(icon_path).name.endswith(".jpg"))
             listing_url: str = nft_collection_meta["traits"]["tech.trait.wallet.nft_collection_listing_image"]["image_url"]
             listing_path = listing_url.replace(TestConfig.CDN_URL, str(TestConfig.AWS_S3_ASSETS_DIR))
             self.assertTrue(Path(listing_path).is_file())
-            self.assertTrue(Path(listing_path).name.endswith(".png"))
+            self.assertTrue(Path(listing_path).name.endswith(".jpg"))
 
         # Validate metadata of nft token
         for meta_path in meta_nft_tokens:
@@ -145,15 +145,15 @@ class TestAssets(unittest.TestCase):
             icon_url: str = nft_token_meta["traits"]["tech.trait.wallet.square_icon"]["image_url"]
             icon_path = icon_url.replace(TestConfig.CDN_URL, str(TestConfig.AWS_S3_ASSETS_DIR))
             self.assertTrue(Path(icon_path).is_file())
-            self.assertTrue(Path(icon_path).name.endswith(".png"))
+            self.assertTrue(Path(icon_path).name.endswith(".jpg"))
             listing_url: str = nft_token_meta["traits"]["tech.trait.wallet.nft_token_listing_image"]["image_url"]
             listing_path = listing_url.replace(TestConfig.CDN_URL, str(TestConfig.AWS_S3_ASSETS_DIR))
             self.assertTrue(Path(listing_path).is_file())
-            self.assertTrue(Path(listing_path).name.endswith(".png"))
+            self.assertTrue(Path(listing_path).name.endswith(".jpg"))
             cover_url: str = nft_token_meta["traits"]["tech.trait.wallet.nft_token_cover_image"]["image_url"]
             cover_path = cover_url.replace(TestConfig.CDN_URL, str(TestConfig.AWS_S3_ASSETS_DIR))
             self.assertTrue(Path(cover_path).is_file())
-            self.assertTrue(Path(cover_path).name.endswith(".png"))
+            self.assertTrue(Path(cover_path).name.endswith(".jpg"))
 
     def test_validate_cdn_meta(self: "TestAssets") -> None:
         """
