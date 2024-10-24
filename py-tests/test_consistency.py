@@ -9,8 +9,8 @@ from traitsvalidator import TraitsValidator
 
 class TestConfig:
     GIT_REPO_ROOT: Path = Path(__file__).parent.parent
-    AWS_S3_ASSETS_DIR: Path = GIT_REPO_ROOT / "aws_s3_assets_staging"
-    CDN_URL = f"http://trait-wallet-demo-account-staging.trait.tech"
+    AWS_S3_ASSETS_DIR: Path = GIT_REPO_ROOT / "aws_s3_assets"
+    CDN_URL = f"https://trait-wallet-demo-account.trait.tech"
     HTTP_TIMEOUT = 2
 
 
