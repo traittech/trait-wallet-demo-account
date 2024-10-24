@@ -7,13 +7,13 @@
       "name": "Crimson Blade"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-h/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-h/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-h/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-h/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-h/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-h/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The sword features a striking red blade that glimmers with an ominous glow, reflecting its powerful enchantments. The hilt is elegantly wrapped in crimson fabric, providing both grip and style, while the gold accents and intricate designs highlight the craftsmanship and regal nature of the weapon. Its guard is ornately shaped, resembling a fierce creature, symbolizing strength and nobility. This formidable blade is not only a tool for combat but also a piece of art, representing a legacy of warriors who wielded it. Ideal for battling foes, it imbues its user with confidence and an aura of authority on the battlefield."

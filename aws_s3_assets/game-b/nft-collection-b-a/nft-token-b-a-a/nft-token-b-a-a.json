@@ -7,13 +7,13 @@
       "name": "Bone Warrior"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-a/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-a/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-a/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-a/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-a/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-a/nft-token-b-a-a/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the eerie depths of the ancient catacombs, our brave hero—an animated skeleton clad in tattered blue armor—emerges from the shadows. Once a valiant knight, now a humorous specter, he wields his bony fingers like deft weapons, ready to conquer the grave's challenges. With each clink of his skeletal limbs, he navigates treacherous traps and spiteful foes, all while seeking redemption and lost valor. Guided by an unyielding spirit, he faces ghostly apparitions and ancient curses. Will he uncover the truth of his past, or will he remain a mere jester in the realm of the undead? Adventure awaits!"
