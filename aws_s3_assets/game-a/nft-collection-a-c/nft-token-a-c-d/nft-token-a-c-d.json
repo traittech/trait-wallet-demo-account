@@ -7,13 +7,13 @@
       "name": "Crimson Spear"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-d/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-d/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-d/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-d/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-d/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-d/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The item is a formidable weapon, characterized by its imposing design and striking crimson hue. This spear features a long, sleek shaft that tapers into a finely crafted point, making it lethal in battle. The head of the spear boasts an intricate motif, with sharp, jagged edges and a sinister aesthetic that hints at dark powers. Often associated with formidable warriors or malevolent sorcerers, this weapon not only serves as a tool for combat but also as a symbol of dominance and fear. Wielding this spear may imbue the user with enhanced abilities, making it a coveted item in the game."

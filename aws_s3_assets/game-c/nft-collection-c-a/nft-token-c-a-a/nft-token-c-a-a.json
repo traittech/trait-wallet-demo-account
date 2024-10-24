@@ -7,13 +7,13 @@
       "name": "Barricade XR"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-a/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-a/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-a/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-a/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-a/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-a/nft-token-c-a-a/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the heart of the battlefield, you grasp the sleek and formidable weapon before you—an embodiment of precision and power. Its matte black finish glints under the chaotic glow of distant explosions. This rifle boasts a modular design, allowing for customization to suit your tactical needs. With an adjustable stock and rail system, you can equip scopes or grips for enhanced control. Each pull of the trigger unleashes controlled bursts, sending rounds downrange with unwavering accuracy. As you navigate through enemy territory, this weapon becomes an extension of your will, a trusted ally in your quest for victory. Choose wisely, soldier!"

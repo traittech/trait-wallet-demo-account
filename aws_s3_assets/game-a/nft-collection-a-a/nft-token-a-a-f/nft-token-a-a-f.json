@@ -7,13 +7,13 @@
       "name": "Shadowfang"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-f/icon_150x150.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-f/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-f/listing_512x512.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-f/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-f/cover_1920x1920.png"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-a/nft-token-a-a-f/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "Behold the Celestial Blade, a mesmerizing weapon forged in the fires of ancient magic. This sword boasts a striking, elongated design with a shimmering, greenish blade that seems to glow with an ethereal light. Intricate dark gold embellishments decorate the hilt, culminating in a radiant gem that pulses with power. The balance of the sword allows for swift, graceful strikes, while its mystical aura hints at hidden abilities to unleash devastating attacks against foes. Legends tell of its capacity to absorb the essence of defeated enemies, granting the wielder strength and enhancing their combat prowess in challenging battles."
