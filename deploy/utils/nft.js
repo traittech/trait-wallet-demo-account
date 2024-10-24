@@ -6,21 +6,10 @@ async function create_nft_collections(api, appAgentOwner, appAgentId, collection
         try {
             console.log("Start to create NFT Collections for the AppAgent ID " + appAgentId);
 
-            let asset_admin = encodeNamed(appAgentId, "asset-admi");
-
             console.log("Create Clearing transaction");
             let atomics = [];
 
-            let create_nft_call = api.tx.nfts.create(
-                asset_admin,
-                {
-                    settings: 0,
-                    mintSettings: {
-                        mintType: "issuer",
-                        defaultItemSettings: 0
-                    }
-                }
-            );
+            let create_nft_call = api.tx.nfts.create();
             
             for (let i = 0; i < collection_count; i++) {
                 let create_nft_action = [{ AppAgentId: appAgentId }, create_nft_call];
@@ -63,7 +52,7 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
     return new Promise(async (resolve, reject) => {
         try {
             console.log("Start to configure NFT Collection `" + collectionId + "` for the AppAgent ID " + appAgentId);
-            let asset_admin = encodeNamed(appAgentId, "asset-admi");
+            let asset_admin = encodeNamed(appAgentId, "assetadmin");
 
             let nftInfo = [];
 
@@ -79,17 +68,6 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
             // As we have a small number of NFT tokens in each collection - only 10 -
             // we can join all operations into a single CT.
             let atomics = [];
-
-            console.log("Create atomic to provide required permissions to the admin");
-            let set_team_call = api.tx.nfts.setTeam(
-                collectionId,
-                asset_admin,
-                asset_admin,
-                asset_admin,
-            );
-            let set_team_action = [{ AppAgentId: appAgentId }, set_team_call];
-            let set_team_atomic = [set_team_action];
-            atomics.push(set_team_atomic);
 
             console.log("Create atomic to set collection metadata");
             let set_collection_metadata_call = api.tx.nfts.setCollectionMetadata(
@@ -111,8 +89,7 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
                 let mint_nft_call = api.tx.nfts.mint(
                     collectionId,
                     tokenId,
-                    token_recipient,
-                    {}
+                    token_recipient
                 );
                 let mint_nft_action = [{ NamedAddress: asset_admin }, mint_nft_call];
                 let set_metadata_call = api.tx.nfts.setMetadata(
