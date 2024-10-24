@@ -7,11 +7,11 @@ async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount
             console.log("Start to create fungible tokens for the AppAgent ID " + appAgentId);
             console.log("Token count: ", tokenCount);
 
-            let token_admin = encodeNamed(appAgentId, "assetadmin");
             let tokenIds = [];
 
             let atomics = [];
             for (let i = 0; i < tokenCount; i++) {
+                // TODO use real min balance from metadata files
                 let create_fungible_token_call = api.tx.assets.create(1);
                 let create_fungible_token_action = [{ AppAgentId: appAgentId }, create_fungible_token_call];
                 let create_fungible_token_atomic = [create_fungible_token_action];
