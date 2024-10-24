@@ -7,13 +7,13 @@
       "name": "Classic Compact"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-i/icon_512x512.jpg"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-i/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-i/listing_1024x1024.jpg"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-i/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-i/cover_2048x2048.jpg"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-i/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In an abandoned lot, a humble, worn-out hatchback sits, its faded white paint whispering tales of better days. Each dent and scratch tells a story of countless adventures through winding roads and bustling city streets. Rust creeps along its edges, a testament to time's relentless march. Despite its weary exterior, the engine holds a stubborn spark, ready to roar back to life for one last thrill. As the wind rattles its windows, the car beckons you to jump in, revive its glory, and embark on a journey through forgotten landscapes, where every turn holds the promise of discovery. Will you answer the call?"

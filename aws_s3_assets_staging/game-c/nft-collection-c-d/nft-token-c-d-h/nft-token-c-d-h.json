@@ -7,13 +7,13 @@
       "name": "Jungle Explorer"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-h/icon_512x512.jpg"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-h/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-h/listing_1024x1024.jpg"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-h/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-h/cover_2048x2048.jpg"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-c/nft-collection-c-d/nft-token-c-d-h/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In a desolate world where survival is the primary objective, behold the rugged survivor of the untamed wilds—the Camo Cruiser. With its battle-scarred chassis and muddy tires, this all-terrain beast is ready to conquer any landscape. Clad in a faded camouflage skin, it whispers tales of daring escapes and relentless pursuit. The reinforced roof rack stands ready to bear the weight of supplies or a makeshift lookout. Each roar of the engine echoes the promise of adventure, inviting intrepid explorers to hop in and navigate the treacherous terrains of this unforgiving realm. Will you answer the call?"

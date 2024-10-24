@@ -7,13 +7,13 @@
       "name": "Gizmo Goblin"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-h/icon_512x512.jpg"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-h/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-h/listing_1024x1024.jpg"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-h/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-h/cover_2048x2048.jpg"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/nft-collection-b-b/nft-token-b-b-h/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "In the whimsical realm, meet the quirky Goblin Mechanic! With a toothy grin and oversized goggles that gleam with mischievous energy, this crafty goblin is a master of gadgetry. Adorned in a rugged harness and equipped with an array of wacky inventions, he is always ready to repair and bolster his comrades on the battlefield. His quick thinking and unparalleled ingenuity allow him to fix structures and machines, ensuring the goblin horde remains relentless. Whether building traps or enhancing defenses, the Goblin Mechanic brings chaos and charm to every clash—underscoring the unpredictable nature of goblin technology!"

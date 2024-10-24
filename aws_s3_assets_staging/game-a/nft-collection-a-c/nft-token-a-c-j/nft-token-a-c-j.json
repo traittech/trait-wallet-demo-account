@@ -7,13 +7,13 @@
       "name": "Voidspike Lance"
     },
     "tech.trait.wallet.square_icon": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-j/icon_512x512.jpg"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-j/icon_512x512.jpg"
     },
     "tech.trait.wallet.nft_token_listing_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-j/listing_1024x1024.jpg"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-j/listing_1024x1024.jpg"
     },
     "tech.trait.wallet.nft_token_cover_image": {
-      "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-j/cover_2048x2048.jpg"
+      "image_url": "https://trait-wallet-demo-account.trait.tech/game-a/nft-collection-a-c/nft-token-a-c-j/cover_2048x2048.jpg"
     },
     "tech.trait.wallet.nft_token_description": {
       "nft_token_description": "The item is an ornate spear, embodying a mystical aura with its sleek, elongated design. Its shaft is a deep, shimmering purple, hinting at the power contained within. Adorned with intricate golden details, the spear’s head features a sharp, pointed tip, suggesting both elegance and deadliness. The decorative elements, including a swirling motif and gem inlay, enhance its ethereal quality. This weapon is not just a formidable tool in combat; it symbolizes status and mastery over the arcane. Ideal for skilled combatants or spellcasters, it serves as both a physical weapon and a conduit for magical energy."

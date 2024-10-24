@@ -7,7 +7,7 @@
                 "name": "Crown Clash"
             },
             "tech.trait.wallet.square_icon": {
-                "image_url": "http://trait-wallet-demo-account-staging.trait.tech/game-b/app-agent-b/icon_512x512.jpg"
+                "image_url": "https://trait-wallet-demo-account.trait.tech/game-b/app-agent-b/icon_512x512.jpg"
             }
         }
     }
