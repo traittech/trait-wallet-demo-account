@@ -74,7 +74,7 @@ async function main() {
     ];
 
     console.log("Send the batch of transfers");
-    await processSignedBatchTransaction(api, faucetAccount, api.tx.utility.batchAll(transfers));
+    await processSignedBatchTransaction(faucetAccount, api.tx.utility.batchAll(transfers));
     // await create_balance_transfers(api, demo_user_one, demo_user_two);
     // await create_balance_transfers(api, demo_user_three, demo_user_one);
 
