@@ -7,12 +7,13 @@ async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount
             console.log("Start to create fungible tokens for the AppAgent ID " + appAgentId);
             console.log("Token count: ", tokenCount);
 
-            let token_admin = encodeNamed(appAgentId, "asset-admi");
+            console.log("Build Clearing transaction to create Fungible tokens");
             let tokenIds = [];
 
             let atomics = [];
             for (let i = 0; i < tokenCount; i++) {
-                let create_fungible_token_call = api.tx.assets.create(token_admin, 1);
+                // TODO use real min balance from metadata files
+                let create_fungible_token_call = api.tx.assets.create(1);
                 let create_fungible_token_action = [{ AppAgentId: appAgentId }, create_fungible_token_call];
                 let create_fungible_token_atomic = [create_fungible_token_action];
                 atomics.push(create_fungible_token_atomic);
@@ -23,6 +24,7 @@ async function create_fungible_tokens(api, appAgentOwner, appAgentId, tokenCount
                 atomics
             );
 
+            console.log("Clearing transaction successfully processed, collect IDs of created Fungible tokens.");
             let events = await processClearingTransaction(appAgentOwner, create_fungible_token_ct);
             for (const event of events) {
                 if (event.receipt.event_module === 'Assets' && event.receipt.event_name === 'Created') {
@@ -60,14 +62,12 @@ async function set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgent
             console.log("Token IDs: ", tokenIds);
             console.log("Metadata URLs: ", metadataUrls);
 
-            let token_admin = encodeNamed(appAgentId, "asset-admi");
-
             console.log("Create atomics to mint and set metadata for each token");
             let atomics = [];
             for (let i = 0; i < tokenIds.length; i++) {
                 console.log(`Creating atomic for token ${tokenIds[i]}`);
                 let mint_token_call = api.tx.assets.mint(tokenIds[i], token_recipient.address, convertDecimalsToAmount(decimals[i], 1000));
-                let mint_token_action = [{ NamedAddress: token_admin }, mint_token_call];
+                let mint_token_action = [{ AppAgentId: appAgentId }, mint_token_call];
                 let set_metadata_call = api.tx.assets.setMetadata(tokenIds[i], metadataUrls[i]);
                 let set_metadata_action = [{ AppAgentId: appAgentId }, set_metadata_call];
                 token_atomic = [mint_token_action, set_metadata_action];

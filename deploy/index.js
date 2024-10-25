@@ -60,21 +60,21 @@ async function main() {
     const demo_user_two = keyring.addFromUri(process.env.DEMO_ACCOUNT_TWO_MNEMONIC);
     const demo_user_three = keyring.addFromUri(process.env.DEMO_ACCOUNT_THREE_MNEMONIC);
 
-    const transferAmount = parseInt(process.env.TRANSFER_AMOUNT) * 1e12;
-    const demotransferAmount = parseInt(process.env.TRANSFER_AMOUNT) * 1e10;
+    const appAgentOwnerTransferAmount = parseInt(process.env.APP_AGENT_OWNER_TRANSFER_AMOUNT) * 1e12;
+    const demoAccTransferAmount = parseInt(process.env.DEMO_ACCOUNT_TRANSFER_AMOUNT) * 1e12;
 
     console.log("Start to initialise the owners of the app agents");
-    // const transfers = [
-    //     api.tx.balances.transferKeepAlive(appAgentOneOwner.address, transferAmount.toString()),
-    //     api.tx.balances.transferKeepAlive(appAgentTwoOwner.address, transferAmount.toString()),
-    //     api.tx.balances.transferKeepAlive(appAgentThreeOwner.address, transferAmount.toString()),
-    //     api.tx.balances.transferKeepAlive(demo_user_one.address, demotransferAmount.toString()),
-    //     api.tx.balances.transferKeepAlive(demo_user_two.address, demotransferAmount.toString()),
-    //     api.tx.balances.transferKeepAlive(demo_user_three.address, demotransferAmount.toString()),
-    // ];
+    const transfers = [
+        api.tx.balances.transferKeepAlive(appAgentOneOwner.address, appAgentOwnerTransferAmount.toString()),
+        api.tx.balances.transferKeepAlive(appAgentTwoOwner.address, appAgentOwnerTransferAmount.toString()),
+        api.tx.balances.transferKeepAlive(appAgentThreeOwner.address, appAgentOwnerTransferAmount.toString()),
+        api.tx.balances.transferKeepAlive(demo_user_one.address, demoAccTransferAmount.toString()),
+        api.tx.balances.transferKeepAlive(demo_user_two.address, demoAccTransferAmount.toString()),
+        api.tx.balances.transferKeepAlive(demo_user_three.address, demoAccTransferAmount.toString()),
+    ];
 
-    // console.log("Send the batch of transfers");
-    // await processSignedBatchTransaction(api, faucetAccount, api.tx.utility.batchAll(transfers));
+    console.log("Send the batch of transfers");
+    await processSignedBatchTransaction(faucetAccount, api.tx.utility.batchAll(transfers));
     // await create_balance_transfers(api, demo_user_one, demo_user_two);
     // await create_balance_transfers(api, demo_user_three, demo_user_one);
 
