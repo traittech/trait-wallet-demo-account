@@ -6,7 +6,7 @@ async function create_nft_collections(api, appAgentOwner, appAgentId, collection
         try {
             console.log("Start to create NFT Collections for the AppAgent ID " + appAgentId);
 
-            console.log("Create Clearing transaction");
+            console.log("Build Clearing transaction to create NFT Collections");
             let atomics = [];
 
             let create_nft_call = api.tx.nfts.create();
@@ -52,17 +52,8 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
     return new Promise(async (resolve, reject) => {
         try {
             console.log("Start to configure NFT Collection `" + collectionId + "` for the AppAgent ID " + appAgentId);
-            let asset_admin = encodeNamed(appAgentId, "assetadmin");
 
             let nftInfo = [];
-
-            console.log("Send some balance to admin");
-            let balance_call = api.tx.balances.transferKeepAlive(
-                asset_admin,
-                100000000000000
-            );
-
-            await processSignedTransaction(appAgentOwner, balance_call);
 
             console.log("Build Clearing transaction to setup NFT collection");
             // As we have a small number of NFT tokens in each collection - only 10 -
@@ -74,15 +65,14 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
                 collectionId,
                 collectionInfo.metadataUrl
             );
-            let set_collection_metadata_action = [{ NamedAddress: asset_admin }, set_collection_metadata_call];
+            let set_collection_metadata_action = [{ AppAgentId: appAgentId }, set_collection_metadata_call];
             let set_collection_metadata_atomic = [set_collection_metadata_action];
             atomics.push(set_collection_metadata_atomic);
 
             console.log("Create atomics to mint and configure NFT tokens.");
+            let tokenId = 0;
             for (const token of collectionInfo.tokens) {
                 let metadataUrl = token.metadataUrl;
-                let tokenId = Math.floor(Math.random() * 1000000) + 1;
-                nftInfo.push({ collectionId: collectionId, tokenId: tokenId });
 
                 console.log("Create atomic for NFT token: CollectionId - " + collectionId + "; TokenId - " + tokenId + "; metadata URL: " + metadataUrl);
 
@@ -91,15 +81,18 @@ async function set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collect
                     tokenId,
                     token_recipient
                 );
-                let mint_nft_action = [{ NamedAddress: asset_admin }, mint_nft_call];
+                let mint_nft_action = [{ AppAgentId: appAgentId }, mint_nft_call];
                 let set_metadata_call = api.tx.nfts.setMetadata(
                     collectionId,
                     tokenId,
                     metadataUrl
                 );
-                let set_metadata_action = [{ NamedAddress: asset_admin }, set_metadata_call];
+                let set_metadata_action = [{ AppAgentId: appAgentId }, set_metadata_call];
                 let nft_atomic = [mint_nft_action, set_metadata_action];
                 atomics.push(nft_atomic);
+
+                nftInfo.push({ collectionId: collectionId, tokenId: tokenId });
+                tokenId += 1;
             }
             
             console.log("Sending CT to mint & configure NFT Tokens, and to set Collection metadata.");
