@@ -81,14 +81,8 @@ async function main() {
     console.log("Traverse the game folders and collect entity data");
     const gameData = collectGameData(game_folders);
 
-    // array of fungible ids
-    let fungibles = [];
-
-    // array of { collectionId: collectionId, tokenId: tokenId}
-    let collections = [];
-
     console.log("Starting to process game data");
-    for (const [gameIndex, game] of gameData.entries()) {
+    for (let [gameIndex, game] of gameData.entries()) {
         console.log(`Processing game ${gameIndex + 1}`);
         const appAgentOwner = appAgentOwners[gameIndex];
 
@@ -100,10 +94,15 @@ async function main() {
         // Create and configure fungible tokens
         if (game.fungibles.length > 0) {
             console.log(`Creating fungible tokens for game ${gameIndex + 1}`);
-            const fungibleIds = await create_fungible_tokens(api, appAgentOwner, appAgentId, game.fungibles.length);
-            fungibles = [...fungibles, ...fungibleIds];
+            const fungibleIds = await create_fungible_tokens(api, appAgentOwner, appAgentId, game.fungibles.map(f => f.decimals));
+            console.log(`Fungible tokens created for game ${gameIndex + 1}:`, fungibleIds);
+            console.log(`Save IDs of fungible tokens for later use`);
+            for (let i = 0; i < fungibleIds.length; i++) {
+                let fungibleId = fungibleIds[i];
+                game.fungibles[i].tokenId = fungibleId;
+            }
             console.log(`Setting metadata and minting fungible tokens for game ${gameIndex + 1}`);
-            await set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgentId, fungibleIds, game.fungibles.map(f => f.metadataUrl), demo_user_one, game.fungibles.map(f => f.decimals));
+            await set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgentId, game.fungibles, demo_user_one);
             console.log(`Fungible tokens created and configured for game ${gameIndex + 1}`);
         }
 
@@ -111,27 +110,39 @@ async function main() {
         console.log(`Creating NFT collections for game ${gameIndex + 1}`);
         const collectionIds = await create_nft_collections(api, appAgentOwner, appAgentId, game.nftCollections.length);
         console.log(`NFT collections created for game ${gameIndex + 1}:`, collectionIds);
+        console.log(`Save IDs of NFT collections for later use`);
+            for (let i = 0; i < collectionIds.length; i++) {
+                let collectionId = collectionIds[i];
+                game.nftCollections[i].collectionId = collectionId;
+            }
+
         for (let i = 0; i < game.nftCollections.length; i++) {
             console.log(`Setting metadata and minting NFTs for collection ${collectionIds[i]} of game ${gameIndex + 1}`);
-            let nftInfo = await set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, collectionIds[i], game.nftCollections[i], demo_user_one.address);
-            collections = [...collections, ...nftInfo];
+            let nftTokenIds = await set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, game.nftCollections[i], demo_user_one.address);
+            for (let k = 0; k < game.nftCollections[i].tokens.length; k++) {
+                game.nftCollections[i].tokens[k].tokenId = nftTokenIds[k];
+            }
         }
         console.log(`NFT collections created and configured for game ${gameIndex + 1}`);
     }
 
-    console.log("All games processed. Fungibles:", fungibles);
-    console.log("Collections:", collections);
+    console.log("All games processed");
+    console.log("Fungibles:", gameData.map(f => f.fungibles).flat().map(f => f.tokenId));
+    console.log("Collections:", gameData.map(f => f.nftCollections).flat().map(f => f.collectionId));
 
     console.log("Create demo transfers for fungibles");
-    for (const fungible of fungibles) {
-        await create_token_transfer(api, fungible, demo_user_one, [demo_user_two, demo_user_three], 10);
-        await create_token_transfer(api, fungible, demo_user_two, [demo_user_one, demo_user_three], 5);
+    for (const fungibleInfo of gameData.map(f => f.fungibles).flat()) {
+        await create_token_transfer(api, fungibleInfo, demo_user_one, [demo_user_two, demo_user_three], 250);
+        await create_token_transfer(api, fungibleInfo, demo_user_two, [demo_user_one, demo_user_three], 125);
+        await create_token_transfer(api, fungibleInfo, demo_user_three, [demo_user_one, demo_user_two], 50);
     }
 
     console.log("Create demo transfers for NFTs");
-    for (const collection of collections) {
+    for (const collectionInfo of gameData.map(f => f.nftCollections).flat()) {
         const recipient = Math.random() < 0.5 ? demo_user_three : demo_user_two;
-        await create_nft_transfers(api, collection.collectionId, collection.tokenId, demo_user_one, recipient);
+        for (const nftTokenInfo of collectionInfo.tokens) {
+            await create_nft_transfers(api, collectionInfo.collectionId, nftTokenInfo.tokenId, demo_user_one, recipient);
+        }
     }
 }
 
@@ -139,9 +150,9 @@ function collectGameData(gameFolders) {
     return gameFolders.map(gameFolder => {
         const gameData = {
             appAgent: null,
-            // array of { metadataUrl: metadataUrl, decimals: decimals }
+            // array of { metadataUrl: metadataUrl, decimals: decimals, tokenId: id }
             fungibles: [],
-            // array of { metadataUrl: metadataUrl, tokens: [{ metadataUrl: metadataUrl}]}
+            // array of { metadataUrl: metadataUrl, collectionId: id, tokens: [{ metadataUrl: metadataUrl, tokenId: id}]}
             nftCollections: []
         };
 
