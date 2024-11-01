@@ -1,10 +1,13 @@
 import { ApiPromise } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
+import Pino from "pino";
 import { Collection } from "./types";
 import {
   processClearingTransaction,
   processSignedTransaction,
 } from "./utils.js";
+
+const logger = Pino();
 
 async function create_nft_collections(
   api: ApiPromise,
@@ -14,11 +17,11 @@ async function create_nft_collections(
 ) {
   return new Promise<string[]>(async (resolve, reject) => {
     try {
-      console.log(
+      logger.info(
         "Start to create NFT Collections for the AppAgent ID " + appAgentId
       );
 
-      console.log("Build Clearing transaction to create NFT Collections");
+      logger.info("Build Clearing transaction to create NFT Collections");
       const atomics: any[] = [];
 
       const create_nft_call = api.tx.nfts.create();
@@ -34,7 +37,7 @@ async function create_nft_collections(
         atomics
       );
 
-      console.log(
+      logger.info(
         "Process clearing transaction successfully and collect IDs of created NFT collections."
       );
       const collection_ids: string[] = [];
@@ -48,20 +51,21 @@ async function create_nft_collections(
           event.receipt.event_name === "Created"
         ) {
           const collection_id = event.attributes.collection.toString();
-          console.log("NFT Collection created with ID: " + collection_id);
+          logger.info("NFT Collection created with ID: " + collection_id);
           collection_ids.push(collection_id);
         }
       }
 
-      console.log("Generated collection IDs: ", collection_ids);
+      logger.info("Generated collection IDs: ", collection_ids);
       if (collection_ids.length != collection_count) {
         throw new Error("Not all NFT collections were created");
       }
 
-      console.log("Resolving promise with collection_ids:", collection_ids);
+      logger.info("Resolving promise with collection_ids:", collection_ids);
       resolve(collection_ids);
     } catch (error) {
-      console.error("Error creating NFT Collections:", error.message);
+      const message = error instanceof Error ? error.message : error;
+      logger.error("Error creating NFT Collections:", message);
       reject(error);
     }
   });
@@ -76,7 +80,7 @@ async function set_metadata_and_mint_nft(
 ) {
   return new Promise<number[]>(async (resolve, reject) => {
     try {
-      console.log(
+      logger.info(
         "Start to configure NFT Collection `" +
           collectionInfo.collectionId +
           "` for the AppAgent ID " +
@@ -85,12 +89,12 @@ async function set_metadata_and_mint_nft(
 
       let nftTokenIds: number[] = [];
 
-      console.log("Build Clearing transaction to setup NFT collection");
+      logger.info("Build Clearing transaction to setup NFT collection");
       // As we have a small number of NFT tokens in each collection - only 10 -
       // we can join all operations into a single CT.
       let atomics: any[] = [];
 
-      console.log("Create atomic to set collection metadata");
+      logger.info("Create atomic to set collection metadata");
       let set_collection_metadata_call = api.tx.nfts.setCollectionMetadata(
         collectionInfo.collectionId,
         collectionInfo.metadataUrl
@@ -102,12 +106,12 @@ async function set_metadata_and_mint_nft(
       let set_collection_metadata_atomic = [set_collection_metadata_action];
       atomics.push(set_collection_metadata_atomic);
 
-      console.log("Create atomics to mint and configure NFT tokens.");
+      logger.info("Create atomics to mint and configure NFT tokens.");
       let tokenId = 0;
       for (const nftToken of collectionInfo.tokens) {
         let metadataUrl = nftToken.metadataUrl;
 
-        console.log(
+        logger.info(
           "Create atomic for NFT token: CollectionId - " +
             collectionInfo.collectionId +
             "; TokenId - " +
@@ -138,7 +142,7 @@ async function set_metadata_and_mint_nft(
         tokenId += 1;
       }
 
-      console.log(
+      logger.info(
         "Sending CT to mint & configure NFT Tokens, and to set Collection metadata."
       );
       let configure_nft_collection_ct =
@@ -148,10 +152,11 @@ async function set_metadata_and_mint_nft(
         configure_nft_collection_ct
       );
 
-      console.log("Resolving promise with nftTokenIds:", nftTokenIds);
+      logger.info("Resolving promise with nftTokenIds:", nftTokenIds);
       resolve(nftTokenIds);
     } catch (error) {
-      console.error("Error in set_metadata_and_mint_nft:", error.message);
+      const message = error instanceof Error ? error.message : error;
+      logger.error("Error in set_metadata_and_mint_nft:", message);
       reject(error);
     }
   });
@@ -164,11 +169,11 @@ async function create_nft_transfers(
   token_sender: KeyringPair,
   token_recipient: KeyringPair
 ) {
-  console.log("Generate free transfers between the two users");
-  console.log("Collection ID: ", collection_id);
-  console.log("Token ID: ", token_id);
-  console.log("Token Sender: ", token_sender.address);
-  console.log("Token Recipient: ", token_recipient.address);
+  logger.info("Generate free transfers between the two users");
+  logger.info("Collection ID: ", collection_id);
+  logger.info("Token ID: ", token_id);
+  logger.info("Token Sender: ", token_sender.address);
+  logger.info("Token Recipient: ", token_recipient.address);
 
   const tx = api.tx.playerTransfers.submitTransferNfts(
     collection_id,
@@ -177,7 +182,7 @@ async function create_nft_transfers(
   );
 
   await processSignedTransaction(token_sender, tx);
-  console.log(`Free transfer created and confirmed`);
+  logger.info(`Free transfer created and confirmed`);
 }
 
 export {
