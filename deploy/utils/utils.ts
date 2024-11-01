@@ -24,7 +24,7 @@ async function checkTxSuccessWithRetry(
   let retries = 0;
   while (retries < maxRetries) {
     const result = await getAllEvents(txHash);
-    if (result) {
+    if (result.length !== 0) {
       for (const event of result) {
         if (
           event.receipt.event_module === successModuleName &&
@@ -54,87 +54,83 @@ async function checkTxSuccessWithRetry(
       await new Promise((resolve) => setTimeout(resolve, backoffTime));
     }
   }
+
+  return [];
 }
 
 async function processClearingTransaction(
   signer: KeyringPair,
   ct: SubmittableExtrinsic<"promise", ISubmittableResult>
-): Promise<any> {
-  return new Promise(async (resolve, reject) => {
-    const timeout = setTimeout(() => {
-      reject(new Error(`CT processing timed out after ${maxWaitTime}ms`));
-    }, maxWaitTime);
+) {
+  const timeout = setTimeout(() => {
+    throw new Error(`CT processing timed out after ${maxWaitTime}ms`);
+  }, maxWaitTime);
 
-    try {
-      const txHash = await ct.signAndSend(signer, { nonce: -1 });
-      const txEvents = await checkTxSuccessWithRetry(
-        txHash.toString(),
-        "AddressPools",
-        "CTProcessingCompleted"
-      );
-      logger.info(`CT processing completed successfully`);
-      clearTimeout(timeout);
-      resolve(txEvents);
-    } catch (error) {
-      clearTimeout(timeout);
-      logger.error("Error in processClearingTransaction:", error);
-      reject(error);
-    }
-  });
+  try {
+    const txHash = await ct.signAndSend(signer, { nonce: -1 });
+    const txEvents = await checkTxSuccessWithRetry(
+      txHash.toString(),
+      "AddressPools",
+      "CTProcessingCompleted"
+    );
+    logger.info(`CT processing completed successfully`);
+    clearTimeout(timeout);
+    return txEvents;
+  } catch (error) {
+    clearTimeout(timeout);
+    logger.error(error, "Error in processClearingTransaction");
+    throw error;
+  }
 }
 
 async function processSignedTransaction(
   signer: KeyringPair,
   tx: SubmittableExtrinsic<"promise", ISubmittableResult>
 ) {
-  return new Promise<any[] | undefined>(async (resolve, reject) => {
-    const timeout = setTimeout(() => {
-      reject(new Error(`Transaction timed out after ${maxWaitTime}ms`));
-    }, maxWaitTime);
+  const timeout = setTimeout(() => {
+    throw new Error(`Transaction timed out after ${maxWaitTime}ms`);
+  }, maxWaitTime);
 
-    try {
-      const txHash = await tx.signAndSend(signer, { nonce: -1 });
-      const txEvents = await checkTxSuccessWithRetry(
-        txHash.toString(),
-        "System",
-        "ExtrinsicSuccess"
-      );
-      logger.info(`Transaction processing completed successfully`);
-      clearTimeout(timeout);
-      resolve(txEvents);
-    } catch (error) {
-      clearTimeout(timeout);
-      logger.error("Error in processSignedTransaction:", error);
-      reject(error);
-    }
-  });
+  try {
+    const txHash = await tx.signAndSend(signer, { nonce: -1 });
+    const txEvents = await checkTxSuccessWithRetry(
+      txHash.toString(),
+      "System",
+      "ExtrinsicSuccess"
+    );
+    logger.info(`Transaction processing completed successfully`);
+    clearTimeout(timeout);
+    return txEvents;
+  } catch (error) {
+    clearTimeout(timeout);
+    logger.error(error, "Error in processSignedTransaction");
+    throw error;
+  }
 }
 
 async function processSignedBatchTransaction(
   signer: KeyringPair,
   tx: SubmittableExtrinsic<"promise", ISubmittableResult>
 ) {
-  return new Promise(async (resolve, reject) => {
-    const timeout = setTimeout(() => {
-      reject(new Error(`Batch transaction timed out after ${maxWaitTime}ms`));
-    }, maxWaitTime);
+  const timeout = setTimeout(() => {
+    throw new Error(`Batch transaction timed out after ${maxWaitTime}ms`);
+  }, maxWaitTime);
 
-    try {
-      const txHash = await tx.signAndSend(signer, { nonce: -1 });
-      let txEvents = await checkTxSuccessWithRetry(
-        txHash.toString(),
-        "Utility",
-        "BatchCompleted"
-      );
-      logger.info(`Batch transaction processing completed successfully`);
-      clearTimeout(timeout);
-      resolve(txEvents);
-    } catch (error) {
-      clearTimeout(timeout);
-      logger.error("Error in processSignedBatchTransaction:", error);
-      reject(error);
-    }
-  });
+  try {
+    const txHash = await tx.signAndSend(signer, { nonce: -1 });
+    const txEvents = await checkTxSuccessWithRetry(
+      txHash.toString(),
+      "Utility",
+      "BatchCompleted"
+    );
+    logger.info(`Batch transaction processing completed successfully`);
+    clearTimeout(timeout);
+    return txEvents;
+  } catch (error) {
+    clearTimeout(timeout);
+    logger.error(error, "Error in processSignedBatchTransaction");
+    throw error;
+  }
 }
 
 export {

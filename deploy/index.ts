@@ -29,7 +29,7 @@ const startTime = Date.now();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const aws_s3_assets_path = path.join(__dirname, "..", "aws_s3_assets");
+const aws_s3_assets_path = path.join(__dirname, "../..", "aws_s3_assets");
 const game_a_path = path.join(aws_s3_assets_path, "game-a/");
 const game_b_path = path.join(aws_s3_assets_path, "game-b/");
 const game_c_path = path.join(aws_s3_assets_path, "game-c/");
@@ -146,7 +146,7 @@ async function main() {
   const gameData = collectGameData(game_folders);
 
   logger.info("Starting to process game data");
-  for (let [gameIndex, game] of gameData.entries()) {
+  for (const [gameIndex, game] of gameData.entries()) {
     logger.info(`Processing game ${gameIndex + 1}`);
     const appAgentOwner = appAgentOwners[gameIndex];
 
@@ -171,12 +171,11 @@ async function main() {
           .filter((d): d is number => d !== undefined)
       );
       logger.info(
-        `Fungible tokens created for game ${gameIndex + 1}:`,
-        fungibleIds
+        `Fungible tokens created for game ${gameIndex + 1}: ${fungibleIds}`
       );
-      logger.info(`Save IDs of fungible tokens for later use`);
+      logger.info("Save IDs of fungible tokens for later use");
       for (let i = 0; i < fungibleIds.length; i++) {
-        let fungibleId = fungibleIds[i];
+        const fungibleId = fungibleIds[i];
         game.fungibles[i].tokenId = fungibleId;
       }
       logger.info(
@@ -203,12 +202,11 @@ async function main() {
       game.nftCollections.length
     );
     logger.info(
-      `NFT collections created for game ${gameIndex + 1}:`,
-      collectionIds
+      `NFT collections created for game ${gameIndex + 1}: ${collectionIds}`
     );
     logger.info(`Save IDs of NFT collections for later use`);
     for (let i = 0; i < collectionIds.length; i++) {
-      let collectionId = collectionIds[i];
+      const collectionId = collectionIds[i];
       game.nftCollections[i].collectionId = collectionId;
     }
 
@@ -218,7 +216,7 @@ async function main() {
           collectionIds[i]
         } of game ${gameIndex + 1}`
       );
-      let nftTokenIds = await set_metadata_and_mint_nft(
+      const nftTokenIds = await set_metadata_and_mint_nft(
         api,
         appAgentOwner,
         appAgentId,
@@ -236,18 +234,18 @@ async function main() {
 
   logger.info("All games processed");
   logger.info(
-    "Fungibles:",
     gameData
       .map((f) => f.fungibles)
       .flat()
-      .map((f) => f.tokenId)
+      .map((f) => f.tokenId),
+    "Fungibles"
   );
   logger.info(
-    "Collections:",
     gameData
       .map((f) => f.nftCollections)
       .flat()
-      .map((f) => f.collectionId)
+      .map((f) => f.collectionId),
+    "Collections"
   );
 
   logger.info("Create demo transfers for fungibles");
@@ -356,7 +354,7 @@ function getObjectMetadataURL(
       const fileContent = fs.readFileSync(filePath, "utf8");
       const jsonData = JSON.parse(fileContent);
       // get the decimals from the fungible metadata if it exists
-      let decimals = jsonData.traits.fungible
+      const decimals = jsonData.traits.fungible
         ? jsonData.traits.fungible.decimals
         : null;
 
