@@ -46,7 +46,7 @@ async function create_fungible_tokens(
     logger.info(
       "Process clearing transaction and collect IDs of created Fungible tokens."
     );
-    const tokenIds: string[] = [];
+    const tokenIds: number[] = [];
     const events = await processClearingTransaction(
       appAgentOwner,
       create_fungible_token_ct
@@ -56,7 +56,7 @@ async function create_fungible_tokens(
         event.receipt.event_module === "Assets" &&
         event.receipt.event_name === "Created"
       ) {
-        tokenIds.push(event.attributes.asset_id.toString());
+        tokenIds.push(parseInt(event.attributes.asset_id.toString()));
       }
     }
 

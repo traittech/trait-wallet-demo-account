@@ -8,6 +8,9 @@ import Pino from "pino";
 import { fileURLToPath } from "url";
 import { create_app_agent } from "./utils/app_agent.js";
 import {
+  collectGameData,
+} from "./utils/game_data.js";
+import {
   create_fungible_tokens,
   create_token_transfer,
   set_metadata_and_mint_fungible_token,
@@ -143,7 +146,7 @@ async function main() {
   );
 
   logger.info("Traverse the game folders and collect entity data");
-  const gameData = collectGameData(game_folders);
+  const gameData = collectGameData(game_folders, aws_s3_assets_path);
 
   logger.info("Starting to process game data");
   for (const [gameIndex, game] of gameData.entries()) {
@@ -168,15 +171,13 @@ async function main() {
         appAgentId,
         game.fungibles
           .map((f) => f.decimals)
-          .filter((d): d is number => d !== undefined)
       );
       logger.info(
         `Fungible tokens created for game ${gameIndex + 1}: ${fungibleIds}`
       );
       logger.info("Save IDs of fungible tokens for later use");
       for (let i = 0; i < fungibleIds.length; i++) {
-        const fungibleId = fungibleIds[i];
-        game.fungibles[i].tokenId = fungibleId;
+        game.fungibles[i].tokenId = fungibleIds[i];
       }
       logger.info(
         `Setting metadata and minting fungible tokens for game ${gameIndex + 1}`
@@ -206,8 +207,7 @@ async function main() {
     );
     logger.info(`Save IDs of NFT collections for later use`);
     for (let i = 0; i < collectionIds.length; i++) {
-      const collectionId = collectionIds[i];
-      game.nftCollections[i].collectionId = collectionId;
+      game.nftCollections[i].collectionId = collectionIds[i];
     }
 
     for (let i = 0; i < game.nftCollections.length; i++) {
@@ -224,6 +224,7 @@ async function main() {
         demo_user_one.address
       );
       for (let k = 0; k < game.nftCollections[i].nftTokens.length; k++) {
+        game.nftCollections[i].nftTokens[k].collectionId = game.nftCollections[i].collectionId;
         game.nftCollections[i].nftTokens[k].tokenId = nftTokenIds[k];
       }
     }
@@ -277,98 +278,21 @@ async function main() {
   for (const collectionInfo of gameData.map((f) => f.nftCollections).flat()) {
     const recipient = Math.random() < 0.5 ? demo_user_three : demo_user_two;
     for (const nftTokenInfo of collectionInfo.nftTokens) {
+      if (typeof nftTokenInfo.collectionId === 'undefined' || nftTokenInfo.collectionId === null) {
+        throw new Error(`Unknown NFT collection ID: ${collectionInfo}`);
+      }
+      if (typeof nftTokenInfo.tokenId === 'undefined' || nftTokenInfo.tokenId === null) {
+        throw new Error(`Unknown NFT Token ID: ${collectionInfo}`);
+      }
       await create_nft_transfers(
         api,
-        collectionInfo.collectionId,
+        nftTokenInfo.collectionId,
         nftTokenInfo.tokenId,
         demo_user_one,
         recipient
       );
     }
   }
-}
-
-function collectGameData(gameFolders: string[]) {
-  return gameFolders.map((gameFolder) => {
-    const gameData: GameData = {
-      appAgent: null,
-      fungibles: [],
-      nftCollections: [],
-    };
-
-    const subFolders = fs.readdirSync(gameFolder);
-
-    for (const subFolder of subFolders) {
-      const folderPath = path.join(gameFolder, subFolder);
-
-      if (subFolder.startsWith("app-agent-")) {
-        gameData.appAgent = {
-          metadataUrl: getObjectMetadataURL(folderPath)?.url,
-        };
-      } else if (subFolder.startsWith("fungible-")) {
-        const metadata = getObjectMetadataURL(folderPath);
-        if (metadata) {
-          const { url, decimals } = metadata;
-          gameData.fungibles.push({ metadataUrl: url, decimals });
-        }
-      } else if (subFolder.startsWith("nft-collection")) {
-        const collection: NftCollectionData = { metadataUrl: null, nftTokens: [] };
-        const subsubFolders = fs.readdirSync(folderPath);
-
-        for (const subsubFolder of subsubFolders) {
-          const subFolderPath = path.join(folderPath, subsubFolder);
-          if (subsubFolder.startsWith("nft-collection")) {
-            collection.metadataUrl = getObjectMetadataURL(subFolderPath)?.url;
-          } else if (subsubFolder.startsWith("nft-token")) {
-            collection.nftTokens.push({
-              metadataUrl: getObjectMetadataURL(subFolderPath)?.url,
-            });
-          }
-        }
-
-        gameData.nftCollections.push(collection);
-      }
-    }
-
-    return gameData;
-  });
-}
-
-/**
- * Function searches for the json file with object metadata.
- * And calculates the metadata URL based on the file path.
- *
- * @param {string} directory - The directory where the metadata file is stored.
- * @return {string|null} The metadata URL if found, otherwise null.
- */
-function getObjectMetadataURL(
-  directory: string
-): { url: string; decimals: number } | null {
-  const files = fs.readdirSync(directory);
-  const jsonFiles = files.filter((file) => file.endsWith(".json"));
-
-  for (const file of jsonFiles) {
-    const filePath = path.join(directory, file);
-    const stats = fs.statSync(filePath);
-    if (stats.isFile()) {
-      const fileContent = fs.readFileSync(filePath, "utf8");
-      const jsonData = JSON.parse(fileContent);
-      // get the decimals from the fungible metadata if it exists
-      const decimals = jsonData.traits.fungible
-        ? jsonData.traits.fungible.decimals
-        : null;
-
-      const relativePath = path.relative(aws_s3_assets_path, filePath);
-      const url = `${process.env.CONTENT_BASE_URL}/${relativePath.replace(
-        /\\/g,
-        "/"
-      )}`;
-
-      return { url, decimals };
-    }
-  }
-
-  return null;
 }
 
 async function create_balance_transfers(

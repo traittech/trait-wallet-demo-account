@@ -39,7 +39,7 @@ async function create_nft_collections(
     logger.info(
       "Process clearing transaction successfully and collect IDs of created NFT collections."
     );
-    const collection_ids: string[] = [];
+    const collection_ids: number[] = [];
     const events = await processClearingTransaction(
       appAgentOwner,
       create_nft_ct
@@ -49,7 +49,7 @@ async function create_nft_collections(
         event.receipt.event_module === "Nfts" &&
         event.receipt.event_name === "Created"
       ) {
-        const collection_id = event.attributes.collection.toString();
+        const collection_id = parseInt(event.attributes.collection.toString());
         logger.info("NFT Collection created with ID: " + collection_id);
         collection_ids.push(collection_id);
       }
@@ -160,8 +160,8 @@ async function set_metadata_and_mint_nft(
 
 async function create_nft_transfers(
   api: ApiPromise,
-  collection_id: string | undefined,
-  token_id: number | undefined,
+  collection_id: number,
+  token_id: number,
   token_sender: KeyringPair,
   token_recipient: KeyringPair
 ) {

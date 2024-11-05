@@ -1,18 +1,32 @@
+export type NftTokenData = {
+  collectionId: number | null;
+  tokenId: number | null
+  metadataFilePath: string,
+  metadataUrl: string;
+};
+
 export type NftCollectionData = {
-  metadataUrl?: string | null;
-  nftTokens: { metadataUrl?: string; tokenId?: number }[];
-  collectionId?: string;
-  tokenId?: number;
+  collectionId: number | null;
+  metadataFilePath: string,
+  metadataUrl: string;
+  nftTokens: NftTokenData[];
 };
 
 export type FungibleTokenData = {
-  metadataUrl?: string;
+  tokenId: number | null;
+  metadataFilePath: string,
+  metadataUrl: string;
   decimals: number;
-  tokenId?: string;
+};
+
+export type AppAgentData = {
+  agentId: number | null;
+  metadataFilePath: string,
+  metadataUrl: string;
 };
 
 export type GameData = {
-  appAgent: { metadataUrl?: string } | null;
+  appAgent: AppAgentData;
   fungibles: FungibleTokenData[];
   nftCollections: NftCollectionData[];
 };
