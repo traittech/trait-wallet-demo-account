@@ -6,6 +6,8 @@ dotenv.config();
 
 const logger = Pino();
 
+// TODO rework to /history/transactions
+
 function buildDatagateUrl(): string {
   const datagateUrl = process.env.DATAGATE_URL;
   if (!datagateUrl) {

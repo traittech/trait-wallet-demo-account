@@ -7,6 +7,8 @@ import { AppAgentData, FungibleTokenData, NftCollectionData, GameData } from "./
 const logger = Pino();
 
 function collectGameData(gameFolders: string[], appAgentOwners: KeyringPair[], aws_s3_assets_path: string): GameData[] {
+  logger.info("Traverse the game folders and collect entity data");
+
   if (gameFolders.length != gameFolders.length) {
     throw new Error(
       `Mismatch of number of game folders and game owners: ${gameFolders.length} and ${appAgentOwners.length}`,
