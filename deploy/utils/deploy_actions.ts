@@ -165,21 +165,21 @@ async function create_demo_fungible_transfers(
       fungibleInfo,
       demo_user_one,
       [demo_user_two, demo_user_three],
-      250
+      400
     );
     await create_token_transfer(
       api,
       fungibleInfo,
       demo_user_two,
       [demo_user_one, demo_user_three],
-      125
+      200
     );
     await create_token_transfer(
       api,
       fungibleInfo,
       demo_user_three,
       [demo_user_one, demo_user_two],
-      50
+      100
     );
   }
 }
