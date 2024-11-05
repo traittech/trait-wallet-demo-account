@@ -6,17 +6,15 @@ dotenv.config();
 
 const logger = Pino();
 
-// TODO rework to /history/transactions
-
 function buildDatagateUrl(): string {
   const datagateUrl = process.env.DATAGATE_URL;
   if (!datagateUrl) {
     throw new Error("DATAGATE_URL is not set in the .env file");
   }
-  return datagateUrl + "/history/events";
+  return datagateUrl + "/history/transactions";
 }
 
-async function getAllEvents(transaction_hash: string): Promise<EventInfo[]> {
+async function getAllTxEvents(transaction_hash: string): Promise<EventInfo[] | null> {
   const apiUrl = buildDatagateUrl();
 
   logger.debug(`DATAGATE: Checking event occurrence for transaction: ${transaction_hash}`, transaction_hash);
@@ -31,18 +29,23 @@ async function getAllEvents(transaction_hash: string): Promise<EventInfo[]> {
       tx_hash: transaction_hash,
     },
     presentation: {
-      sorting: "time_ascending",
+      include_events: true,
     },
   };
 
   try {
     const response = await axios.post(apiUrl, requestBody);
 
-    if (response.data && response.data.data && response.data.data.length > 0) {
-      return response.data.data;
+    if (response.data && response.data.data) {
+      if (response.data.data.length == 1) {
+        return response.data.data[0].events;
+      } else if (response.data.data.length == 0) {
+        return null;
+      } else {
+        throw new Error(`DATAGATE | Foun more than one TX with the hash ${transaction_hash}`);
+      }
     } else {
-      logger.info(`No events found for the transaction '${transaction_hash}'`);
-      return [];
+      throw new Error(`DATAGATE | Could not fetch data of TX with the hash ${transaction_hash}`);
     }
   } catch (error) {
     logger.error(error, "Error calling the API");
@@ -50,4 +53,4 @@ async function getAllEvents(transaction_hash: string): Promise<EventInfo[]> {
   }
 }
 
-export { getAllEvents };
+export { getAllTxEvents as getAllEvents };

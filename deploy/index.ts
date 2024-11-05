@@ -89,7 +89,6 @@ async function main(): Promise<void> {
     demoAccTransferAmount,
   );
 
-  logger.info("Traverse the game folders and collect entity data");
   const gameDataList = collectGameData(game_folders, appAgentOwners, aws_s3_assets_path);
 
   await createBlockchainAssets(api, gameDataList, demo_user_one);
