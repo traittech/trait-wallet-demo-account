@@ -1,17 +1,33 @@
 {
-  "name": "deploy",
+  "name": "trait-demo-assets-deploy",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
+  "type": "module",
   "scripts": {
+    "start": "tsc && node build/index.js",
+    "ts-check": "tsc --noEmit",
+    "eslint-check": "eslint .",
+    "prettier": "prettier . --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "TRAIT Team",
+  "license": "MIT",
+  "description": "This package creates blockchain entities and sets metadata for them.",
+  "packageManager": "yarn@4.5.1",
   "dependencies": {
     "@polkadot/api": "^12.4.2",
     "@polkadot/keyring": "^13.0.2",
     "axios": "^1.7.7",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "pino": "^9.5.0",
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.2.2",
+    "@eslint/js": "^9.14.0",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.14.0",
+    "prettier": "3.3.3",
+    "typescript-eslint": "^8.13.0"
   }
 }
