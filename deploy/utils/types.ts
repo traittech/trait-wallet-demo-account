@@ -1,40 +1,40 @@
 import { KeyringPair } from "@polkadot/keyring/types";
 
-export type NftTokenData = {
+export interface NftTokenData {
   collectionId: number | null;
   tokenId: number | null
   metadataFilePath: string,
   metadataUrl: string;
 };
 
-export type NftCollectionData = {
+export interface NftCollectionData {
   collectionId: number | null;
   metadataFilePath: string,
   metadataUrl: string;
   nftTokens: NftTokenData[];
 };
 
-export type FungibleTokenData = {
+export interface FungibleTokenData {
   tokenId: number | null;
   metadataFilePath: string,
   metadataUrl: string;
   decimals: number;
 };
 
-export type AppAgentData = {
+export interface AppAgentData {
   agentId: number | null;
   appAgentOwner: KeyringPair,
   metadataFilePath: string,
   metadataUrl: string;
 };
 
-export type GameData = {
+export interface GameData {
   appAgent: AppAgentData;
   fungibles: FungibleTokenData[];
   nftCollections: NftCollectionData[];
 };
 
-export type EventInfo = {
+export interface EventInfo {
   receipt: {
     block_hash: string;
     block_index: number;

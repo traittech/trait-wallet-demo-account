@@ -25,7 +25,7 @@ async function create_nft_collections(
 
     const create_nft_call = api.tx.nfts.create();
 
-    for (let i = 0; i < collectionDataList.length; i++) {
+    for (let i = 0; i < collectionDataList.length; i++) { // eslint-disable-line @typescript-eslint/prefer-for-of
       const create_nft_action = [{ AppAgentId: appAgentId }, create_nft_call];
       const create_nft_atomic = [create_nft_action];
       atomics.push(create_nft_atomic);

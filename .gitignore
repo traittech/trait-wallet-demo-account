@@ -3,6 +3,7 @@
 .venv
 env
 .env
+.env*
 __pycache__
 .mypy_cache
 .ruff_cache
@@ -11,3 +12,6 @@ __pycache__
 
 deploy/node_modules/
 deploy/build/
+deploy/.yarn/
+deploy/.pnp.cjs
+deploy/.pnp.loader.mjs

@@ -31,7 +31,7 @@ async function init_blockchain_accounts(
   logger.info("Initialise the owners of the app agents and demo accounts");
 
   // build the list of transfers
-  let transfers = [];
+  const transfers = [];
   for (const appAgentOwner of appAgentOwners) {
     transfers.push(
       api.tx.balances.transferKeepAlive(
@@ -110,22 +110,22 @@ async function createBlockchainAssets(
     );
     logger.info(`NFT collections created for game ${gameIndex + 1}`);
 
-    for (let i = 0; i < gameData.nftCollections.length; i++) {
+    for (const nftCollection of gameData.nftCollections) {
       logger.info(
         `Setting metadata and minting NFTs for collection ${
-          gameData.nftCollections[i].collectionId
+          nftCollection.collectionId
         } of game ${gameIndex + 1}`
       );
       await set_metadata_and_mint_nft(
         api,
         appAgentOwner,
         appAgentId,
-        gameData.nftCollections[i],
+        nftCollection,
         demo_user_one.address
       );
       logger.info(
         `Successfully configured the NFT collection ${
-          gameData.nftCollections[i].collectionId
+          nftCollection.collectionId
         } of game ${gameIndex + 1}`
       );
     }

@@ -11,14 +11,14 @@ function collectGameData(gameFolders: string[], appAgentOwners: KeyringPair[], a
     throw new Error(`Mismatch of number of game folders and game owners: ${gameFolders.length} and ${appAgentOwners.length}`);
   }
 
-  let gameDataList: GameData[] = [];
+  const gameDataList: GameData[] = [];
 
-  for (let [gameIndex, gameFolder] of gameFolders.entries()) {
+  for (const [gameIndex, gameFolder] of gameFolders.entries()) {
     const appAgentOwner = appAgentOwners[gameIndex];
 
     let appAgent: AppAgentData | null = null;
-    let fungibles: FungibleTokenData[] = [];
-    let nftCollections: NftCollectionData[] = [];
+    const fungibles: FungibleTokenData[] = [];
+    const nftCollections: NftCollectionData[] = [];
     
     const subFolders = fs.readdirSync(gameFolder);
 
