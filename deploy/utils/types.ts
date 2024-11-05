@@ -2,37 +2,37 @@ import { KeyringPair } from "@polkadot/keyring/types";
 
 export interface NftTokenData {
   collectionId: number | null;
-  tokenId: number | null
-  metadataFilePath: string,
+  tokenId: number | null;
+  metadataFilePath: string;
   metadataUrl: string;
-};
+}
 
 export interface NftCollectionData {
   collectionId: number | null;
-  metadataFilePath: string,
+  metadataFilePath: string;
   metadataUrl: string;
   nftTokens: NftTokenData[];
-};
+}
 
 export interface FungibleTokenData {
   tokenId: number | null;
-  metadataFilePath: string,
+  metadataFilePath: string;
   metadataUrl: string;
   decimals: number;
-};
+}
 
 export interface AppAgentData {
   agentId: number | null;
-  appAgentOwner: KeyringPair,
-  metadataFilePath: string,
+  appAgentOwner: KeyringPair;
+  metadataFilePath: string;
   metadataUrl: string;
-};
+}
 
 export interface GameData {
   appAgent: AppAgentData;
   fungibles: FungibleTokenData[];
   nftCollections: NftCollectionData[];
-};
+}
 
 export interface EventInfo {
   receipt: {
@@ -78,4 +78,4 @@ export interface EventInfo {
       address_name: string | null;
     };
   };
-};
+}

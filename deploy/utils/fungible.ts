@@ -2,10 +2,7 @@ import { ApiPromise } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
 import Pino from "pino";
 import { FungibleTokenData } from "./types";
-import {
-  processClearingTransaction,
-  processSignedTransaction,
-} from "./utils.js";
+import { processClearingTransaction, processSignedTransaction } from "./utils.js";
 
 const logger = Pino();
 async function create_fungible_tokens(
@@ -15,47 +12,25 @@ async function create_fungible_tokens(
   fungibleDataList: FungibleTokenData[],
 ): Promise<void> {
   try {
-    logger.info(
-      "Start to create " +
-      fungibleDataList.length +
-        " fungible tokens for the AppAgent ID " +
-        appAgentId
-    );
+    logger.info("Start to create " + fungibleDataList.length + " fungible tokens for the AppAgent ID " + appAgentId);
 
     logger.info("Build Clearing transaction to create Fungible tokens");
     const atomics = [];
     for (const tokenDecimals of fungibleDataList.map((f) => f.decimals)) {
       const min_balance = calculateMinBalance(tokenDecimals);
-      logger.info(
-        "Min balance for token with decimals " +
-          tokenDecimals +
-          " is " +
-          min_balance
-      );
+      logger.info("Min balance for token with decimals " + tokenDecimals + " is " + min_balance);
       const create_fungible_token_call = api.tx.assets.create(min_balance);
-      const create_fungible_token_action = [
-        { AppAgentId: appAgentId },
-        create_fungible_token_call,
-      ];
+      const create_fungible_token_action = [{ AppAgentId: appAgentId }, create_fungible_token_call];
       const create_fungible_token_atomic = [create_fungible_token_action];
       atomics.push(create_fungible_token_atomic);
     }
-    const create_fungible_token_ct =
-      api.tx.addressPools.submitClearingTransaction(appAgentId, atomics);
+    const create_fungible_token_ct = api.tx.addressPools.submitClearingTransaction(appAgentId, atomics);
 
-    logger.info(
-      "Process clearing transaction and collect IDs of created Fungible tokens."
-    );
+    logger.info("Process clearing transaction and collect IDs of created Fungible tokens.");
     const tokenIds: number[] = [];
-    const events = await processClearingTransaction(
-      appAgentOwner,
-      create_fungible_token_ct
-    );
+    const events = await processClearingTransaction(appAgentOwner, create_fungible_token_ct);
     for (const event of events) {
-      if (
-        event.receipt.event_module === "Assets" &&
-        event.receipt.event_name === "Created"
-      ) {
+      if (event.receipt.event_module === "Assets" && event.receipt.event_name === "Created") {
         tokenIds.push(parseInt(event.attributes.asset_id.toString()));
       }
     }
@@ -90,12 +65,10 @@ async function set_metadata_and_mint_fungible_token(
   appAgentOwner: KeyringPair,
   appAgentId: number,
   fungibleDataList: FungibleTokenData[],
-  token_recipient: KeyringPair
+  token_recipient: KeyringPair,
 ): Promise<void> {
   try {
-    logger.info(
-      "Start to create fungible token for the AppAgent ID " + appAgentId
-    );
+    logger.info("Start to create fungible token for the AppAgent ID " + appAgentId);
     logger.info(`Fungibles: ${fungibleDataList}`);
 
     logger.info("Create atomics to mint and set metadata for each token");
@@ -104,29 +77,16 @@ async function set_metadata_and_mint_fungible_token(
       logger.info(`Creating atomic for token ${fungibleData.tokenId}`);
       const mintAmount = 1000 * Math.pow(10, fungibleData.decimals);
       logger.info(`Calculated mint amount: ${mintAmount}`);
-      const mint_token_call = api.tx.assets.mint(
-        fungibleData.tokenId,
-        token_recipient.address,
-        mintAmount
-      );
+      const mint_token_call = api.tx.assets.mint(fungibleData.tokenId, token_recipient.address, mintAmount);
       const mint_token_action = [{ AppAgentId: appAgentId }, mint_token_call];
-      const set_metadata_call = api.tx.assets.setMetadata(
-        fungibleData.tokenId,
-        fungibleData.metadataUrl
-      );
-      const set_metadata_action = [
-        { AppAgentId: appAgentId },
-        set_metadata_call,
-      ];
+      const set_metadata_call = api.tx.assets.setMetadata(fungibleData.tokenId, fungibleData.metadataUrl);
+      const set_metadata_action = [{ AppAgentId: appAgentId }, set_metadata_call];
       const token_atomic = [mint_token_action, set_metadata_action];
       atomics.push(token_atomic);
     }
     logger.info(`Total atomics created: ${atomics.length}`);
 
-    const configure_fungible_ct = api.tx.addressPools.submitClearingTransaction(
-      appAgentId,
-      atomics
-    );
+    const configure_fungible_ct = api.tx.addressPools.submitClearingTransaction(appAgentId, atomics);
     await processClearingTransaction(appAgentOwner, configure_fungible_ct);
     logger.info("Fungible tokens configured successfully");
   } catch (error) {
@@ -153,22 +113,19 @@ async function create_token_transfer(
   fungibleData: FungibleTokenData,
   token_sender: KeyringPair,
   token_recipients: KeyringPair[],
-  amount: number
+  amount: number,
 ): Promise<void> {
   logger.info("Generate free transfers between the two users");
   logger.info(`Token ID: ${fungibleData.tokenId}`);
   logger.info(`Token sender: ${token_sender.address}`);
 
   for (let i = 0; i < token_recipients.length; i++) {
-    const transferAmount = calculateTransferAmount(
-      fungibleData.decimals,
-      amount
-    );
+    const transferAmount = calculateTransferAmount(fungibleData.decimals, amount);
     logger.info(`Calculated transfer amount: ${transferAmount}`);
     const tx = api.tx.playerTransfers.submitTransferAssets(
       fungibleData.tokenId,
       token_recipients[i].address,
-      transferAmount
+      transferAmount,
     );
 
     await processSignedTransaction(token_sender, tx);
@@ -179,8 +136,4 @@ async function create_token_transfer(
   logger.info("All transfers completed successfully");
 }
 
-export {
-  create_fungible_tokens,
-  create_token_transfer,
-  set_metadata_and_mint_fungible_token,
-};
+export { create_fungible_tokens, create_token_transfer, set_metadata_and_mint_fungible_token };

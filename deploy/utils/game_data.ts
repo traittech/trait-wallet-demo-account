@@ -8,7 +8,9 @@ const logger = Pino();
 
 function collectGameData(gameFolders: string[], appAgentOwners: KeyringPair[], aws_s3_assets_path: string): GameData[] {
   if (gameFolders.length != gameFolders.length) {
-    throw new Error(`Mismatch of number of game folders and game owners: ${gameFolders.length} and ${appAgentOwners.length}`);
+    throw new Error(
+      `Mismatch of number of game folders and game owners: ${gameFolders.length} and ${appAgentOwners.length}`,
+    );
   }
 
   const gameDataList: GameData[] = [];
@@ -19,7 +21,7 @@ function collectGameData(gameFolders: string[], appAgentOwners: KeyringPair[], a
     let appAgent: AppAgentData | null = null;
     const fungibles: FungibleTokenData[] = [];
     const nftCollections: NftCollectionData[] = [];
-    
+
     const subFolders = fs.readdirSync(gameFolder);
 
     // iterate all subdirs and find metadata for all objects
@@ -27,14 +29,13 @@ function collectGameData(gameFolders: string[], appAgentOwners: KeyringPair[], a
       const folderPath = path.join(gameFolder, subFolder);
 
       if (subFolder.startsWith("app-agent-")) {
-        const appAgentMeta =  getObjectMetadataURL(folderPath, aws_s3_assets_path);
+        const appAgentMeta = getObjectMetadataURL(folderPath, aws_s3_assets_path);
         appAgent = {
           agentId: null,
           appAgentOwner: appAgentOwner,
           metadataFilePath: appAgentMeta.filePath,
           metadataUrl: appAgentMeta.url,
         };
-
       } else if (subFolder.startsWith("fungible-")) {
         const fungibleMeta = getObjectMetadataURL(folderPath, aws_s3_assets_path);
         const fungibleDecimals = getFungibleDecimals(fungibleMeta.filePath);
@@ -42,9 +43,8 @@ function collectGameData(gameFolders: string[], appAgentOwners: KeyringPair[], a
           tokenId: null,
           metadataFilePath: fungibleMeta.filePath,
           metadataUrl: fungibleMeta.url,
-          decimals: fungibleDecimals
+          decimals: fungibleDecimals,
         });
-
       } else if (subFolder.startsWith("nft-collection")) {
         let collectionData: NftCollectionData | null = null; // = { metadataUrl: null, nftTokens: [] };
         const subsubFolders = fs.readdirSync(folderPath);
@@ -58,11 +58,11 @@ function collectGameData(gameFolders: string[], appAgentOwners: KeyringPair[], a
               collectionId: null,
               metadataFilePath: collectionMeta.filePath,
               metadataUrl: collectionMeta.url,
-              nftTokens: []
+              nftTokens: [],
             };
           }
         }
-        if (typeof collectionData === 'undefined' || collectionData === null) {
+        if (typeof collectionData === "undefined" || collectionData === null) {
           throw new Error(`Couldn't find metadata for NFT Collection: ${subFolder}`);
         }
 
@@ -85,7 +85,7 @@ function collectGameData(gameFolders: string[], appAgentOwners: KeyringPair[], a
     }
 
     // check results
-    if (typeof appAgent === 'undefined' || appAgent === null) {
+    if (typeof appAgent === "undefined" || appAgent === null) {
       throw new Error(`Couldn't find metadata for AppAgent in the folder: ${gameFolder}`);
     }
     if (fungibles.length === 0) {
@@ -119,26 +119,21 @@ function collectGameData(gameFolders: string[], appAgentOwners: KeyringPair[], a
  * @param {string} directory - The directory where the metadata file is stored.
  * @return {string|null} The metadata URL if found, otherwise null.
  */
-function getObjectMetadataURL(
-  directory: string, aws_s3_assets_path: string
-): { url: string; filePath: string } {
+function getObjectMetadataURL(directory: string, aws_s3_assets_path: string): { url: string; filePath: string } {
   const files = fs.readdirSync(directory);
   const jsonFiles = files.filter((file) => file.endsWith(".json"));
 
   if (jsonFiles.length == 0) {
     throw new Error(`Didn't find any metadata files in the dir ${directory}`);
-  } else if ((jsonFiles.length > 1)) {
+  } else if (jsonFiles.length > 1) {
     throw new Error(`Found more than one metadata file in the dir ${directory}: ${jsonFiles}`);
   }
 
   const jsonFile = jsonFiles[0];
   const jsonFilePath = path.join(directory, jsonFile);
   const relativePath = path.relative(aws_s3_assets_path, jsonFilePath);
-  const url = `${process.env.CONTENT_BASE_URL}/${relativePath.replace(
-    /\\/g,
-    "/"
-  )}`;
-  return {url, filePath: jsonFilePath};
+  const url = `${process.env.CONTENT_BASE_URL}/${relativePath.replace(/\\/g, "/")}`;
+  return { url, filePath: jsonFilePath };
 }
 
 /**
@@ -148,9 +143,7 @@ function getObjectMetadataURL(
  * @param {string} directory - The directory where the metadata file is stored.
  * @return {string|null} The metadata URL if found, otherwise null.
  */
-function getFungibleDecimals(
-  metadataFilePath: string
-): number {
+function getFungibleDecimals(metadataFilePath: string): number {
   const fileContent = fs.readFileSync(metadataFilePath, "utf8");
   const jsonData = JSON.parse(fileContent);
   // get the decimals from the fungible metadata
@@ -159,6 +152,4 @@ function getFungibleDecimals(
   return decimals;
 }
 
-export {
-  collectGameData,
-};
+export { collectGameData };

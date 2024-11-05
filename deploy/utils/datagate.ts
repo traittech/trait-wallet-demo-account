@@ -17,10 +17,7 @@ function buildDatagateUrl(): string {
 async function getAllEvents(transaction_hash: string): Promise<EventInfo[]> {
   const apiUrl = buildDatagateUrl();
 
-  logger.debug(
-    `DATAGATE: Checking event occurrence for transaction: ${transaction_hash}`,
-    transaction_hash
-  );
+  logger.debug(`DATAGATE: Checking event occurrence for transaction: ${transaction_hash}`, transaction_hash);
 
   const requestBody = {
     block_receipt: {

@@ -4,9 +4,7 @@ import dotenv from "dotenv";
 import path from "path";
 import Pino from "pino";
 import { fileURLToPath } from "url";
-import {
-  collectGameData,
-} from "./utils/game_data.js";
+import { collectGameData } from "./utils/game_data.js";
 import {
   init_blockchain_accounts,
   createBlockchainAssets,
@@ -66,64 +64,39 @@ async function main(): Promise<void> {
   const keyring = new Keyring({ type: "sr25519" });
 
   logger.info("Load accounts from .env file");
-  const faucetAccount = keyring.addFromUri(
-    getEnvVar("FAUCET_ACCOUNT_MNEMONIC")
-  );
-  const appAgentOneOwner = keyring.addFromUri(
-    getEnvVar("APP_AGENT_OWNER_ONE_MNEMONIC")
-  );
-  const appAgentTwoOwner = keyring.addFromUri(
-    getEnvVar("APP_AGENT_OWNER_TWO_MNEMONIC")
-  );
-  const appAgentThreeOwner = keyring.addFromUri(
-    getEnvVar("APP_AGENT_OWNER_THREE_MNEMONIC")
-  );
-  const appAgentOwners = [
-    appAgentOneOwner,
-    appAgentTwoOwner,
-    appAgentThreeOwner,
-  ];
+  const faucetAccount = keyring.addFromUri(getEnvVar("FAUCET_ACCOUNT_MNEMONIC"));
+  const appAgentOneOwner = keyring.addFromUri(getEnvVar("APP_AGENT_OWNER_ONE_MNEMONIC"));
+  const appAgentTwoOwner = keyring.addFromUri(getEnvVar("APP_AGENT_OWNER_TWO_MNEMONIC"));
+  const appAgentThreeOwner = keyring.addFromUri(getEnvVar("APP_AGENT_OWNER_THREE_MNEMONIC"));
+  const appAgentOwners = [appAgentOneOwner, appAgentTwoOwner, appAgentThreeOwner];
 
-  const demo_user_one = keyring.addFromUri(
-    getEnvVar("DEMO_ACCOUNT_ONE_MNEMONIC")
-  );
-  const demo_user_two = keyring.addFromUri(
-    getEnvVar("DEMO_ACCOUNT_TWO_MNEMONIC")
-  );
-  const demo_user_three = keyring.addFromUri(
-    getEnvVar("DEMO_ACCOUNT_THREE_MNEMONIC")
-  );
-  const demoAccounts = [
-    demo_user_one,
-    demo_user_two,
-    demo_user_three,
-  ];
+  const demo_user_one = keyring.addFromUri(getEnvVar("DEMO_ACCOUNT_ONE_MNEMONIC"));
+  const demo_user_two = keyring.addFromUri(getEnvVar("DEMO_ACCOUNT_TWO_MNEMONIC"));
+  const demo_user_three = keyring.addFromUri(getEnvVar("DEMO_ACCOUNT_THREE_MNEMONIC"));
+  const demoAccounts = [demo_user_one, demo_user_two, demo_user_three];
 
   // get amount of transfers
-  const appAgentOwnerTransferAmount =
-    parseInt(getEnvVar("APP_AGENT_OWNER_TRANSFER_AMOUNT")) * 1e12;
-  const demoAccTransferAmount =
-    parseInt(getEnvVar("DEMO_ACCOUNT_TRANSFER_AMOUNT")) * 1e12;
+  const appAgentOwnerTransferAmount = parseInt(getEnvVar("APP_AGENT_OWNER_TRANSFER_AMOUNT")) * 1e12;
+  const demoAccTransferAmount = parseInt(getEnvVar("DEMO_ACCOUNT_TRANSFER_AMOUNT")) * 1e12;
 
   // init blockchain accounts
   await init_blockchain_accounts(
-    api, faucetAccount, appAgentOwners, demoAccounts, appAgentOwnerTransferAmount, demoAccTransferAmount,
+    api,
+    faucetAccount,
+    appAgentOwners,
+    demoAccounts,
+    appAgentOwnerTransferAmount,
+    demoAccTransferAmount,
   );
 
   logger.info("Traverse the game folders and collect entity data");
   const gameDataList = collectGameData(game_folders, appAgentOwners, aws_s3_assets_path);
 
-  await createBlockchainAssets(
-    api, gameDataList, demo_user_one
-  );
+  await createBlockchainAssets(api, gameDataList, demo_user_one);
 
-  await create_demo_fungible_transfers(
-    api, gameDataList, demo_user_one, demo_user_two, demo_user_three
-  );
+  await create_demo_fungible_transfers(api, gameDataList, demo_user_one, demo_user_two, demo_user_three);
 
-  await create_demo_nft_transfers(
-    api, gameDataList, demo_user_one, demo_user_two, demo_user_three
-  );
+  await create_demo_nft_transfers(api, gameDataList, demo_user_one, demo_user_two, demo_user_three);
 }
 
 // Logging wrapper
