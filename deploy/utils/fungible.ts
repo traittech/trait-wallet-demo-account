@@ -11,20 +11,20 @@ const logger = Pino();
 async function create_fungible_tokens(
   api: ApiPromise,
   appAgentOwner: KeyringPair,
-  appAgentId: string,
-  tokensDecimals: number[]
-) {
+  appAgentId: number,
+  fungibleDataList: FungibleTokenData[],
+): Promise<void> {
   try {
     logger.info(
       "Start to create " +
-        tokensDecimals.length +
+      fungibleDataList.length +
         " fungible tokens for the AppAgent ID " +
         appAgentId
     );
 
     logger.info("Build Clearing transaction to create Fungible tokens");
     const atomics = [];
-    for (const tokenDecimals of tokensDecimals) {
+    for (const tokenDecimals of fungibleDataList.map((f) => f.decimals)) {
       const min_balance = calculateMinBalance(tokenDecimals);
       logger.info(
         "Min balance for token with decimals " +
@@ -61,19 +61,21 @@ async function create_fungible_tokens(
     }
 
     logger.info(`Generated token IDs: ${tokenIds}`);
-    if (tokenIds.length != tokensDecimals.length) {
+    if (tokenIds.length != fungibleDataList.length) {
       throw new Error("Not all required fungibles were created");
     }
 
-    logger.info(`Resolving promise with tokenIds: ${tokenIds}`);
-    return tokenIds;
+    logger.info("Save IDs of fungible tokens for later use");
+    for (let i = 0; i < tokenIds.length; i++) {
+      fungibleDataList[i].tokenId = tokenIds[i];
+    }
   } catch (error) {
     logger.error(error, "Error creating fungible tokens");
     throw error;
   }
 }
 
-function calculateMinBalance(tokenDecimals: number) {
+function calculateMinBalance(tokenDecimals: number): number {
   if (tokenDecimals < 3) {
     return 1;
   } else if (tokenDecimals >= 3 && tokenDecimals < 7) {
@@ -86,10 +88,10 @@ function calculateMinBalance(tokenDecimals: number) {
 async function set_metadata_and_mint_fungible_token(
   api: ApiPromise,
   appAgentOwner: KeyringPair,
-  appAgentId: string,
+  appAgentId: number,
   fungibleDataList: FungibleTokenData[],
   token_recipient: KeyringPair
-) {
+): Promise<void> {
   try {
     logger.info(
       "Start to create fungible token for the AppAgent ID " + appAgentId
@@ -98,19 +100,19 @@ async function set_metadata_and_mint_fungible_token(
 
     logger.info("Create atomics to mint and set metadata for each token");
     const atomics = [];
-    for (const fungibleInfo of fungibleDataList) {
-      logger.info(`Creating atomic for token ${fungibleInfo.tokenId}`);
-      const mintAmount = 1000 * Math.pow(10, fungibleInfo.decimals);
+    for (const fungibleData of fungibleDataList) {
+      logger.info(`Creating atomic for token ${fungibleData.tokenId}`);
+      const mintAmount = 1000 * Math.pow(10, fungibleData.decimals);
       logger.info(`Calculated mint amount: ${mintAmount}`);
       const mint_token_call = api.tx.assets.mint(
-        fungibleInfo.tokenId,
+        fungibleData.tokenId,
         token_recipient.address,
         mintAmount
       );
       const mint_token_action = [{ AppAgentId: appAgentId }, mint_token_call];
       const set_metadata_call = api.tx.assets.setMetadata(
-        fungibleInfo.tokenId,
-        fungibleInfo.metadataUrl
+        fungibleData.tokenId,
+        fungibleData.metadataUrl
       );
       const set_metadata_action = [
         { AppAgentId: appAgentId },
@@ -133,7 +135,7 @@ async function set_metadata_and_mint_fungible_token(
   }
 }
 
-function calculateTransferAmount(decimals: number, targetAmount: number) {
+function calculateTransferAmount(decimals: number, targetAmount: number): number {
   const transferAmountBase = targetAmount * Math.pow(10, decimals);
   const transferAmountCoefficient = 0.75 + Math.random() / 2; // between 0.75 and 1.25
   let transferAmount = transferAmountBase * transferAmountCoefficient;
@@ -152,7 +154,7 @@ async function create_token_transfer(
   token_sender: KeyringPair,
   token_recipients: KeyringPair[],
   amount: number
-) {
+): Promise<void> {
   logger.info("Generate free transfers between the two users");
   logger.info(`Token ID: ${fungibleData.tokenId}`);
   logger.info(`Token sender: ${token_sender.address}`);

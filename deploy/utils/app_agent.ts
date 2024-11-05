@@ -8,13 +8,13 @@ const logger = Pino();
 async function create_app_agent(
   api: ApiPromise,
   appAgentOwner: KeyringPair,
-  metadataUrl?: string
-) {
+  metadataUrl: string
+): Promise<number> {
   logger.info(
     "Start to create AppAgent for the owner: " + appAgentOwner.address
   );
 
-  let appagentId = "";
+  let appagentId: number | null = null;
 
   const tx = api.tx.appAgents.createAppAgent();
   const events = await processSignedTransaction(appAgentOwner, tx);
@@ -24,8 +24,11 @@ async function create_app_agent(
       event.receipt.event_module === "AppAgents" &&
       event.receipt.event_name === "AppAgentCreated"
     ) {
-      appagentId = event.attributes.app_agent_id.toString();
+      appagentId = parseInt(event.attributes.app_agent_id.toString());
     }
+  }
+  if (typeof appagentId === 'undefined' || appagentId === null) {
+    throw new Error(`Couldn't find AppAgent ID in the events`);
   }
 
   logger.info("Create the transaction to set the metadata");

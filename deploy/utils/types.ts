@@ -1,3 +1,5 @@
+import { KeyringPair } from "@polkadot/keyring/types";
+
 export type NftTokenData = {
   collectionId: number | null;
   tokenId: number | null
@@ -21,6 +23,7 @@ export type FungibleTokenData = {
 
 export type AppAgentData = {
   agentId: number | null;
+  appAgentOwner: KeyringPair,
   metadataFilePath: string,
   metadataUrl: string;
 };

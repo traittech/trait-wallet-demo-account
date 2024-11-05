@@ -3,6 +3,7 @@ import { KeyringPair } from "@polkadot/keyring/types";
 import { ISubmittableResult } from "@polkadot/types/types";
 import Pino from "pino";
 import { getAllEvents } from "./datagate.js";
+import { EventInfo } from "./types";
 
 const expectedTxFinalisationTime = 45000; // 45 sec
 const maxWaitTime = 6000000; // 10 minutes in milliseconds
@@ -64,7 +65,7 @@ async function checkTxSuccessWithRetry(
 async function processClearingTransaction(
   signer: KeyringPair,
   ct: SubmittableExtrinsic<"promise", ISubmittableResult>
-) {
+): Promise<EventInfo[]> {
   const timeout = setTimeout(() => {
     throw new Error(`CT processing timed out after ${maxWaitTime}ms`);
   }, maxWaitTime);
@@ -89,7 +90,7 @@ async function processClearingTransaction(
 async function processSignedTransaction(
   signer: KeyringPair,
   tx: SubmittableExtrinsic<"promise", ISubmittableResult>
-) {
+): Promise<EventInfo[]> {
   const timeout = setTimeout(() => {
     throw new Error(`Transaction timed out after ${maxWaitTime}ms`);
   }, maxWaitTime);
@@ -114,7 +115,7 @@ async function processSignedTransaction(
 async function processSignedBatchTransaction(
   signer: KeyringPair,
   tx: SubmittableExtrinsic<"promise", ISubmittableResult>
-) {
+): Promise<EventInfo[]> {
   const timeout = setTimeout(() => {
     throw new Error(`Batch transaction timed out after ${maxWaitTime}ms`);
   }, maxWaitTime);

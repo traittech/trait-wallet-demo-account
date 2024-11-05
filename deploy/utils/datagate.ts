@@ -6,7 +6,7 @@ dotenv.config();
 
 const logger = Pino();
 
-function buildDatagateUrl() {
+function buildDatagateUrl(): string {
   const datagateUrl = process.env.DATAGATE_URL;
   if (!datagateUrl) {
     throw new Error("DATAGATE_URL is not set in the .env file");

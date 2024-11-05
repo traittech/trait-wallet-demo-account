@@ -12,9 +12,9 @@ const logger = Pino();
 async function create_nft_collections(
   api: ApiPromise,
   appAgentOwner: KeyringPair,
-  appAgentId: string | number,
-  collection_count: number
-) {
+  appAgentId: number,
+  collectionDataList: NftCollectionData[],
+): Promise<void> {
   try {
     logger.info(
       "Start to create NFT Collections for the AppAgent ID " + appAgentId
@@ -25,7 +25,7 @@ async function create_nft_collections(
 
     const create_nft_call = api.tx.nfts.create();
 
-    for (let i = 0; i < collection_count; i++) {
+    for (let i = 0; i < collectionDataList.length; i++) {
       const create_nft_action = [{ AppAgentId: appAgentId }, create_nft_call];
       const create_nft_atomic = [create_nft_action];
       atomics.push(create_nft_atomic);
@@ -56,12 +56,14 @@ async function create_nft_collections(
     }
 
     logger.info(`Generated collection IDs: ${collection_ids}`);
-    if (collection_ids.length != collection_count) {
+    if (collection_ids.length != collectionDataList.length) {
       throw new Error("Not all NFT collections were created");
     }
 
-    logger.info(`Resolving promise with collection_ids: ${collection_ids}`);
-    return collection_ids;
+    logger.info(`Save IDs of NFT collections for later use`);
+    for (let i = 0; i < collection_ids.length; i++) {
+      collectionDataList[i].collectionId = collection_ids[i];
+    }
   } catch (error) {
     const message = error instanceof Error ? error.message : error;
     logger.error(message, "Error creating NFT Collections");
@@ -75,7 +77,7 @@ async function set_metadata_and_mint_nft(
   appAgentId: string | number,
   collectionData: NftCollectionData,
   token_recipient: string
-) {
+): Promise<void> {
   try {
     logger.info(
       "Start to configure NFT Collection `" +
@@ -149,8 +151,11 @@ async function set_metadata_and_mint_nft(
       configure_nft_collection_ct
     );
 
-    logger.info(`Resolving promise with nftTokenIds: ${nftTokenIds}`);
-    return nftTokenIds;
+    logger.info(`Save IDs of NFT tokens for later use`);
+    for (let k = 0; k < collectionData.nftTokens.length; k++) {
+      collectionData.nftTokens[k].collectionId = collectionData.collectionId;
+      collectionData.nftTokens[k].tokenId = nftTokenIds[k];
+    }
   } catch (error) {
     const message = error instanceof Error ? error.message : error;
     logger.error(message, "Error in set_metadata_and_mint_nft");
@@ -164,7 +169,7 @@ async function create_nft_transfers(
   token_id: number,
   token_sender: KeyringPair,
   token_recipient: KeyringPair
-) {
+): Promise<void> {
   logger.info("Generate free transfers between the two users");
   logger.info("Collection ID: " + collection_id);
   logger.info("Token ID: " + token_id);
