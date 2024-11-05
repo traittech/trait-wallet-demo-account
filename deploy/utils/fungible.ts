@@ -1,7 +1,7 @@
 import { ApiPromise } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
 import Pino from "pino";
-import { Fungible } from "./types";
+import { FungibleTokenData } from "./types";
 import {
   processClearingTransaction,
   processSignedTransaction,
@@ -87,18 +87,18 @@ async function set_metadata_and_mint_fungible_token(
   api: ApiPromise,
   appAgentOwner: KeyringPair,
   appAgentId: string,
-  fungibleInfos: Fungible[],
+  fungibleDataList: FungibleTokenData[],
   token_recipient: KeyringPair
 ) {
   try {
     logger.info(
       "Start to create fungible token for the AppAgent ID " + appAgentId
     );
-    logger.info(`Fungibles: ${fungibleInfos}`);
+    logger.info(`Fungibles: ${fungibleDataList}`);
 
     logger.info("Create atomics to mint and set metadata for each token");
     const atomics = [];
-    for (const fungibleInfo of fungibleInfos) {
+    for (const fungibleInfo of fungibleDataList) {
       logger.info(`Creating atomic for token ${fungibleInfo.tokenId}`);
       const mintAmount = 1000 * Math.pow(10, fungibleInfo.decimals);
       logger.info(`Calculated mint amount: ${mintAmount}`);
@@ -148,23 +148,23 @@ function calculateTransferAmount(decimals: number, targetAmount: number) {
 
 async function create_token_transfer(
   api: ApiPromise,
-  fungibleInfo: Fungible,
+  fungibleData: FungibleTokenData,
   token_sender: KeyringPair,
   token_recipients: KeyringPair[],
   amount: number
 ) {
   logger.info("Generate free transfers between the two users");
-  logger.info(`Token ID: ${fungibleInfo.tokenId}`);
+  logger.info(`Token ID: ${fungibleData.tokenId}`);
   logger.info(`Token sender: ${token_sender.address}`);
 
   for (let i = 0; i < token_recipients.length; i++) {
     const transferAmount = calculateTransferAmount(
-      fungibleInfo.decimals,
+      fungibleData.decimals,
       amount
     );
     logger.info(`Calculated transfer amount: ${transferAmount}`);
     const tx = api.tx.playerTransfers.submitTransferAssets(
-      fungibleInfo.tokenId,
+      fungibleData.tokenId,
       token_recipients[i].address,
       transferAmount
     );

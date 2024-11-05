@@ -1,7 +1,7 @@
 import { ApiPromise } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
 import Pino from "pino";
-import { Collection } from "./types";
+import { NftCollectionData } from "./types";
 import {
   processClearingTransaction,
   processSignedTransaction,
@@ -73,13 +73,13 @@ async function set_metadata_and_mint_nft(
   api: ApiPromise,
   appAgentOwner: KeyringPair,
   appAgentId: string | number,
-  collectionInfo: Collection,
+  collectionData: NftCollectionData,
   token_recipient: string
 ) {
   try {
     logger.info(
       "Start to configure NFT Collection `" +
-        collectionInfo.collectionId +
+        collectionData.collectionId +
         "` for the AppAgent ID " +
         appAgentId
     );
@@ -93,8 +93,8 @@ async function set_metadata_and_mint_nft(
 
     logger.info("Create atomic to set collection metadata");
     const set_collection_metadata_call = api.tx.nfts.setCollectionMetadata(
-      collectionInfo.collectionId,
-      collectionInfo.metadataUrl
+      collectionData.collectionId,
+      collectionData.metadataUrl
     );
     const set_collection_metadata_action = [
       { AppAgentId: appAgentId },
@@ -105,12 +105,12 @@ async function set_metadata_and_mint_nft(
 
     logger.info("Create atomics to mint and configure NFT tokens.");
     let tokenId = 0;
-    for (const nftToken of collectionInfo.tokens) {
+    for (const nftToken of collectionData.nftTokens) {
       const metadataUrl = nftToken.metadataUrl;
 
       logger.info(
         "Create atomic for NFT token: CollectionId - " +
-          collectionInfo.collectionId +
+          collectionData.collectionId +
           "; TokenId - " +
           tokenId +
           "; metadata URL: " +
@@ -118,13 +118,13 @@ async function set_metadata_and_mint_nft(
       );
 
       const mint_nft_call = api.tx.nfts.mint(
-        collectionInfo.collectionId,
+        collectionData.collectionId,
         tokenId,
         token_recipient
       );
       const mint_nft_action = [{ AppAgentId: appAgentId }, mint_nft_call];
       const set_metadata_call = api.tx.nfts.setMetadata(
-        collectionInfo.collectionId,
+        collectionData.collectionId,
         tokenId,
         metadataUrl
       );

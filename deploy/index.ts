@@ -17,7 +17,7 @@ import {
   create_nft_transfers,
   set_metadata_and_mint_nft,
 } from "./utils/nft.js";
-import { Collection, GameData } from "./utils/types";
+import { NftCollectionData, GameData } from "./utils/types";
 import {
   processSignedBatchTransaction,
   processSignedTransaction,
@@ -223,8 +223,8 @@ async function main() {
         game.nftCollections[i],
         demo_user_one.address
       );
-      for (let k = 0; k < game.nftCollections[i].tokens.length; k++) {
-        game.nftCollections[i].tokens[k].tokenId = nftTokenIds[k];
+      for (let k = 0; k < game.nftCollections[i].nftTokens.length; k++) {
+        game.nftCollections[i].nftTokens[k].tokenId = nftTokenIds[k];
       }
     }
     logger.info(
@@ -276,7 +276,7 @@ async function main() {
   logger.info("Create demo transfers for NFTs");
   for (const collectionInfo of gameData.map((f) => f.nftCollections).flat()) {
     const recipient = Math.random() < 0.5 ? demo_user_three : demo_user_two;
-    for (const nftTokenInfo of collectionInfo.tokens) {
+    for (const nftTokenInfo of collectionInfo.nftTokens) {
       await create_nft_transfers(
         api,
         collectionInfo.collectionId,
@@ -312,7 +312,7 @@ function collectGameData(gameFolders: string[]) {
           gameData.fungibles.push({ metadataUrl: url, decimals });
         }
       } else if (subFolder.startsWith("nft-collection")) {
-        const collection: Collection = { metadataUrl: null, tokens: [] };
+        const collection: NftCollectionData = { metadataUrl: null, nftTokens: [] };
         const subsubFolders = fs.readdirSync(folderPath);
 
         for (const subsubFolder of subsubFolders) {
@@ -320,7 +320,7 @@ function collectGameData(gameFolders: string[]) {
           if (subsubFolder.startsWith("nft-collection")) {
             collection.metadataUrl = getObjectMetadataURL(subFolderPath)?.url;
           } else if (subsubFolder.startsWith("nft-token")) {
-            collection.tokens.push({
+            collection.nftTokens.push({
               metadataUrl: getObjectMetadataURL(subFolderPath)?.url,
             });
           }

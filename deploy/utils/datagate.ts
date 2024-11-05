@@ -1,7 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
 import Pino from "pino";
-import { Transaction } from "./types";
+import { EventInfo } from "./types";
 dotenv.config();
 
 const logger = Pino();
@@ -14,7 +14,7 @@ function buildDatagateUrl() {
   return datagateUrl + "/history/events";
 }
 
-async function getAllEvents(transaction_hash: string): Promise<Transaction[]> {
+async function getAllEvents(transaction_hash: string): Promise<EventInfo[]> {
   const apiUrl = buildDatagateUrl();
 
   logger.info(

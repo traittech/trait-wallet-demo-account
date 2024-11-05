@@ -1,11 +1,11 @@
-export type Collection = {
+export type NftCollectionData = {
   metadataUrl?: string | null;
-  tokens: { metadataUrl?: string; tokenId?: number }[];
+  nftTokens: { metadataUrl?: string; tokenId?: number }[];
   collectionId?: string;
   tokenId?: number;
 };
 
-export type Fungible = {
+export type FungibleTokenData = {
   metadataUrl?: string;
   decimals: number;
   tokenId?: string;
@@ -13,11 +13,11 @@ export type Fungible = {
 
 export type GameData = {
   appAgent: { metadataUrl?: string } | null;
-  fungibles: Fungible[];
-  nftCollections: Collection[];
+  fungibles: FungibleTokenData[];
+  nftCollections: NftCollectionData[];
 };
 
-export type Transaction = {
+export type EventInfo = {
   receipt: {
     block_hash: string;
     block_index: number;
