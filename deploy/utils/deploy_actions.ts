@@ -4,7 +4,7 @@ import Pino from "pino";
 import { create_app_agent } from "./app_agent.js";
 import { create_fungible_tokens, create_token_transfer, set_metadata_and_mint_fungible_token } from "./fungible.js";
 import { create_nft_collections, create_nft_transfers, set_metadata_and_mint_nft } from "./nft.js";
-import { GameData } from "./types";
+import { GameData, AppAgentManagers } from "./types";
 import { processSignedBatchTransaction, processSignedTransaction } from "./utils.js";
 
 const logger = Pino();
@@ -12,17 +12,23 @@ const logger = Pino();
 async function init_blockchain_accounts(
   api: ApiPromise,
   faucetAccount: KeyringPair,
-  appAgentOwners: KeyringPair[],
+  appAgentManagersList: AppAgentManagers[],
   demoAccounts: KeyringPair[],
   appAgentOwnerTransferAmount: number,
+  appAgentAdminTransferAmount: number,
   demoAccTransferAmount: number,
 ): Promise<void> {
   logger.info("Initialise the owners of the app agents and demo accounts");
 
   // build the list of transfers
   const transfers = [];
-  for (const appAgentOwner of appAgentOwners) {
-    transfers.push(api.tx.balances.transferKeepAlive(appAgentOwner.address, appAgentOwnerTransferAmount.toString()));
+  for (const appAgentManagers of appAgentManagersList) {
+    transfers.push(
+      api.tx.balances.transferKeepAlive(appAgentManagers.appAgentOwner.address, appAgentOwnerTransferAmount.toString()),
+    );
+    transfers.push(
+      api.tx.balances.transferKeepAlive(appAgentManagers.appAgentAdmin.address, appAgentAdminTransferAmount.toString()),
+    );
   }
   for (const demoAccount of demoAccounts) {
     transfers.push(api.tx.balances.transferKeepAlive(demoAccount.address, demoAccTransferAmount.toString()));
@@ -41,32 +47,33 @@ async function createBlockchainAssets(
   for (const [gameIndex, gameData] of gameDataList.entries()) {
     logger.info(`Processing game ${gameIndex + 1}`);
     const appAgentOwner = gameData.appAgent.appAgentOwner;
+    const appAgentAdmin = gameData.appAgent.appAgentAdmin;
 
     // Create app agent and set metadata
     logger.info(`Creating app agent for game ${gameIndex + 1}`);
-    const appAgentId = await create_app_agent(api, appAgentOwner, gameData.appAgent?.metadataUrl);
+    const appAgentId = await create_app_agent(api, appAgentOwner, appAgentAdmin, gameData.appAgent?.metadataUrl);
     logger.info(`App agent created for game ${gameIndex + 1}: ${appAgentId}`);
 
     // Create and configure fungible tokens
     if (gameData.fungibles.length > 0) {
       logger.info(`Creating fungible tokens for game ${gameIndex + 1}`);
-      await create_fungible_tokens(api, appAgentOwner, appAgentId, gameData.fungibles);
+      await create_fungible_tokens(api, appAgentAdmin, appAgentId, gameData.fungibles);
       logger.info(`Fungible tokens created for game ${gameIndex + 1}`);
       logger.info(`Setting metadata and minting fungible tokens of game ${gameIndex + 1}`);
-      await set_metadata_and_mint_fungible_token(api, appAgentOwner, appAgentId, gameData.fungibles, demo_user_one);
+      await set_metadata_and_mint_fungible_token(api, appAgentAdmin, appAgentId, gameData.fungibles, demo_user_one);
       logger.info(`Fungible tokens created and configured for game ${gameIndex + 1}`);
     }
 
     // Create and configure NFT collections and tokens
     logger.info(`Creating NFT collections for game ${gameIndex + 1}`);
-    await create_nft_collections(api, appAgentOwner, appAgentId, gameData.nftCollections);
+    await create_nft_collections(api, appAgentAdmin, appAgentId, gameData.nftCollections);
     logger.info(`NFT collections created for game ${gameIndex + 1}`);
 
     for (const nftCollection of gameData.nftCollections) {
       logger.info(
         `Setting metadata and minting NFTs for collection ${nftCollection.collectionId} of game ${gameIndex + 1}`,
       );
-      await set_metadata_and_mint_nft(api, appAgentOwner, appAgentId, nftCollection, demo_user_one.address);
+      await set_metadata_and_mint_nft(api, appAgentAdmin, appAgentId, nftCollection, demo_user_one.address);
       logger.info(`Successfully configured the NFT collection ${nftCollection.collectionId} of game ${gameIndex + 1}`);
     }
     logger.info(`NFT collections created and configured for game ${gameIndex + 1}`);
@@ -99,8 +106,8 @@ async function create_demo_fungible_transfers(
   logger.info("Create demo transfers for fungibles");
   for (const fungibleInfo of gameDataList.map((f) => f.fungibles).flat()) {
     await create_token_transfer(api, fungibleInfo, demo_user_one, [demo_user_two, demo_user_three], 400);
-    await create_token_transfer(api, fungibleInfo, demo_user_two, [demo_user_one, demo_user_three], 200);
-    await create_token_transfer(api, fungibleInfo, demo_user_three, [demo_user_one, demo_user_two], 100);
+    await create_token_transfer(api, fungibleInfo, demo_user_two, [demo_user_one, demo_user_three], 100);
+    await create_token_transfer(api, fungibleInfo, demo_user_three, [demo_user_one, demo_user_two], 25);
   }
 }
 

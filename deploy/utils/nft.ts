@@ -8,7 +8,7 @@ const logger = Pino();
 
 async function create_nft_collections(
   api: ApiPromise,
-  appAgentOwner: KeyringPair,
+  appAgentAdmin: KeyringPair,
   appAgentId: number,
   collectionDataList: NftCollectionData[],
 ): Promise<void> {
@@ -31,7 +31,7 @@ async function create_nft_collections(
 
     logger.info("Process clearing transaction successfully and collect IDs of created NFT collections.");
     const collection_ids: number[] = [];
-    const events = await processClearingTransaction(appAgentOwner, create_nft_ct);
+    const events = await processClearingTransaction(appAgentAdmin, create_nft_ct);
     for (const event of events) {
       if (event.receipt.event_module === "Nfts" && event.receipt.event_name === "Created") {
         const collection_id = parseInt(event.attributes.collection.toString());
@@ -58,7 +58,7 @@ async function create_nft_collections(
 
 async function set_metadata_and_mint_nft(
   api: ApiPromise,
-  appAgentOwner: KeyringPair,
+  appAgentAdmin: KeyringPair,
   appAgentId: string | number,
   collectionData: NftCollectionData,
   token_recipient: string,
@@ -111,7 +111,7 @@ async function set_metadata_and_mint_nft(
 
     logger.info("Sending CT to mint & configure NFT Tokens, and to set Collection metadata.");
     const configure_nft_collection_ct = api.tx.addressPools.submitClearingTransaction(appAgentId, atomics);
-    await processClearingTransaction(appAgentOwner, configure_nft_collection_ct);
+    await processClearingTransaction(appAgentAdmin, configure_nft_collection_ct);
 
     logger.info(`Save IDs of NFT tokens for later use`);
     for (let k = 0; k < collectionData.nftTokens.length; k++) {

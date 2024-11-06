@@ -7,7 +7,7 @@ import { processClearingTransaction, processSignedTransaction } from "./utils.js
 const logger = Pino();
 async function create_fungible_tokens(
   api: ApiPromise,
-  appAgentOwner: KeyringPair,
+  appAgentAdmin: KeyringPair,
   appAgentId: number,
   fungibleDataList: FungibleTokenData[],
 ): Promise<void> {
@@ -28,7 +28,7 @@ async function create_fungible_tokens(
 
     logger.info("Process clearing transaction and collect IDs of created Fungible tokens.");
     const tokenIds: number[] = [];
-    const events = await processClearingTransaction(appAgentOwner, create_fungible_token_ct);
+    const events = await processClearingTransaction(appAgentAdmin, create_fungible_token_ct);
     for (const event of events) {
       if (event.receipt.event_module === "Assets" && event.receipt.event_name === "Created") {
         tokenIds.push(parseInt(event.attributes.asset_id.toString()));
@@ -62,7 +62,7 @@ function calculateMinBalance(tokenDecimals: number): number {
 
 async function set_metadata_and_mint_fungible_token(
   api: ApiPromise,
-  appAgentOwner: KeyringPair,
+  appAgentAdmin: KeyringPair,
   appAgentId: number,
   fungibleDataList: FungibleTokenData[],
   token_recipient: KeyringPair,
@@ -87,7 +87,7 @@ async function set_metadata_and_mint_fungible_token(
     logger.info(`Total atomics created: ${atomics.length}`);
 
     const configure_fungible_ct = api.tx.addressPools.submitClearingTransaction(appAgentId, atomics);
-    await processClearingTransaction(appAgentOwner, configure_fungible_ct);
+    await processClearingTransaction(appAgentAdmin, configure_fungible_ct);
     logger.info("Fungible tokens configured successfully");
   } catch (error) {
     logger.error(error, "Error setting metadata and minting fungible tokens");

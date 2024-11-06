@@ -1,24 +1,28 @@
 import fs from "fs";
 import path from "path";
 import Pino from "pino";
-import { KeyringPair } from "@polkadot/keyring/types";
-import { AppAgentData, FungibleTokenData, NftCollectionData, GameData } from "./types";
+import { AppAgentData, FungibleTokenData, NftCollectionData, GameData, AppAgentManagers } from "./types";
 
 const logger = Pino();
 
-function collectGameData(gameFolders: string[], appAgentOwners: KeyringPair[], aws_s3_assets_path: string): GameData[] {
+function collectGameData(
+  gameFolders: string[],
+  appAgentManagersList: AppAgentManagers[],
+  aws_s3_assets_path: string,
+): GameData[] {
   logger.info("Traverse the game folders and collect entity data");
 
   if (gameFolders.length != gameFolders.length) {
     throw new Error(
-      `Mismatch of number of game folders and game owners: ${gameFolders.length} and ${appAgentOwners.length}`,
+      `Mismatch of number of game folders and game owners: ${gameFolders.length} and ${appAgentManagersList.length}`,
     );
   }
 
   const gameDataList: GameData[] = [];
 
   for (const [gameIndex, gameFolder] of gameFolders.entries()) {
-    const appAgentOwner = appAgentOwners[gameIndex];
+    const appAgentOwner = appAgentManagersList[gameIndex].appAgentOwner;
+    const appAgentAdmin = appAgentManagersList[gameIndex].appAgentAdmin;
 
     let appAgent: AppAgentData | null = null;
     const fungibles: FungibleTokenData[] = [];
@@ -35,6 +39,7 @@ function collectGameData(gameFolders: string[], appAgentOwners: KeyringPair[], a
         appAgent = {
           agentId: null,
           appAgentOwner: appAgentOwner,
+          appAgentAdmin: appAgentAdmin,
           metadataFilePath: appAgentMeta.filePath,
           metadataUrl: appAgentMeta.url,
         };
