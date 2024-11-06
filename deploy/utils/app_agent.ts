@@ -5,7 +5,12 @@ import Pino from "pino";
 
 const logger = Pino();
 
-async function create_app_agent(api: ApiPromise, appAgentOwner: KeyringPair, metadataUrl: string): Promise<number> {
+async function create_app_agent(
+  api: ApiPromise,
+  appAgentOwner: KeyringPair,
+  appAgentAdmin: KeyringPair,
+  metadataUrl: string,
+): Promise<number> {
   logger.info("Start to create AppAgent for the owner: " + appAgentOwner.address);
 
   let appagentId: number | null = null;
@@ -25,6 +30,10 @@ async function create_app_agent(api: ApiPromise, appAgentOwner: KeyringPair, met
   logger.info("Create the transaction to set the metadata");
   const set_metadata_tx = api.tx.appAgents.setAppAgentMetadata(appagentId, metadataUrl);
   await processSignedTransaction(appAgentOwner, set_metadata_tx);
+
+  logger.info("Create the transaction to configure AppAgent admin");
+  const set_admin_tx = api.tx.appAgents.addAdmin(appagentId, appAgentAdmin.address);
+  await processSignedTransaction(appAgentOwner, set_admin_tx);
 
   return appagentId;
 }

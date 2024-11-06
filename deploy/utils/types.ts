@@ -24,6 +24,7 @@ export interface FungibleTokenData {
 export interface AppAgentData {
   agentId: number | null;
   appAgentOwner: KeyringPair;
+  appAgentAdmin: KeyringPair;
   metadataFilePath: string;
   metadataUrl: string;
 }
@@ -78,4 +79,9 @@ export interface EventInfo {
       address_name: string | null;
     };
   };
+}
+
+export interface AppAgentManagers {
+  appAgentOwner: KeyringPair;
+  appAgentAdmin: KeyringPair;
 }

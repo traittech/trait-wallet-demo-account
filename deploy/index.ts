@@ -11,6 +11,7 @@ import {
   create_demo_fungible_transfers,
   create_demo_nft_transfers,
 } from "./utils/deploy_actions.js";
+import { AppAgentManagers } from "./utils/types.js";
 
 const logger = Pino();
 const startTime = Date.now();
@@ -65,10 +66,19 @@ async function main(): Promise<void> {
 
   logger.info("Load accounts from .env file");
   const faucetAccount = keyring.addFromUri(getEnvVar("FAUCET_ACCOUNT_MNEMONIC"));
-  const appAgentOneOwner = keyring.addFromUri(getEnvVar("APP_AGENT_OWNER_ONE_MNEMONIC"));
-  const appAgentTwoOwner = keyring.addFromUri(getEnvVar("APP_AGENT_OWNER_TWO_MNEMONIC"));
-  const appAgentThreeOwner = keyring.addFromUri(getEnvVar("APP_AGENT_OWNER_THREE_MNEMONIC"));
-  const appAgentOwners = [appAgentOneOwner, appAgentTwoOwner, appAgentThreeOwner];
+  const appAgentOneManagers: AppAgentManagers = {
+    appAgentOwner: keyring.addFromUri(getEnvVar("APP_AGENT_ONE_OWNER_MNEMONIC")),
+    appAgentAdmin: keyring.addFromUri(getEnvVar("APP_AGENT_ONE_ADMIN_MNEMONIC")),
+  };
+  const appAgentTwoManagers: AppAgentManagers = {
+    appAgentOwner: keyring.addFromUri(getEnvVar("APP_AGENT_TWO_OWNER_MNEMONIC")),
+    appAgentAdmin: keyring.addFromUri(getEnvVar("APP_AGENT_TWO_ADMIN_MNEMONIC")),
+  };
+  const appAgentThreeManagers: AppAgentManagers = {
+    appAgentOwner: keyring.addFromUri(getEnvVar("APP_AGENT_THREE_OWNER_MNEMONIC")),
+    appAgentAdmin: keyring.addFromUri(getEnvVar("APP_AGENT_THREE_ADMIN_MNEMONIC")),
+  };
+  const appAgentManagers = [appAgentOneManagers, appAgentTwoManagers, appAgentThreeManagers];
 
   const demo_user_one = keyring.addFromUri(getEnvVar("DEMO_ACCOUNT_ONE_MNEMONIC"));
   const demo_user_two = keyring.addFromUri(getEnvVar("DEMO_ACCOUNT_TWO_MNEMONIC"));
@@ -77,19 +87,21 @@ async function main(): Promise<void> {
 
   // get amount of transfers
   const appAgentOwnerTransferAmount = parseInt(getEnvVar("APP_AGENT_OWNER_TRANSFER_AMOUNT")) * 1e12;
+  const appAgentAdminTransferAmount = parseInt(getEnvVar("APP_AGENT_ADMIN_TRANSFER_AMOUNT")) * 1e12;
   const demoAccTransferAmount = parseInt(getEnvVar("DEMO_ACCOUNT_TRANSFER_AMOUNT")) * 1e12;
 
   // init blockchain accounts
   await init_blockchain_accounts(
     api,
     faucetAccount,
-    appAgentOwners,
+    appAgentManagers,
     demoAccounts,
     appAgentOwnerTransferAmount,
+    appAgentAdminTransferAmount,
     demoAccTransferAmount,
   );
 
-  const gameDataList = collectGameData(game_folders, appAgentOwners, aws_s3_assets_path);
+  const gameDataList = collectGameData(game_folders, appAgentManagers, aws_s3_assets_path);
 
   await createBlockchainAssets(api, gameDataList, demo_user_one);
 

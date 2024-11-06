@@ -7,8 +7,7 @@
     "start": "tsc && node build/index.js",
     "ts-check": "tsc --noEmit",
     "eslint-check": "eslint .",
-    "prettier": "prettier . --write",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prettier": "prettier . --write"
   },
   "author": "TRAIT Team",
   "license": "MIT",
