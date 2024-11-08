@@ -27,7 +27,7 @@ async function create_nft_collections(
       atomics.push(create_nft_atomic);
     }
 
-    const create_nft_ct = api.tx.addressPools.submitClearingTransaction(appAgentId, atomics);
+    const create_nft_ct = api.tx.appTransactions.submitClearingTransaction(appAgentId, atomics);
 
     logger.info("Process clearing transaction successfully and collect IDs of created NFT collections.");
     const collection_ids: number[] = [];
@@ -110,7 +110,7 @@ async function set_metadata_and_mint_nft(
     }
 
     logger.info("Sending CT to mint & configure NFT Tokens, and to set Collection metadata.");
-    const configure_nft_collection_ct = api.tx.addressPools.submitClearingTransaction(appAgentId, atomics);
+    const configure_nft_collection_ct = api.tx.appTransactions.submitClearingTransaction(appAgentId, atomics);
     await processClearingTransaction(appAgentAdmin, configure_nft_collection_ct);
 
     logger.info(`Save IDs of NFT tokens for later use`);
@@ -138,7 +138,7 @@ async function create_nft_transfers(
   logger.info("Token Sender: " + token_sender.address);
   logger.info("Token Recipient: " + token_recipient.address);
 
-  const tx = api.tx.playerTransfers.submitTransferNfts(collection_id, token_id, token_recipient.address);
+  const tx = api.tx.userTransactions.submitTransferNfts(collection_id, token_id, token_recipient.address);
 
   await processSignedTransaction(token_sender, tx);
   logger.info(`Free transfer created and confirmed`);

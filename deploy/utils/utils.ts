@@ -59,7 +59,7 @@ async function processClearingTransaction(
 
   try {
     const txHash = await ct.signAndSend(signer, { nonce: -1 });
-    const txEvents = await checkTxSuccessWithRetry(txHash.toString(), "AddressPools", "CTProcessingCompleted");
+    const txEvents = await checkTxSuccessWithRetry(txHash.toString(), "AppTransactions", "CTProcessingCompleted");
     logger.info(`CT processing completed successfully`);
     clearTimeout(timeout);
     return txEvents;

@@ -24,7 +24,7 @@ async function create_fungible_tokens(
       const create_fungible_token_atomic = [create_fungible_token_action];
       atomics.push(create_fungible_token_atomic);
     }
-    const create_fungible_token_ct = api.tx.addressPools.submitClearingTransaction(appAgentId, atomics);
+    const create_fungible_token_ct = api.tx.appTransactions.submitClearingTransaction(appAgentId, atomics);
 
     logger.info("Process clearing transaction and collect IDs of created Fungible tokens.");
     const tokenIds: number[] = [];
@@ -86,7 +86,7 @@ async function set_metadata_and_mint_fungible_token(
     }
     logger.info(`Total atomics created: ${atomics.length}`);
 
-    const configure_fungible_ct = api.tx.addressPools.submitClearingTransaction(appAgentId, atomics);
+    const configure_fungible_ct = api.tx.appTransactions.submitClearingTransaction(appAgentId, atomics);
     await processClearingTransaction(appAgentAdmin, configure_fungible_ct);
     logger.info("Fungible tokens configured successfully");
   } catch (error) {
@@ -122,7 +122,7 @@ async function create_token_transfer(
   for (let i = 0; i < token_recipients.length; i++) {
     const transferAmount = calculateTransferAmount(fungibleData.decimals, amount);
     logger.info(`Calculated transfer amount: ${transferAmount}`);
-    const tx = api.tx.playerTransfers.submitTransferAssets(
+    const tx = api.tx.userTransactions.submitTransferAssets(
       fungibleData.tokenId,
       token_recipients[i].address,
       transferAmount,

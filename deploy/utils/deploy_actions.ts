@@ -141,7 +141,7 @@ async function create_demo_balance_transfers(
   logger.info("Generate free transfers between the two users");
 
   for (let i = 0; i < 2; i++) {
-    const tx = api.tx.playerTransfers.submitTransferBalances(token_recipient_two.address, 1000000);
+    const tx = api.tx.userTransactions.submitTransferBalances(token_recipient_two.address, 1000000);
     await processSignedTransaction(token_recipient, tx);
   }
   logger.info(`Free transfer created and confirmed`);
