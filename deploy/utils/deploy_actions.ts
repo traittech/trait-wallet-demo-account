@@ -120,7 +120,6 @@ async function create_demo_nft_transfers(
 ): Promise<void> {
   logger.info("Create demo transfers for NFTs");
   for (const collectionInfo of gameDataList.map((f) => f.nftCollections).flat()) {
-    const recipient = Math.random() < 0.5 ? demo_user_three : demo_user_two;
     for (const nftTokenInfo of collectionInfo.nftTokens) {
       if (typeof nftTokenInfo.collectionId === "undefined" || nftTokenInfo.collectionId === null) {
         throw new Error(`Unknown NFT collection ID: ${collectionInfo}`);
@@ -128,6 +127,7 @@ async function create_demo_nft_transfers(
       if (typeof nftTokenInfo.tokenId === "undefined" || nftTokenInfo.tokenId === null) {
         throw new Error(`Unknown NFT Token ID: ${collectionInfo}`);
       }
+      const recipient = Math.random() < 0.5 ? demo_user_three : demo_user_two;
       await create_nft_transfers(api, nftTokenInfo.collectionId, nftTokenInfo.tokenId, demo_user_one, recipient);
     }
   }
