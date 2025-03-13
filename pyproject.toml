@@ -57,7 +57,7 @@ select = [
     "TRY",
     "RUF",
 ]
-ignore = ["COM812", "ANN102", "UP040"]
+ignore = ["COM812", "UP040"]
 
 fixable = ["ALL"]
 

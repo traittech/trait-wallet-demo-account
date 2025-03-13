@@ -115,13 +115,13 @@ async function create_token_transfer(
   token_recipients: KeyringPair[],
   amount: number,
 ): Promise<void> {
-  logger.info("Generate free transfers between the two users");
-  logger.info(`Token ID: ${fungibleData.tokenId}`);
+  logger.info(`Generate free transfers of the token ${fungibleData.tokenId} between the users`);
   logger.info(`Token sender: ${token_sender.address}`);
 
   for (let i = 0; i < token_recipients.length; i++) {
     const transferAmount = calculateTransferAmount(fungibleData.decimals, amount);
-    logger.info(`Calculated transfer amount: ${transferAmount}`);
+    const transferAmountReadable = transferAmount / Math.pow(10, fungibleData.decimals);
+    logger.info(`Calculated transfer amount: ${transferAmountReadable} (raw value ${transferAmount})`);
     const tx = api.tx.userTransactions.submitTransferAssets(
       fungibleData.tokenId,
       token_recipients[i].address,
